@@ -1,0 +1,100 @@
+
+/**
+  ###########################################
+   This file is where you can define custom
+   menus and menu items for the right click
+   menu of your modeling tool. 
+   
+   A menu item is defined like this:
+   
+   MenuItemID {
+    type:item;
+    name:My Menu Item;
+    event:My Event; 
+   }
+   
+    The "event" attribute  is the event
+     that we can watch for with specifications
+     in the triggers file (e.g. we could specify a
+     trigger "on:menuitem.My Event;"
+   
+   A menu is specified as follows:
+   
+   MyMenu {
+    type:menu;
+    name:My Menu's Name;
+    0:MenuItemID;
+    1:MenuItemID2;
+   }
+   
+   The interesting parts of a menu
+   definition are the numeric
+   attributes starting at 0. These
+   attributes define the ordering of
+   the menuitems. Each numeric attribute
+   specifies the MenuItemID of the
+   menuitem or sub menu that should appear at the
+   corresponding position. The above
+   example is a menu with two menu
+   items with ids MenuItemID and MenuItemID2,
+   respectively. The id can also
+   refer to another menu which will
+   become a submenu.
+   
+   We can also restrict menus and menu
+   items from only appearing when specific
+   model elements are selected. For example,
+   to only allow a menu to show up when an
+   element of type "Foo" is selected:
+   
+   MyMenu {
+    type:menu;
+    elements:Foo;
+   }
+   
+   Here, we use the "elements" attribute 
+   to restrict the menu to only appearing when
+   the selection contains only elements of type
+   Foo. We can also specify multiple types for
+   the menu:
+   
+   MyMenu {
+    type:menu;
+    elements:Foo,Bar;
+   }
+   
+   This menu will work when the selection
+   contains any number of Foo or Bar
+   elements. Inheritance relationships
+   are considered when calculating if
+   a menu or item should be enabled.
+   
+  ###########################################
+  
+  Uncomment the example below for a demo:
+ **/ 
+  
+ /** 
+TestMenu {
+ type:menu;
+ name:Test Menu;
+ 0:a;
+ 1:b;
+}
+
+b{
+ type:menu;
+ name:Test SubMenu;
+ 0:c;
+}
+
+a{
+type:item;
+name:Test Item;
+}
+
+c{
+type:item;
+name:Test Item2;
+}
+**/

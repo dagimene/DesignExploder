@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/DesignExploderTool/src"
+    modelName="Deployment" copyrightFields="false">
+  <foreignModel>C:/Users/Daniel/Documents/Facultad/Tesis/repository/DexTool/Deployment.ecore</foreignModel>
+  <genPackages prefix="Deployment" basePackage="org.gems.test.deployment.emf" disposableProviderFactory="true"
+      ecorePackage="Deployment.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Deployment.ecore#//Mechanism">
+      <genEnumLiterals ecoreEnumLiteral="Deployment.ecore#//Mechanism/manual"/>
+      <genEnumLiterals ecoreEnumLiteral="Deployment.ecore#//Mechanism/automated"/>
+    </genEnums>
+    <genClasses ecoreClass="Deployment.ecore#//MementoValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//MementoValue/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//MementoValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//Memento">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//Memento/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Memento/data"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//Subtype">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//Subtype/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Subtype/base"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Subtype/instances"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Subtype/links"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//SubtypeLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//SubtypeLink/base"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//SubtypeLink/instance"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//ModelObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/X"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Height"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/ExpandedWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/ExpandedHeight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Expanded"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Subtype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/ModelLinkTarget"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ModelObject/Annotation"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//DeploymentPlan">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//DeploymentPlan/Components"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//DeploymentPlan/Nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//Component">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Component/CProperties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Component/DeploymentPlan"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Component/HostedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//Node">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Node/ResourceOf"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Node/DeploymentPlan"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//Node/HostedComponents"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//NodeResource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//NodeResource/ResourceValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//NodeResource/Resources"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//ComponentProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//ComponentProperty/CPropertyValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//ComponentProperty/CPropertyOf"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//DeploymentConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//DeploymentConnection/Source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Deployment.ecore#//DeploymentConnection/Target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Deployment.ecore#//DeploymentConnection/Mechanism"/>
+    </genClasses>
+    <genClasses ecoreClass="Deployment.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/mementos"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/subtypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/RealRoot"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/DeploymentPlan"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/Component"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/Node"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/NodeResource"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/ComponentProperty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Deployment.ecore#//Root/DeploymentConnection"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

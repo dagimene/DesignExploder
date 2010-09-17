@@ -1,0 +1,892 @@
+
+/**
+#################################################
+               GEMS Stylesheet 
+               
+     This is the file you edit to change the look          
+     of the generated modeling tool. The look
+     is changed by setting style attributes for
+     the elements. Each style is defined as;
+     
+     Type {
+       AttributeName:Value;
+     }
+     
+     where "Type" is the type of a modeling
+     element defined in the metamodel via
+     an Entity or Connection. A style can
+     also be narrowly defined to an element
+     by specifying a tag that the element
+     must have to match the style:
+     
+     Type[TAG] {
+      ...
+     }
+     
+     this style is only matched if the element
+     is a "Type" and has the tag "TAG". 
+               
+     Element styles are defined at the
+     beginning of this file, followed
+     by connection styles.
+               
+     A list of all possible element attributes
+     for styles is at the end of this file. 
+#################################################
+**/
+
+  /**
+  ######################################
+   This is the Style for DeploymentPlan 
+  ###################################### 
+  **/
+  DeploymentPlan {
+     
+     /** This should not be touched
+         (normally). **/
+     active-style:true;
+     
+     /**
+        Priorities can be set and
+        used to allow one style to
+        take precedence over another
+        style. By default, a style
+        that specifies a tag takes
+        precedence over another
+        matching style that does not.
+        Higher priority styles take
+        precedence.
+        
+     priority:100;
+     **/
+     
+     /** The icon used for the element when
+         it is not expanded. **/
+     ExpansionPanel.ClosedImage:resources/icons/DeploymentPlan.gif;
+     
+     /** The icon used for the tree view. **/
+     TreeImage:resources/icons/DeploymentPlan_s.gif;
+     
+     /** The template for the label
+         used on an element's title.
+         Names enclosed in "%%" will
+         be substituted with the value
+         of that attribute on the
+         corresponding element instance.
+         All elements have built-in
+         Name, Type, and ID attributes
+         that can be used.
+     **/
+     TitleTemplate:%Name% [%Type%];
+     
+     /** The template for the label
+         used on the tree view. **/
+     TreeTitleTemplate:%Name% [%Type%];
+     
+     /** Other Attributes that can 
+         be useful to set. Uncomment
+         a section below to enable it.
+         Make sure and remove the
+         pithy instructions above
+         a directive when uncommenting it.
+         ############################
+     **/
+     
+     /** Automatically size the element
+         so that its children fit 
+         
+     Autosize: true;
+     **/   
+     
+     /** Show the title label for the
+         element 
+     ShowName: true;
+     **/
+     
+     /** Show the attributes for an
+         element in the attribute
+         panel attached to each 
+         element (not the properties
+         pane)
+          
+     ShowAttributes: true;
+     **/
+     
+     /** Set the layout used by the
+         element to arrange its children.
+         Defaults to a manual XY layout.
+         Valid options are: FlowLayout, 
+         XYLayout, and DirectedGraphLayout
+         
+     ContentLayout: FlowLayout[V,StretchMinorAxis];
+     **/
+     
+     /** Turns on/off the ability to
+         expand/contract elements to
+         show their contents. If you 
+         turn off expansion, you may
+         want to make elements always
+         expanded. If so, the second
+         directive makes the element's
+         children show by default.
+        
+     ExpansionPanel.Expandable: true;
+     ExpansionPanel.Expanded: true;
+     **/
+     
+     /** Various color properties specified
+         as RGB values. You can turn off 
+         a border by using the directive:
+         XXXPanel.Border:null; 
+     NameLabel.ForegroundColor:220,220,220;
+     ExpansionPanel.Expandable: true;
+     LeftPanel.Border.Color:220,220,220;
+     RightPanel.Border.Color:220,220,220;
+     CenterPanel.Border.Color:220,220,220;
+     TopPanel.Border.Color:220,220,220;
+     BottomPanel.Border.Color:220,220,220; 
+     **/ 
+  }
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      selected. A style with a "[TAG]" qualifier
+      is only applied when the element has the
+      corresponding tag set. The "selected" tag
+      is automatically applied by GEMS when an
+      element is selected. **/
+  /** 
+  DeploymentPlan[selected] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      a child of the currently selected element. 
+  **/
+  /** 
+  DeploymentPlan[sel-child] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      the target of a connection originating
+      from the currently selected element. 
+  **/
+  /** 
+  DeploymentPlan[sel-target] {
+     active-style:true;
+   
+  }
+  **/
+
+
+  /**
+  ######################################
+   This is the Style for Component 
+  ###################################### 
+  **/
+  Component {
+     
+     active-style:true;
+     ExpansionPanel.ClosedImage:resources/icons/Component.gif;
+     TreeImage:resources/icons/Component_s.gif;
+     TitleTemplate:%Name% [%Type%];
+     TreeTitleTemplate:%Name% [%Type%];
+  }
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      selected. A style with a "[TAG]" qualifier
+      is only applied when the element has the
+      corresponding tag set. The "selected" tag
+      is automatically applied by GEMS when an
+      element is selected. **/
+  /** 
+  Component[selected] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      a child of the currently selected element. 
+  **/
+  /** 
+  Component[sel-child] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      the target of a connection originating
+      from the currently selected element. 
+  **/
+  /** 
+  Component[sel-target] {
+     active-style:true;
+     
+  }
+  **/
+  /**
+  ######################################
+   This is the Style for Node 
+  ###################################### 
+  **/
+  Node {
+     
+     active-style:true;
+     ExpansionPanel.ClosedImage:resources/icons/Node.gif;
+     TreeImage:resources/icons/Node_s.gif;
+     TitleTemplate:%Name% [%Type%];
+     TreeTitleTemplate:%Name% [%Type%];
+  }
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      selected. A style with a "[TAG]" qualifier
+      is only applied when the element has the
+      corresponding tag set. The "selected" tag
+      is automatically applied by GEMS when an
+      element is selected. **/
+  /** 
+  Node[selected] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      a child of the currently selected element. 
+  **/
+  /** 
+  Node[sel-child] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      the target of a connection originating
+      from the currently selected element. 
+  **/
+  /** 
+  Node[sel-target] {
+     active-style:true;
+     
+  }
+  **/
+  /**
+  ######################################
+   This is the Style for NodeResource 
+  ###################################### 
+  **/
+  NodeResource {
+     
+     active-style:true;
+     ExpansionPanel.ClosedImage:resources/icons/NodeResource.gif;
+     TreeImage:resources/icons/NodeResource_s.gif;
+     TitleTemplate:%Name% [%Type%];
+     TreeTitleTemplate:%Name% [%Type%];
+  }
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      selected. A style with a "[TAG]" qualifier
+      is only applied when the element has the
+      corresponding tag set. The "selected" tag
+      is automatically applied by GEMS when an
+      element is selected. **/
+  /** 
+  NodeResource[selected] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      a child of the currently selected element. 
+  **/
+  /** 
+  NodeResource[sel-child] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      the target of a connection originating
+      from the currently selected element. 
+  **/
+  /** 
+  NodeResource[sel-target] {
+     active-style:true;
+     
+  }
+  **/
+  /**
+  ######################################
+   This is the Style for ComponentProperty 
+  ###################################### 
+  **/
+  ComponentProperty {
+     
+     active-style:true;
+     ExpansionPanel.ClosedImage:resources/icons/ComponentProperty.gif;
+     TreeImage:resources/icons/ComponentProperty_s.gif;
+     TitleTemplate:%Name% [%Type%];
+     TreeTitleTemplate:%Name% [%Type%];
+  }
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      selected. A style with a "[TAG]" qualifier
+      is only applied when the element has the
+      corresponding tag set. The "selected" tag
+      is automatically applied by GEMS when an
+      element is selected. **/
+  /** 
+  ComponentProperty[selected] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      a child of the currently selected element. 
+  **/
+  /** 
+  ComponentProperty[sel-child] {
+     active-style:true;
+     
+  }
+  **/
+  
+  /** This is a useful style that can be
+      uncommented and filled in with information
+      for how to draw the element when it is
+      the target of a connection originating
+      from the currently selected element. 
+  **/
+  /** 
+  ComponentProperty[sel-target] {
+     active-style:true;
+     
+  }
+  **/
+
+
+  /**
+  ######################################
+        Style for Connection Deployment
+  ######################################
+  **/
+  Deployment {
+
+    /** Line color in RGB **/
+    line-color:(0,0,0);
+  
+    /** This is the line's style.
+        Valid values are:
+        solid,dash,dash-dot,
+        dash-dash-dot **/
+    line-style:dash;
+  
+    /** Line width **/
+    line-width:2;
+  
+    /** The decoration for the
+        end of the connection. 
+        Valid values are arrow, diamond, butt. **/
+    dst-decoration:arrow;
+  
+    /** This would set the source decoration:
+    src-decoration:arrow;
+    **/
+  
+    /** This would define a label to add to the connection.
+        Any number of labels can be defined and added to
+        each connection type. The first part of the
+        definition is the template for the label's
+        text. Attributes of the connection can be referred
+        to just as they can with elements. The next parameter
+        is where the label should appear. Valid values are
+        (dst-top,dst-bottom,src-top,src-bottom,middle).
+        The next parameter is the foreground for the
+        label. The next parameter is the background for
+        the label. Next, font and font-size. The
+        final three parameters are not working at the
+        moment and are for specifying italics, bold,
+        etc. 
+    @mylabel: A Connection Label With %SomeAttribute%, dst-top, (100,100,255), (255,255,255), Verdana, 10, -15, false, false, false;
+    **/
+  }
+
+
+/**
+This is the master list of attributes that
+can be set for an element. Of course, not
+all of them have been tested... :(
+
+If something doesn't work, please report
+it as a bug at:
+https://bugs.eclipse.org/bugs/buglist.cgi?product=gmt&component=GEMS&cmdtype=doit&order=Reuse+same+sort+as+last+time
+
+
+Attributes are documented as:
+AttributeName type:Type
+
+so... to use one:
+AttributeName:<instanceof Type>
+
+e.g.
+Autosize:true;
+
+###################
+PortMode type:boolean
+Autosize type:boolean
+ExpandOnChildAdded type:boolean
+ContentLayout type:LayoutManager
+Focus type:boolean
+Selected type:int
+AlwaysOpen type:boolean
+Expandable type:boolean
+BottomPanel.Size type:Dimension
+BottomPanel.Location type:Point
+BottomPanel.Enabled type:boolean
+BottomPanel.Visible type:boolean
+BottomPanel.Bounds type:Rectangle
+BottomPanel.Font type:Font
+BottomPanel.MinimumSize type:Dimension
+BottomPanel.Valid type:boolean
+BottomPanel.PreferredSize type:Dimension
+BottomPanel.ToolTip.Size type:Dimension
+BottomPanel.ToolTip.Location type:Point
+BottomPanel.ToolTip.Enabled type:boolean
+BottomPanel.ToolTip.Visible type:boolean
+BottomPanel.ToolTip.Bounds type:Rectangle
+BottomPanel.ToolTip.Font type:Font
+BottomPanel.ToolTip.MinimumSize type:Dimension
+BottomPanel.ToolTip.PreferredSize type:Dimension
+BottomPanel.ToolTip.BackgroundColor type:Color
+BottomPanel.ToolTip.ForegroundColor type:Color
+BottomPanel.ToolTip.FocusTraversable type:boolean
+BottomPanel.ToolTip.LayoutManager type:LayoutManager
+BottomPanel.ToolTip.MaximumSize type:Dimension
+BottomPanel.ToolTip.Opaque type:boolean
+BottomPanel.ToolTip.RequestFocusEnabled type:boolean
+BottomPanel.BackgroundColor type:Color
+BottomPanel.ForegroundColor type:Color
+BottomPanel.FocusTraversable type:boolean
+BottomPanel.LayoutManager type:LayoutManager
+BottomPanel.MaximumSize type:Dimension
+BottomPanel.Opaque type:boolean
+BottomPanel.RequestFocusEnabled type:boolean
+CenterPanel.Size type:Dimension
+CenterPanel.Location type:Point
+CenterPanel.Enabled type:boolean
+CenterPanel.Visible type:boolean
+CenterPanel.Bounds type:Rectangle
+CenterPanel.Font type:Font
+CenterPanel.MinimumSize type:Dimension
+CenterPanel.Valid type:boolean
+CenterPanel.PreferredSize type:Dimension
+CenterPanel.ToolTip.Size type:Dimension
+CenterPanel.ToolTip.Location type:Point
+CenterPanel.ToolTip.Enabled type:boolean
+CenterPanel.ToolTip.Visible type:boolean
+CenterPanel.ToolTip.Bounds type:Rectangle
+CenterPanel.ToolTip.Font type:Font
+CenterPanel.ToolTip.MinimumSize type:Dimension
+CenterPanel.ToolTip.PreferredSize type:Dimension
+CenterPanel.ToolTip.BackgroundColor type:Color
+CenterPanel.ToolTip.ForegroundColor type:Color
+CenterPanel.ToolTip.FocusTraversable type:boolean
+CenterPanel.ToolTip.LayoutManager type:LayoutManager
+CenterPanel.ToolTip.MaximumSize type:Dimension
+CenterPanel.ToolTip.Opaque type:boolean
+CenterPanel.ToolTip.RequestFocusEnabled type:boolean
+CenterPanel.BackgroundColor type:Color
+CenterPanel.ForegroundColor type:Color
+CenterPanel.FocusTraversable type:boolean
+CenterPanel.LayoutManager type:LayoutManager
+CenterPanel.MaximumSize type:Dimension
+CenterPanel.Opaque type:boolean
+CenterPanel.RequestFocusEnabled type:boolean
+LeftPanel.Size type:Dimension
+LeftPanel.Location type:Point
+LeftPanel.Enabled type:boolean
+LeftPanel.Visible type:boolean
+LeftPanel.Bounds type:Rectangle
+LeftPanel.Font type:Font
+LeftPanel.MinimumSize type:Dimension
+LeftPanel.Valid type:boolean
+LeftPanel.PreferredSize type:Dimension
+LeftPanel.ToolTip.Size type:Dimension
+LeftPanel.ToolTip.Location type:Point
+LeftPanel.ToolTip.Enabled type:boolean
+LeftPanel.ToolTip.Visible type:boolean
+LeftPanel.ToolTip.Bounds type:Rectangle
+LeftPanel.ToolTip.Font type:Font
+LeftPanel.ToolTip.MinimumSize type:Dimension
+LeftPanel.ToolTip.PreferredSize type:Dimension
+LeftPanel.ToolTip.BackgroundColor type:Color
+LeftPanel.ToolTip.ForegroundColor type:Color
+LeftPanel.ToolTip.FocusTraversable type:boolean
+LeftPanel.ToolTip.LayoutManager type:LayoutManager
+LeftPanel.ToolTip.MaximumSize type:Dimension
+LeftPanel.ToolTip.Opaque type:boolean
+LeftPanel.ToolTip.RequestFocusEnabled type:boolean
+LeftPanel.BackgroundColor type:Color
+LeftPanel.ForegroundColor type:Color
+LeftPanel.FocusTraversable type:boolean
+LeftPanel.LayoutManager type:LayoutManager
+LeftPanel.MaximumSize type:Dimension
+LeftPanel.Opaque type:boolean
+LeftPanel.RequestFocusEnabled type:boolean
+RightPanel.Size type:Dimension
+RightPanel.Location type:Point
+RightPanel.Enabled type:boolean
+RightPanel.Visible type:boolean
+RightPanel.Bounds type:Rectangle
+RightPanel.Font type:Font
+RightPanel.MinimumSize type:Dimension
+RightPanel.Valid type:boolean
+RightPanel.PreferredSize type:Dimension
+RightPanel.ToolTip.Size type:Dimension
+RightPanel.ToolTip.Location type:Point
+RightPanel.ToolTip.Enabled type:boolean
+RightPanel.ToolTip.Visible type:boolean
+RightPanel.ToolTip.Bounds type:Rectangle
+RightPanel.ToolTip.Font type:Font
+RightPanel.ToolTip.MinimumSize type:Dimension
+RightPanel.ToolTip.PreferredSize type:Dimension
+RightPanel.ToolTip.BackgroundColor type:Color
+RightPanel.ToolTip.ForegroundColor type:Color
+RightPanel.ToolTip.FocusTraversable type:boolean
+RightPanel.ToolTip.LayoutManager type:LayoutManager
+RightPanel.ToolTip.MaximumSize type:Dimension
+RightPanel.ToolTip.Opaque type:boolean
+RightPanel.ToolTip.RequestFocusEnabled type:boolean
+RightPanel.BackgroundColor type:Color
+RightPanel.ForegroundColor type:Color
+RightPanel.FocusTraversable type:boolean
+RightPanel.LayoutManager type:LayoutManager
+RightPanel.MaximumSize type:Dimension
+RightPanel.Opaque type:boolean
+RightPanel.RequestFocusEnabled type:boolean
+TopPanel.Size type:Dimension
+TopPanel.Location type:Point
+TopPanel.Enabled type:boolean
+TopPanel.Visible type:boolean
+TopPanel.Bounds type:Rectangle
+TopPanel.Font type:Font
+TopPanel.MinimumSize type:Dimension
+TopPanel.Valid type:boolean
+TopPanel.PreferredSize type:Dimension
+TopPanel.ToolTip.Size type:Dimension
+TopPanel.ToolTip.Location type:Point
+TopPanel.ToolTip.Enabled type:boolean
+TopPanel.ToolTip.Visible type:boolean
+TopPanel.ToolTip.Bounds type:Rectangle
+TopPanel.ToolTip.Font type:Font
+TopPanel.ToolTip.MinimumSize type:Dimension
+TopPanel.ToolTip.PreferredSize type:Dimension
+TopPanel.ToolTip.BackgroundColor type:Color
+TopPanel.ToolTip.ForegroundColor type:Color
+TopPanel.ToolTip.FocusTraversable type:boolean
+TopPanel.ToolTip.LayoutManager type:LayoutManager
+TopPanel.ToolTip.MaximumSize type:Dimension
+TopPanel.ToolTip.Opaque type:boolean
+TopPanel.ToolTip.RequestFocusEnabled type:boolean
+TopPanel.BackgroundColor type:Color
+TopPanel.ForegroundColor type:Color
+TopPanel.FocusTraversable type:boolean
+TopPanel.LayoutManager type:LayoutManager
+TopPanel.MaximumSize type:Dimension
+TopPanel.Opaque type:boolean
+TopPanel.RequestFocusEnabled type:boolean
+AttributesPanel.Model.Name type:String
+AttributesPanel.Model.Size type:Dimension
+AttributesPanel.Model.Location type:Point
+AttributesPanel.Model.ID type:String
+AttributesPanel.Model.Visible type:boolean
+AttributesPanel.Model.Abstract type:boolean
+AttributesPanel.Model.Subtype type:boolean
+AttributesPanel.Model.GemsTag type:String
+AttributesPanel.Model.Annotation type:String
+AttributesPanel.Model.HorizontalGuide.Horizontal type:boolean
+AttributesPanel.Model.HorizontalGuide.Position type:int
+AttributesPanel.Model.VerticalGuide.Horizontal type:boolean
+AttributesPanel.Model.VerticalGuide.Position type:int
+AttributesPanel.Model.GemsPort type:boolean
+AttributesPanel.Expanded type:boolean
+AttributesPanel.Expandable type:boolean
+AttributesPanel.ContentSwapPanel.Size type:Dimension
+AttributesPanel.ContentSwapPanel.Location type:Point
+AttributesPanel.ContentSwapPanel.Enabled type:boolean
+AttributesPanel.ContentSwapPanel.Visible type:boolean
+AttributesPanel.ContentSwapPanel.Bounds type:Rectangle
+AttributesPanel.ContentSwapPanel.Font type:Font
+AttributesPanel.ContentSwapPanel.MinimumSize type:Dimension
+AttributesPanel.ContentSwapPanel.PreferredSize type:Dimension
+AttributesPanel.ContentSwapPanel.ToolTip.Size type:Dimension
+AttributesPanel.ContentSwapPanel.ToolTip.Parent type:IFigure
+AttributesPanel.ContentSwapPanel.ToolTip.Location type:Point
+AttributesPanel.ContentSwapPanel.ToolTip.Enabled type:boolean
+AttributesPanel.ContentSwapPanel.ToolTip.Visible type:boolean
+AttributesPanel.ContentSwapPanel.ToolTip.Bounds type:Rectangle
+AttributesPanel.ContentSwapPanel.ToolTip.Cursor type:Cursor
+AttributesPanel.ContentSwapPanel.ToolTip.Font type:Font
+AttributesPanel.ContentSwapPanel.ToolTip.MinimumSize type:Dimension
+AttributesPanel.ContentSwapPanel.ToolTip.PreferredSize type:Dimension
+AttributesPanel.ContentSwapPanel.ToolTip.ToolTip type:IFigure
+AttributesPanel.ContentSwapPanel.ToolTip.Border type:Border
+AttributesPanel.ContentSwapPanel.ToolTip.BackgroundColor type:Color
+AttributesPanel.ContentSwapPanel.ToolTip.ForegroundColor type:Color
+AttributesPanel.ContentSwapPanel.ToolTip.FocusTraversable type:boolean
+AttributesPanel.ContentSwapPanel.ToolTip.LayoutManager type:LayoutManager
+AttributesPanel.ContentSwapPanel.ToolTip.MaximumSize type:Dimension
+AttributesPanel.ContentSwapPanel.ToolTip.Opaque type:boolean
+AttributesPanel.ContentSwapPanel.ToolTip.RequestFocusEnabled type:boolean
+AttributesPanel.ContentSwapPanel.BackgroundColor type:Color
+AttributesPanel.ContentSwapPanel.ForegroundColor type:Color
+AttributesPanel.ContentSwapPanel.FocusTraversable type:boolean
+AttributesPanel.ContentSwapPanel.LayoutManager type:LayoutManager
+AttributesPanel.ContentSwapPanel.MaximumSize type:Dimension
+AttributesPanel.ContentSwapPanel.Opaque type:boolean
+AttributesPanel.ContentSwapPanel.RequestFocusEnabled type:boolean
+AttributesPanel.ShowClosedPanel type:boolean
+AttributesPanel.Size type:Dimension
+AttributesPanel.Location type:Point
+AttributesPanel.Enabled type:boolean
+AttributesPanel.Visible type:boolean
+AttributesPanel.Bounds type:Rectangle
+AttributesPanel.Font type:Font
+AttributesPanel.MinimumSize type:Dimension
+AttributesPanel.Valid type:boolean
+AttributesPanel.PreferredSize type:Dimension
+AttributesPanel.ToolTip.Size type:Dimension
+AttributesPanel.ToolTip.Location type:Point
+AttributesPanel.ToolTip.Enabled type:boolean
+AttributesPanel.ToolTip.Visible type:boolean
+AttributesPanel.ToolTip.Bounds type:Rectangle
+AttributesPanel.ToolTip.Font type:Font
+AttributesPanel.ToolTip.MinimumSize type:Dimension
+AttributesPanel.ToolTip.PreferredSize type:Dimension
+AttributesPanel.ToolTip.BackgroundColor type:Color
+AttributesPanel.ToolTip.ForegroundColor type:Color
+AttributesPanel.ToolTip.FocusTraversable type:boolean
+AttributesPanel.ToolTip.LayoutManager type:LayoutManager
+AttributesPanel.ToolTip.MaximumSize type:Dimension
+AttributesPanel.ToolTip.Opaque type:boolean
+AttributesPanel.ToolTip.RequestFocusEnabled type:boolean
+AttributesPanel.BackgroundColor type:Color
+AttributesPanel.ForegroundColor type:Color
+AttributesPanel.FocusTraversable type:boolean
+AttributesPanel.LayoutManager type:LayoutManager
+AttributesPanel.MaximumSize type:Dimension
+AttributesPanel.Opaque type:boolean
+AttributesPanel.RequestFocusEnabled type:boolean
+ShowAttributes type:boolean
+ShowTitle type:boolean
+TitleTemplate type:String
+ContentFigure.Size type:Dimension
+ContentFigure.Location type:Point
+ContentFigure.Enabled type:boolean
+ContentFigure.Visible type:boolean
+ContentFigure.Bounds type:Rectangle
+ContentFigure.Font type:Font
+ContentFigure.MinimumSize type:Dimension
+ContentFigure.PreferredSize type:Dimension
+ContentFigure.ToolTip.Size type:Dimension
+ContentFigure.ToolTip.Location type:Point
+ContentFigure.ToolTip.Enabled type:boolean
+ContentFigure.ToolTip.Visible type:boolean
+ContentFigure.ToolTip.Bounds type:Rectangle
+ContentFigure.ToolTip.Font type:Font
+ContentFigure.ToolTip.MinimumSize type:Dimension
+ContentFigure.ToolTip.PreferredSize type:Dimension
+ContentFigure.ToolTip.BackgroundColor type:Color
+ContentFigure.ToolTip.ForegroundColor type:Color
+ContentFigure.ToolTip.FocusTraversable type:boolean
+ContentFigure.ToolTip.LayoutManager type:LayoutManager
+ContentFigure.ToolTip.MaximumSize type:Dimension
+ContentFigure.ToolTip.Opaque type:boolean
+ContentFigure.ToolTip.RequestFocusEnabled type:boolean
+ContentFigure.BackgroundColor type:Color
+ContentFigure.ForegroundColor type:Color
+ContentFigure.FocusTraversable type:boolean
+ContentFigure.LayoutManager type:LayoutManager
+ContentFigure.MaximumSize type:Dimension
+ContentFigure.Opaque type:boolean
+ContentFigure.RequestFocusEnabled type:boolean
+ImageLabel.Text type:String
+ImageLabel.LabelAlignment type:int
+ImageLabel.Icon.Background type:Color
+ImageLabel.IconDimension type:Dimension
+ImageLabel.IconAlignment type:int
+ImageLabel.IconTextGap type:int
+ImageLabel.TextAlignment type:int
+ImageLabel.TextPlacement type:int
+ImageLabel.Size type:Dimension
+ImageLabel.Location type:Point
+ImageLabel.Enabled type:boolean
+ImageLabel.Visible type:boolean
+ImageLabel.Bounds type:Rectangle
+ImageLabel.Font type:Font
+ImageLabel.MinimumSize type:Dimension
+ImageLabel.Valid type:boolean
+ImageLabel.PreferredSize type:Dimension
+ImageLabel.ToolTip.Size type:Dimension
+ImageLabel.ToolTip.Location type:Point
+ImageLabel.ToolTip.Enabled type:boolean
+ImageLabel.ToolTip.Visible type:boolean
+ImageLabel.ToolTip.Bounds type:Rectangle
+ImageLabel.ToolTip.Font type:Font
+ImageLabel.ToolTip.MinimumSize type:Dimension
+ImageLabel.ToolTip.PreferredSize type:Dimension
+ImageLabel.ToolTip.BackgroundColor type:Color
+ImageLabel.ToolTip.ForegroundColor type:Color
+ImageLabel.ToolTip.FocusTraversable type:boolean
+ImageLabel.ToolTip.LayoutManager type:LayoutManager
+ImageLabel.ToolTip.MaximumSize type:Dimension
+ImageLabel.ToolTip.Opaque type:boolean
+ImageLabel.ToolTip.RequestFocusEnabled type:boolean
+ImageLabel.BackgroundColor type:Color
+ImageLabel.ForegroundColor type:Color
+ImageLabel.FocusTraversable type:boolean
+ImageLabel.LayoutManager type:LayoutManager
+ImageLabel.MaximumSize type:Dimension
+ImageLabel.Opaque type:boolean
+ImageLabel.RequestFocusEnabled type:boolean
+NameLabel.Text type:String
+NameLabel.LabelAlignment type:int
+NameLabel.Icon.Background type:Color
+NameLabel.IconDimension type:Dimension
+NameLabel.IconAlignment type:int
+NameLabel.IconTextGap type:int
+NameLabel.TextAlignment type:int
+NameLabel.TextPlacement type:int
+NameLabel.Size type:Dimension
+NameLabel.Location type:Point
+NameLabel.Enabled type:boolean
+NameLabel.Visible type:boolean
+NameLabel.Bounds type:Rectangle
+NameLabel.Font type:Font
+NameLabel.MinimumSize type:Dimension
+NameLabel.Valid type:boolean
+NameLabel.PreferredSize type:Dimension
+NameLabel.ToolTip.Size type:Dimension
+NameLabel.ToolTip.Location type:Point
+NameLabel.ToolTip.Enabled type:boolean
+NameLabel.ToolTip.Visible type:boolean
+NameLabel.ToolTip.Bounds type:Rectangle
+NameLabel.ToolTip.Font type:Font
+NameLabel.ToolTip.MinimumSize type:Dimension
+NameLabel.ToolTip.PreferredSize type:Dimension
+NameLabel.ToolTip.BackgroundColor type:Color
+NameLabel.ToolTip.ForegroundColor type:Color
+NameLabel.ToolTip.FocusTraversable type:boolean
+NameLabel.ToolTip.LayoutManager type:LayoutManager
+NameLabel.ToolTip.MaximumSize type:Dimension
+NameLabel.ToolTip.Opaque type:boolean
+NameLabel.ToolTip.RequestFocusEnabled type:boolean
+NameLabel.BackgroundColor type:Color
+NameLabel.ForegroundColor type:Color
+NameLabel.FocusTraversable type:boolean
+NameLabel.LayoutManager type:LayoutManager
+NameLabel.MaximumSize type:Dimension
+NameLabel.Opaque type:boolean
+NameLabel.RequestFocusEnabled type:boolean
+NameLabelImage.Background type:Color
+Size type:Dimension
+Parent.Size type:Dimension
+Parent.Location type:Point
+Parent.Enabled type:boolean
+Parent.Visible type:boolean
+Parent.Bounds type:Rectangle
+Parent.Font type:Font
+Parent.MinimumSize type:Dimension
+Parent.PreferredSize type:Dimension
+Parent.ToolTip.Size type:Dimension
+Parent.ToolTip.Location type:Point
+Parent.ToolTip.Enabled type:boolean
+Parent.ToolTip.Visible type:boolean
+Parent.ToolTip.Bounds type:Rectangle
+Parent.ToolTip.Font type:Font
+Parent.ToolTip.MinimumSize type:Dimension
+Parent.ToolTip.PreferredSize type:Dimension
+Parent.ToolTip.ToolTip.RequestFocusEnabled type:boolean
+Parent.ToolTip.BackgroundColor type:Color
+Parent.ToolTip.ForegroundColor type:Color
+Parent.ToolTip.FocusTraversable type:boolean
+Parent.ToolTip.LayoutManager type:LayoutManager
+Parent.ToolTip.MaximumSize type:Dimension
+Parent.ToolTip.Opaque type:boolean
+Parent.ToolTip.RequestFocusEnabled type:boolean
+Parent.BackgroundColor type:Color
+Parent.ForegroundColor type:Color
+Parent.FocusTraversable type:boolean
+Parent.LayoutManager type:LayoutManager
+Parent.MaximumSize type:Dimension
+Parent.Opaque type:boolean
+Parent.RequestFocusEnabled type:boolean
+Location type:Point
+Enabled type:boolean
+Visible type:boolean
+Bounds type:Rectangle
+Font type:Font
+MinimumSize type:Dimension
+Valid type:boolean
+PreferredSize type:Dimension
+ToolTip.Size type:Dimension
+ToolTip.Location type:Point
+ToolTip.Enabled type:boolean
+ToolTip.Visible type:boolean
+ToolTip.Bounds type:Rectangle
+ToolTip.Font type:Font
+ToolTip.MinimumSize type:Dimension
+ToolTip.PreferredSize type:Dimension
+ToolTip.BackgroundColor type:Color
+ToolTip.ForegroundColor type:Color
+ToolTip.FocusTraversable type:boolean
+ToolTip.LayoutManager type:LayoutManager
+ToolTip.MaximumSize type:Dimension
+ToolTip.Opaque type:boolean
+ToolTip.RequestFocusEnabled type:boolean
+BackgroundColor type:Color
+ForegroundColor type:Color
+FocusTraversable type:boolean
+LayoutManager type:LayoutManager
+MaximumSize type:Dimension
+Opaque type:boolean
+RequestFocusEnabled type:boolean
+**/

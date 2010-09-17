@@ -1,0 +1,82 @@
+/**
+#################################################################
+        This file can be used to customize the
+        palette of the generated modeling tool.
+ 
+ 		A palette is composed of a number of
+ 		drawers which each contain a set of
+ 		model elements that can be dropped onto
+ 		the modeling canvas. Drawers are specified
+ 		as "palette styles" in this file.        
+        Each palette style specifies a drawer
+        and the elements within the drawer. The 
+        default palette organization contains 
+        a single drawer called "Components". 
+        Drawers are added using the 
+        following syntax:
+
+        Drawer Name {
+
+            modelid:{_your_modeling_language's_DSMLID}; 
+            ....
+        }
+
+        This will create an empty drawer called "Drawer Name" 
+        and use the specified modeling language when resolving
+        elements to create. To add some elements to the drawer, 
+        we use the following syntax:
+
+        MyElements {
+
+         **The icon to use for the palette drawer** 
+         image:MyDrawerIcon.gif; 
+
+         **The DSMLID **
+         modelid:{my_dsmlid};
+
+         **An element that should show up on the drawer with the 
+         label "MyFoo" and will create instances of Foo **
+         MyFoo:Foo;
+
+         **The tooltip description.**
+         MyFoo-desc:A basic Foo.;
+
+         **The image to use for MyFoo
+           on the palette**
+         MyFoo-image:MyFoo.gif;
+        }
+
+        Palette styles can also specify initialization parameters for 
+        model elements. For example, if you would like to create an element 
+        with a specific name, you can use initialization parameters to 
+        acheive this:
+        
+        MyElements {
+          ....
+          * This property uses the -opts attribute to initialize the name
+          * of the element. Oter options can be specified by providing
+          * a comma separated list of name=value pairs.
+          *
+          MyFoo-opts:Name=A Very Special Foo;
+        }
+######################################################################
+**/
+
+Components {
+  modelid:{http://www.sf.net/projects/gems/dsml/deployment};
+  DeploymentPlan:DeploymentPlan;
+  DeploymentPlan-desc:Adds a DeploymentPlan to the model;
+  DeploymentPlan-image:resources/icons/DeploymentPlan_s.gif;
+  Component:Component;
+  Component-desc:Adds a Component to the model;
+  Component-image:resources/icons/Component_s.gif;
+  Node:Node;
+  Node-desc:Adds a Node to the model;
+  Node-image:resources/icons/Node_s.gif;
+  NodeResource:NodeResource;
+  NodeResource-desc:Adds a NodeResource to the model;
+  NodeResource-image:resources/icons/NodeResource_s.gif;
+  ComponentProperty:ComponentProperty;
+  ComponentProperty-desc:Adds a ComponentProperty to the model;
+  ComponentProperty-image:resources/icons/ComponentProperty_s.gif;
+}

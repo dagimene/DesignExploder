@@ -1,0 +1,42 @@
+###################################################
+You have just generated a modeling tool for the
+modeling language Deployment.
+
+The ID of your DSML is:
+http://www.sf.net/projects/gems/dsml/deployment
+###################################################
+            
+         Customizing the Modeling Tool
+
+If you need to change the way that elements on
+the canvas look, see the file "dsml.css".
+
+If you need to create new menus on the right-click
+menu, see the file "dsml.menus".
+
+If you need to customize the palette for the modeling
+tool, see the file "dsml.palette".
+
+If you want to plugin your own custom actions that
+are invoked when specific events are emitted from
+the model, see the file "dsml.triggers".
+
+If you want to create different "views or aspects" for
+your model, see the file "dsml.viewdef".
+
+The GEMS user guide is also a very good place to
+look for ways to customize the modeling tool. The
+older version of the documentation has some aspects
+of GEMS documented that are not described in the
+newer documentation. 
+####################################################
+
+Your modeling language has the following elements:
+  DeploymentPlan
+  Component
+  Node
+  NodeResource
+  ComponentProperty
+
+Your modeling language has the connection types:
+  Deployment

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin> 
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            default="true"
+            name="Generic Eclipse Modeling System"
+            extensions="dmod"
+            icon="Deployment.gif"
+            class="org.gems.test.deployment.deployment.DSMLEditor"
+            contributorClass="org.eclipse.gmt.gems.actions.LogicActionBarContributor"
+            id="org.gems.test.deployment.deployment.editor">
+      </editor>
+   </extension>
+  
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="Deployment"
+            id="org.gems.test.deployment.deployment">
+      </category>
+      <wizard
+            name="Deployment Model"
+            icon="Deployment.gif"
+            category="org.gems.test.deployment.deployment"
+            class="org.gems.test.deployment.deployment.GemsCreationWizard"
+            id="org.gems.test.deployment.deployment.NewWizard">
+      </wizard>
+   </extension>
+      <extension
+         point="org.eclipse.gmt.gems.dsml.serializer">
+      <serializer
+            class="org.gems.test.deployment.deployment.Serializer"
+            models="readers,http://www.sf.net/projects/gems/dsml/deployment"/>
+   </extension>
+
+</plugin>

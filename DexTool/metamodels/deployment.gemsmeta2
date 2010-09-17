@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<metamodel:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:metamodel="http://www.sf.net/projects/gems/metamodel2">
+  <RealRoot Name="Deployment" Id="ffffffffc0a80164_86" DSMLID="http://www.sf.net/projects/gems/dsml/deployment" FileExtensions="dmod" Category="Deployment">
+    <Connection Name="Deployment" Id="ffffffffc0a80164_227" X="225" Y="257" Width="172" Height="62" ExpandedWidth="50" ExpandedHeight="15" Expanded="true" ConnectionTarget="//@ConnectionTargetConnection.0" ConnectionSource="//@ConnectionSourceConnection.0">
+      <Attribute Name="Mechanism" Id="ffffffffc0a80164_304" AttributeType="Enumeration" AllowedValues="manual,automated" DefaultValue="manual"/>
+    </Connection>
+    <Entity Name="DeploymentPlan" Id="ffffffffc0a80164_173" X="273" Y="130" Width="99" Height="74" ExpandedWidth="76" ExpandedHeight="35" IsRoot="true" ChildEntities="//@ContainmentConnectionConnection.0 //@ContainmentConnectionConnection.1"/>
+    <Entity Name="Component" Id="ffffffffc0a80164_174" X="33" Y="227" Width="73" Height="74" ParentEntity="//@ContainmentConnectionConnection.0" SourceConnectionDeclarations="//@ConnectionSourceConnection.0" ChildEntities="//@ContainmentConnectionConnection.3"/>
+    <Entity Name="Node" Id="ffffffffc0a80164_212" X="563" Y="248" Width="73" Height="74" ExpandedWidth="50" ExpandedHeight="35" ParentEntity="//@ContainmentConnectionConnection.1" ConnectionTargets="//@ConnectionTargetConnection.0" ChildEntities="//@ContainmentConnectionConnection.2"/>
+    <Entity Name="NodeResource" Id="ffffffffc0a80164_281" X="570" Y="483" Width="150" Height="62" ExpandedWidth="62" ExpandedHeight="35" Expanded="true" ParentEntity="//@ContainmentConnectionConnection.2">
+      <Attribute Name="ResourceValue" Id="ffffffffc0a80164_303"/>
+    </Entity>
+    <Entity Name="ComponentProperty" Id="ffffffffc0a80164_305" X="24" Y="404" Width="155" Height="62" ExpandedWidth="94" ExpandedHeight="35" Expanded="true" ParentEntity="//@ContainmentConnectionConnection.3">
+      <Attribute Name="CPropertyValue" Id="ffffffffc0a80164_319"/>
+    </Entity>
+  </RealRoot>
+  <ConnectionSourceConnection Source="//@RealRoot/@Entity.1" Target="//@RealRoot/@Connection.0" SourceRole="HostedBy"/>
+  <ConnectionTargetConnection Source="//@RealRoot/@Connection.0" Target="//@RealRoot/@Entity.2" TargetRole="HostedComponents"/>
+  <ContainmentConnectionConnection Source="//@RealRoot/@Entity.1" Target="//@RealRoot/@Entity.0" RoleOfChild="DeploymentPlan" RoleOfParent="Components"/>
+  <ContainmentConnectionConnection Source="//@RealRoot/@Entity.2" Target="//@RealRoot/@Entity.0" RoleOfChild="DeploymentPlan" RoleOfParent="Nodes"/>
+  <ContainmentConnectionConnection Source="//@RealRoot/@Entity.3" Target="//@RealRoot/@Entity.2" RoleOfChild="Resources" RoleOfParent="ResourceOf"/>
+  <ContainmentConnectionConnection Source="//@RealRoot/@Entity.4" Target="//@RealRoot/@Entity.1" RoleOfChild="CPropertyOf" RoleOfParent="CProperties"/>
+</metamodel:Root>

@@ -1,0 +1,187 @@
+
+/**
+##########################################
+ This file contains event|action mappings
+ for the generated modeling tool. Here,
+ you can specify conditions to watch for
+ and actions to invoke when those 
+ conditions are met. 
+ 
+ Each mapping is called a "trigger". 
+ A trigger is defined as:
+ 
+ TriggerName {
+   on:Type.Role;
+   invoke:ActionID;
+ }
+
+ The TriggerName is any valid Java
+ identifier...it is only used to
+ make the triggers easier to read.
+ The "on" attribute specifies
+ the type of event or condition to
+ watch for. The event is specified
+ by a Type of model element that is
+ the origin of the event followed by
+ the role name that is being changed.
+ For example, if we defined a "Foo"
+ Entity in our metamodel and wanted
+ to do something when its name
+ changed, we would use the event
+ "Foo.Name". A wild card can be
+ used to catch any events from
+ a particular type, such as
+ "Foo.*".
+ 
+ Clicks on the right-click
+ menu of the modeling tool
+ can be captured via the
+ event mask: "menuitem.Event",
+ where "Event" is the value
+ specified on the menuitem's
+ "event" attribute. See dsml.menus
+ for more details. Example:
+ 
+ OnMyMenuItem {
+   on:menuitem.my_event;
+   invoke:msg;
+   msg:You click the my_event menu item;
+ }
+ 
+ Events have two stages. First,
+ an event is proposed to the 
+ underlying infrastructure to
+ determine if it is valid. If
+ no listener vetos the event,
+ it is committed to the model
+ and a second non-proposal
+ event fired. To only observe
+ events after they are commited,
+ set the "allow-proposals" 
+ attribute to false. Setting the
+ attribute to true causes the
+ trigger to receive proposals
+ AND commits.
+ 
+ If you create a trigger that
+ allows proposals, you can use
+ it as a constraint checker. 
+ For example:
+ 
+ NoNameChanges {
+   on:Foo.name;
+   allow-proposals:true;
+   invoke:veto;
+ }
+ 
+ The "invoke" attribute specifies
+ the name of the action to invoke
+ when the event is observed. GEMS
+ provides a number of built-in
+ actions, such as "msg" which
+ displays a message box for the
+ user. Custom actions are developed
+ by creating an auxiliary plugin
+ and extending the "Invokable"
+ extnsion point. See the GEMS
+ documentation for more information.
+ 
+ If you don't want to go to the
+ trouble of implementing your own
+ Invokable, you should see the
+ section on the bean Invokable
+ in the documentation. Example:
+ 
+ MyBeanAction {
+   on:Foo.name;
+   invoke:bean;
+   bean:org.foo.MyBean;
+   method:someMethod;
+ }
+ 
+ Triggers can also define an 
+ expression to serve as a guard
+ that only allows very specific
+ types of events to invoke the
+ action. For example, the following
+ trigger uses a guard specified
+ in OCL:
+ 
+ FooName {
+   on:Foo.name;
+   test:{self.name == 'foo'};
+   expr-type:ocl;
+   invoke:msg;
+   msg:This element is named Foo!;
+ }
+ 
+ The "test" attribute specifies
+ the guard expression. The "expr-type"
+ attribute specifies the language the
+ guard expression is written in. Plugins
+ are available for different languages,
+ such as OCL, BeanShell, and Groovy.
+ 
+ There are many more options for
+ triggers that are described in the
+ user manual.
+##########################################
+**/
+
+/**
+MyDummyExampleTrigger {
+ on:Foo.*;
+ invoke:msg;
+ msg: You have a type named Foo in your model;
+}
+**/
+
+
+/**
+##########################################
+     Modeling Guidance Triggers
+##########################################
+ These triggers are used by modeling 
+ guidance and should not be touched
+ normally. One unique thing to notice
+ is how they use the ".tags[+-]"
+ mechanism for intercepting changes
+ in the tags of an element. The
+ ".tags" role can be used to check
+ for tag changes. It has two special
+ operations:
+ 
+ .tags[+TagName]
+ 
+ and
+ 
+ .tags[-TagName]
+ 
+ The "+TagName" causes the trigger to
+ be activated whenever the specified
+ tag is added to an element. For example,
+ the "on:*.tags[+guidance];" is true
+ whenever an element of any type (*),
+ has the tag "guidance" added to it.
+ Similarly, "on:*.tags[-guidance];"
+ is activated when any element has the
+ guidance tag removed.
+ 
+ "showguidance" and "hideguidance"
+ are invokable provided by the GEMS
+ Model Intelligence plugins. These
+ invokables apply the small yellow
+ sticky notes above the suggestions.
+ See the "dsml.constraints" file for
+ more on modeling guidance.
+##########################################
+**/
+guidance {
+on:*.tags[+guidance];
+invoke:showguidance;
+}
+
+guidanceoff {
+on:*.tags[-guidance];
+invoke:hideguidance;
+}

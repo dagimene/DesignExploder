@@ -1,0 +1,63 @@
+
+/**
+##########################################
+ This file contains the different views that are available for
+ your modeling language. Each view is defined by:
+ 
+ ViewID {
+   Type:boolean;
+ }
+ 
+ Where, "View ID" specifies the id of the view that will
+ show up on the right-click "views" menu of the modeling
+ tool. Each "Type:boolean" declaration specifies a type
+ and whether or not it should be visible in the view. Both
+ element and connection types can be specified. For
+ example:
+ 
+ Foo and Bar Elements Only {
+   Foo:true;
+   Bar:true;
+ }
+ 
+ This view would only show elements of type Foo and Bar.
+ 
+ Each view stores its own position coordinates for elements.
+ If an element is moved in one view, the move will not be
+ reflected in other views. Each view is like a virtual 
+ workspace.
+ 
+ View definitions can also use tags on elements to
+ select which elements are visible. For example:
+ 
+  Foo Elements With ShowMe Tags {
+   Foo[ShowMe]:true;
+ }
+ 
+ This view only shows elements with "ShowMe" tags.
+ An element will automatically be added or removed from
+ a view when its tags change. Triggers that add or remove
+ tags can be used to create dynamic views.
+ 
+ In some cases, it is easier to explicitly specify which types
+ of elements NOT to include. To achieve this behavior,
+ you can use the "use-exclusion" attribute as follows:
+ 
+  Foo Elements Only {
+   use-exclusion:true;
+   Foo:true;
+ }
+ 
+ This view would show all elements EXCEPT Foo elements.
+ Each view can also specify a name attribute and a 
+ description attribute to be used for the name on the views
+ menu and the tooltip of the menu item.
+ 
+##########################################
+**/
+
+
+/**A default view for showing all elements. **/
+All Elements {
+ use-exclusion:true;
+}

@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Deployment Plug-in
+Bundle-SymbolicName: org.gems.test.deployment.deployment;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.gems.test.deployment.deployment.DeploymentPlugin
+Bundle-Vendor: GEMS
+Require-Bundle: org.eclipse.gmt.gems.dsml,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide,
+ org.eclipse.draw2d,
+ org.eclipse.gef,
+ org.eclipse.ui.views,
+ org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.platform,
+ org.eclipse.gmt.gems.dsml.emf
+Export-Package: org.gems.test.deployment.deployment,
+ org.gems.test.deployment.emf.deployment,
+ org.gems.test.deployment.emf.deployment.impl,
+ org.gems.test.deployment.emf.deployment.util
+Bundle-ClassPath: .
+Eclipse-LazyStart: true
