@@ -5,9 +5,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -22,17 +19,10 @@ public class TestDraw2D {
 		XYLayout contentsLayout = new XYLayout();
 		contents.setLayoutManager(contentsLayout);
 
-		Font classFont = new Font(null, "Arial", 12, SWT.BOLD);
-		Label classLabel1 = new Label("Table", new Image(Display.getCurrent(),
-				ClassBox.class.getResourceAsStream("../../resources/images/class_obj.gif")));
-		classLabel1.setFont(classFont);
-
-		Label classLabel2 = new Label("Column", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/class_obj.gif")));
-		classLabel2.setFont(classFont);
-
-		ClassBox classFigure = new ClassBox(classLabel1);
-		ClassBox classFigure2 = new ClassBox(classLabel2);
+		ClassBox classFigure = new ClassBox();
+		classFigure.setLabel("Table");
+		ClassBox classFigure2 = new ClassBox();
+		classFigure2.setLabel("Column");
 
 		Label attribute1 = new Label("columns: Column[]", new Image(d,
 				ClassBox.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));

@@ -3,6 +3,8 @@ package designexploder.model.utils;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.eclipse.draw2d.geometry.Point;
+
 import designexploder.model.Connection;
 import designexploder.model.Diagram;
 import designexploder.model.ModelFactory;
@@ -16,13 +18,16 @@ public class ModelUtils {
 		
 		Diagram diagram = mf.createDiagram();
 		Node n1 = mf.createNode();
-		n1.setLabel("Node One");
+		n1.setLabel("Table");
+		n1.setLocation(new Point(120, 130));
 		Node n2 = mf.createNode();
-		n2.setLabel("Node Two");
+		n2.setLabel("Column");
+		n2.setLocation(new Point(480, 370));
 		Connection c = mf.createConnection();
 		c.setSource(n1);
 		c.setTarget(n2);
-		n1.setConnections(Collections.singletonList(c));
+		n1.setOutflows(Collections.singletonList(c));
+		n2.setInflows(Collections.singletonList(c));
 		diagram.setNodes(Arrays.asList(n1, n2));
 		
 		return diagram;

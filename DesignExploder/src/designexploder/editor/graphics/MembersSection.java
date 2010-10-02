@@ -7,7 +7,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Insets;
 
-public class MembersSection extends Figure {
+class MembersSection extends Figure {
 
 	public MembersSection() {
 		ToolbarLayout layout = new ToolbarLayout(false);

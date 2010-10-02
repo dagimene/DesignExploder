@@ -3,7 +3,7 @@ package designexploder.editor.graphics;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.geometry.PointList;
 
-public class EndpointDecorationsFactory {
+class EndpointDecorationsFactory {
 
 	public static PolygonDecoration createDiamond() {
 		PolygonDecoration decoration = new PolygonDecoration();

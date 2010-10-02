@@ -1,11 +1,16 @@
 package designexploder.model;
 
+import java.util.Collections;
 import java.util.List;
+
+import org.eclipse.draw2d.geometry.Point;
 
 class NodeImpl implements Node {
 
-	private List<Connection> connections;
-	private String label;
+	private List<Connection> outflows = Collections.emptyList();
+	private List<Connection> inflows = Collections.emptyList();
+	private String label = "";
+	private Point location;
 	
 	public String getLabel() {
 		return label;
@@ -15,12 +20,27 @@ class NodeImpl implements Node {
 		this.label = label;
 	}
 
-	public List<Connection> getConnections() {
-		return connections;
+	public List<Connection> getOutflows() {
+		return outflows;
 	}
 
-	public void setConnections(List<Connection> connections) {
-		this.connections = connections;
+	public void setOutflows(List<Connection> outflows) {
+		this.outflows = outflows;
 	}
-	
+
+	public List<Connection> getInflows() {
+		return inflows;
+	}
+
+	public void setInflows(List<Connection> inflows) {
+		this.inflows = inflows;
+	}
+
+	public Point getLocation() {
+		return location;
+	}
+
+	public void setLocation(Point location) {
+		this.location = location;
+	}
 }

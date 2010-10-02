@@ -31,20 +31,14 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
-import org.eclipse.gef.editparts.AbstractEditPart;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.DeleteAction;
@@ -58,8 +52,7 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
-import designexploder.editor.graphics.ClassBox;
-import designexploder.editor.graphics.TestDraw2D;
+import designexploder.editor.controllers.DiagramPartsFactory;
 import designexploder.model.Diagram;
 import designexploder.model.utils.ModelUtils;
 
@@ -104,7 +97,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * Constructs the editor part
 	 */
 	public DexDiagramEditor() {
-		setEditDomain(new DefaultEditDomain(this));		
+		setEditDomain(new DefaultEditDomain(this));
 	}
 
 	/**
@@ -126,6 +119,7 @@ public class DexDiagramEditor extends EditorPart implements
 	protected void configureGraphicalViewer() {
 		getGraphicalViewer().getControl().setBackground(
 				ColorConstants.listBackground);
+		getGraphicalViewer().setEditPartFactory(new DiagramPartsFactory());
 	}
 
 	/**
@@ -380,7 +374,7 @@ public class DexDiagramEditor extends EditorPart implements
 	}
 
 	private Diagram diagram = ModelUtils.createDummyModel();
-	
+
 	/**
 	 * Override to set the contents of the GraphicalViewer after it has been
 	 * created.
@@ -388,22 +382,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see #createGraphicalViewer(Composite)
 	 */
 	protected void initializeGraphicalViewer() {
-		GraphicalViewer gf = getGraphicalViewer();
-		gf.setEditPartFactory(new EditPartFactory() {
-			public EditPart createEditPart(EditPart context, Object model) {
-				return new AbstractGraphicalEditPart() {
-					@Override
-					protected IFigure createFigure() {
-						return TestDraw2D.createFigure(null);
-					}
-					@Override
-					protected void createEditPolicies() {
-						// TODO Auto-generated method stub
-					}
-				};
-			}
-		});
-		gf.setContents(diagram);
+		getGraphicalViewer().setContents(diagram);
 	}
 
 	/**
