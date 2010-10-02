@@ -5,12 +5,11 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="Design Exploder Editor"
-            extensions="dex"
+            name="Sample XML Editor"
+            extensions="axml"
             icon="icons/sample.gif"
-            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="designexploder.editors.DesignEditor"
-            id="designexploder.editors.DesignEditor">
+            class="designexploder.editor.DexDiagramEditor"
+            id="designexploder.editors.XMLEditor">
       </editor>
    </extension>
 
