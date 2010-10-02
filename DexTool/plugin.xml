@@ -34,5 +34,8 @@
             class="org.gems.test.deployment.deployment.Serializer"
             models="readers,http://www.sf.net/projects/gems/dsml/deployment"/>
    </extension>
+      <extension
+            point="org.eclipse.ui.editors">
+      </extension>
 
 </plugin>

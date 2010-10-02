@@ -1,21 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: design exploder
+Bundle-Name: DesignExploder
 Bundle-SymbolicName: DesignExploder; singleton:=true
-Bundle-Version: 0.1.0
+Bundle-Version: 0.0.0.3
 Bundle-Activator: designexploder.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
- org.eclipse.ui.editors
+ org.eclipse.ui.editors,
+ org.eclipse.ui.views;bundle-version="3.5.0",
+ org.eclipse.gef;bundle-version="3.6.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.core.resources,
- org.eclipse.draw2d,
- org.eclipse.draw2d.geometry,
- org.eclipse.emf.common.util,
- org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.resource,
- org.eclipse.emf.ecore.resource.impl,
- org.eclipse.gmf.runtime.draw2d.ui.figures,
- org.eclipse.uml2.uml
