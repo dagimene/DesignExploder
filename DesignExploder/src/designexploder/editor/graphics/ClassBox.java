@@ -10,8 +10,8 @@ import org.eclipse.swt.graphics.Color;
 public class ClassBox extends Figure {
 	  public static Color classColor = new Color(null,255,255,206);
 	  
-	  private MemebersSeccion attributeFigure = new MemebersSeccion();
-	  private MemebersSeccion methodFigure = new MemebersSeccion();
+	  private MembersSection attributeFigure = new MembersSection();
+	  private MembersSection methodFigure = new MembersSection();
 	  
 	  public ClassBox(Label name) {
 		setLayoutManager(new ToolbarLayout());
@@ -24,11 +24,11 @@ public class ClassBox extends Figure {
 	    add(methodFigure);
 	  }
 	  
-	  public MemebersSeccion getAttributesCompartment() {
+	  public MembersSection getAttributesCompartment() {
 	    return attributeFigure;
 	  }
 	  
-	  public MemebersSeccion getMethodsCompartment() {
+	  public MembersSection getMethodsCompartment() {
 	    return methodFigure;
 	  }	
 }

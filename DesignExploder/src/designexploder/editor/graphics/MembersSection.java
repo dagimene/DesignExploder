@@ -7,9 +7,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Insets;
 
-public class MemebersSeccion extends Figure {
+public class MembersSection extends Figure {
 
-	public MemebersSeccion() {
+	public MembersSection() {
 		ToolbarLayout layout = new ToolbarLayout(false);
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
 		layout.setStretchMinorAxis(false);
