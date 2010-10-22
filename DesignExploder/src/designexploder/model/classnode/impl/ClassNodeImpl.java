@@ -1,5 +1,6 @@
 package designexploder.model.classnode.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import designexploder.model.classnode.ClassNode;
@@ -11,7 +12,7 @@ public class ClassNodeImpl extends NodeImpl implements ClassNode{
 
 	private Member header;
 	
-	private List<ClassSection> sections;
+	private List<ClassSection> sections = Collections.emptyList();
 
 	public Member getHeader() {
 		return header;

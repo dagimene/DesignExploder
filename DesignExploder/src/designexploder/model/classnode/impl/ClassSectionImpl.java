@@ -1,5 +1,6 @@
 package designexploder.model.classnode.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import designexploder.model.classnode.ClassSection;
@@ -8,7 +9,7 @@ import designexploder.model.classnode.SectionType;
 
 public class ClassSectionImpl implements ClassSection {
 	
-	private List<Member> members;
+	private List<Member> members = Collections.emptyList();
 	private SectionType type;
 
 	public List<Member> getMembers() {

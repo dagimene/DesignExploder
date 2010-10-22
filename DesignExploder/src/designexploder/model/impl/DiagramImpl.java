@@ -8,13 +8,13 @@ import designexploder.model.Node;
 
 public class DiagramImpl implements Diagram {
 	
-	public List<Node> nodes = Collections.emptyList();
+	public List<? extends Node> nodes = Collections.emptyList();
 
-	public List<Node> getNodes() {
+	public List<? extends Node> getNodes() {
 		return nodes;
 	}
 
-	public void setNodes(List<Node> nodes) {
+	public void setNodes(List<? extends Node> nodes) {
 		this.nodes = nodes;
 	}
 	
