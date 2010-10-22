@@ -1,6 +1,9 @@
-package designexploder.model;
+package designexploder.model.impl;
 
-class ConnectionImpl implements Connection {
+import designexploder.model.Connection;
+import designexploder.model.Node;
+
+public class ConnectionImpl implements Connection {
 	
 	private Node target;
 	

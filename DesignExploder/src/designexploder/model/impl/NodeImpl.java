@@ -1,11 +1,14 @@
-package designexploder.model;
+package designexploder.model.impl;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
 
-class NodeImpl implements Node {
+import designexploder.model.Connection;
+import designexploder.model.Node;
+
+public class NodeImpl implements Node {
 
 	private List<Connection> outflows = Collections.emptyList();
 	private List<Connection> inflows = Collections.emptyList();

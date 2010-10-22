@@ -1,9 +1,12 @@
-package designexploder.model;
+package designexploder.model.impl;
 
 import java.util.Collections;
 import java.util.List;
 
-class DiagramImpl implements Diagram {
+import designexploder.model.Diagram;
+import designexploder.model.Node;
+
+public class DiagramImpl implements Diagram {
 	
 	public List<Node> nodes = Collections.emptyList();
 

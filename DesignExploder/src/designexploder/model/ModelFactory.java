@@ -1,5 +1,9 @@
 package designexploder.model;
 
+import designexploder.model.impl.ConnectionImpl;
+import designexploder.model.impl.DiagramImpl;
+import designexploder.model.impl.NodeImpl;
+
 public class ModelFactory {
 
 	private static ModelFactory INSTANCE;
