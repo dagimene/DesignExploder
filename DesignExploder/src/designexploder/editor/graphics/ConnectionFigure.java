@@ -5,7 +5,7 @@ import org.eclipse.draw2d.PolylineConnection;
 
 class ConnectionFigure extends PolylineConnection {
 
-	public ConnectionFigure(ClassBox source, ClassBox target) {
+	public ConnectionFigure(ClassFigure source, ClassFigure target) {
 		this();
 		ChopboxAnchor sourceAnchor = new ChopboxAnchor(source);
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(target);

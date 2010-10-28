@@ -4,8 +4,6 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 
-import designexploder.model.Node;
-
 public class GraphicsFactory {
 
 	public static IFigure createDiagramFigure() {
@@ -15,14 +13,10 @@ public class GraphicsFactory {
 		return diagram;
 	}
 	
-	public static IFigure createNodeFigure() {
-		return new ClassBox();
+	public static IFigure createClassFigure() {
+		return new ClassFigure();
 	}
 	
-	public static void update(IFigure f, Node n) {
-		((ClassBox)f).setLabel(n.getLabel());
-	}
-
 	public static IFigure createConnectionFigure() {
 		return new ConnectionFigure();
 	}

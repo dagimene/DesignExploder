@@ -19,19 +19,19 @@ public class TestDraw2D {
 		XYLayout contentsLayout = new XYLayout();
 		contents.setLayoutManager(contentsLayout);
 
-		ClassBox classFigure = new ClassBox();
+		ClassFigure classFigure = new ClassFigure();
 		classFigure.setLabel("Table");
-		ClassBox classFigure2 = new ClassBox();
+		ClassFigure classFigure2 = new ClassFigure();
 		classFigure2.setLabel("Column");
 
 		Label attribute1 = new Label("columns: Column[]", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
 		Label attribute2 = new Label("rows: Row[]", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
 		Label attribute3 = new Label("columnID: int", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
 		Label attribute4 = new Label("items: List", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/field_private_obj.gif")));
 
 		classFigure.getAttributesCompartment().add(attribute1);
 		classFigure.getAttributesCompartment().add(attribute2);
@@ -39,13 +39,13 @@ public class TestDraw2D {
 		classFigure2.getAttributesCompartment().add(attribute4);
 
 		Label method1 = new Label("getColumns(): Column[]", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
 		Label method2 = new Label("getRows(): Row[]", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
 		Label method3 = new Label("getColumnID(): int", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
 		Label method4 = new Label("getItems(): List", new Image(d,
-				ClassBox.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
+				ClassFigure.class.getResourceAsStream("../../resources/images/methpub_obj.gif")));
 
 		classFigure.getMethodsCompartment().add(method1);
 		classFigure.getMethodsCompartment().add(method2);

@@ -2,14 +2,12 @@ package designexploder.model.classnode;
 
 import java.util.List;
 
-public interface ClassSection {
+import designexploder.model.Naturalized;
 
-	SectionType getType();
+public interface ClassSection extends Naturalized {
 
-	void setType(SectionType type);
+	void setMembers(List<? extends Naturalized> members);
 	
-	void setMembers(List<Member> members);
-	
-	List<Member> getMembers();
+	List<? extends Naturalized> getMembers();
 	
 }

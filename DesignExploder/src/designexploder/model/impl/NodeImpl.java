@@ -1,27 +1,52 @@
 package designexploder.model.impl;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import designexploder.model.Connection;
 import designexploder.model.Node;
 
-public class NodeImpl implements Node {
+public class NodeImpl extends NamedImpl implements Node {
 
-	private List<Connection> outflows = Collections.emptyList();
-	private List<Connection> inflows = Collections.emptyList();
-	private String label = "";
-	private Point location;
+	public NodeImpl(String name) {
+		super(name);
+		outflows = new ArrayList<Connection>();
+		inflows = new ArrayList<Connection>();
+		bounds = new Rectangle(); 
+	}
+
+	private List<Connection> outflows;
+	private List<Connection> inflows;
+	private Rectangle bounds;
 	
-	public String getLabel() {
-		return label;
+	public Rectangle getBounds() {
+		return bounds;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setBounds(Rectangle bounds) {
+		this.bounds = bounds;
 	}
+	
+	public Point getLocation() {
+		return bounds.getLocation();
+	}
+
+	public void setLocation(Point location) {
+		bounds.setLocation(location);
+	}
+
+	public Dimension getSize() {
+		return bounds.getSize();
+	}
+
+	@Override
+	public void setSize(Dimension size) {
+		bounds.setSize(size);
+	}	
 
 	public List<Connection> getOutflows() {
 		return outflows;
@@ -39,11 +64,4 @@ public class NodeImpl implements Node {
 		this.inflows = inflows;
 	}
 
-	public Point getLocation() {
-		return location;
-	}
-
-	public void setLocation(Point location) {
-		this.location = location;
-	}
 }

@@ -1,8 +1,10 @@
 package designexploder.model.classnode;
 
+import designexploder.model.classnode.impl.AttributeImpl;
 import designexploder.model.classnode.impl.ClassNodeImpl;
 import designexploder.model.classnode.impl.ClassSectionImpl;
-import designexploder.model.classnode.impl.MemberImpl;
+import designexploder.model.classnode.impl.ModifiableImpl;
+import designexploder.model.classnode.impl.MethodImpl;
 
 public class ClassModelFactory {
 	private static ClassModelFactory INSTANCE;
@@ -14,15 +16,23 @@ public class ClassModelFactory {
 		return INSTANCE; 
 	}
 	
-	public ClassNode createClassNode() {
-		return new ClassNodeImpl();
-	}
-	
-	public Member createMember() {
-		return new MemberImpl();
+	public ClassNode createClassNode(Type clazz, Type type, DexConstant nature) {
+		return new ClassNodeImpl(clazz, type, nature);
 	}
 	
 	public ClassSection createSection() {
 		return new ClassSectionImpl();
+	}
+
+	public Modifiable createModifiable(String name, Type type) {
+		return new ModifiableImpl(name, type);
+	}
+
+	public Attribute createAttribute(String name, Type type) {
+		return new AttributeImpl(name, type, DexConstant.ATTRIBUTE);
+	}
+	
+	public Method createMethod(String name, Type type, DexConstant nature) {
+		return new MethodImpl(name, type, nature);
 	}
 }

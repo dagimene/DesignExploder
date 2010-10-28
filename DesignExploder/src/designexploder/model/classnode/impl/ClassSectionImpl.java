@@ -1,30 +1,34 @@
 package designexploder.model.classnode.impl;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
+import designexploder.model.Naturalized;
 import designexploder.model.classnode.ClassSection;
-import designexploder.model.classnode.Member;
-import designexploder.model.classnode.SectionType;
+import designexploder.model.classnode.DexConstant;
 
 public class ClassSectionImpl implements ClassSection {
 	
-	private List<Member> members = Collections.emptyList();
-	private SectionType type;
+	private List<? extends Naturalized> members;
+	private DexConstant nature;
+	
+	public ClassSectionImpl() {
+		members = new ArrayList<Naturalized>(10);
+	}
 
-	public List<Member> getMembers() {
+	public List<? extends Naturalized> getMembers() {
 		return members;
 	}
 
-	public void setMembers(List<Member> members) {
+	public void setMembers(List<? extends Naturalized> members) {
 		this.members = members;
 	}
 
-	public SectionType getType() {
-		return type;
+	public DexConstant getNature() {
+		return nature;
 	}
 
-	public void setType(SectionType type) {
-		this.type = type;
+	public void setNature(DexConstant nature) {
+		this.nature = nature;
 	}
 }

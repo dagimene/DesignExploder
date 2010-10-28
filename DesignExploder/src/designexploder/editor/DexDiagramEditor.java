@@ -373,7 +373,7 @@ public class DexDiagramEditor extends EditorPart implements
 		updateActions(stackActions);
 	}
 
-	private Diagram diagram = ModelUtils.createDummyModel();
+	private Diagram diagram = ModelUtils.createClassDummyModel();
 
 	/**
 	 * Override to set the contents of the GraphicalViewer after it has been

@@ -15,8 +15,8 @@ public class ModelFactory {
 		return INSTANCE; 
 	}
 	
-	public Node createNode() {
-		return new NodeImpl();
+	public Node createNode(String name) {
+		return new NodeImpl(name);
 	}
 	
 	public Connection createConnection() {
