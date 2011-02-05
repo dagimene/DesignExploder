@@ -18,6 +18,6 @@ public class GraphicsFactory {
 	}
 	
 	public static IFigure createConnectionFigure() {
-		return new ConnectionFigure();
+		return new ClassConnectionFigure();
 	}
 }

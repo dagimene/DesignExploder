@@ -8,6 +8,13 @@ public class ConnectionImpl implements Connection {
 	private Node target;
 	
 	private Node source;
+	
+	public ConnectionImpl() {}
+
+	public ConnectionImpl(Node target, Node source) {
+		this.target = target;
+		this.source = source;
+	}
 
 	public Node getTarget() {
 		return target;

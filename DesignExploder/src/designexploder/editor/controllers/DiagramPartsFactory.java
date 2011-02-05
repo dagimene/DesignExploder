@@ -6,16 +6,19 @@ import org.eclipse.gef.EditPartFactory;
 import designexploder.model.Connection;
 import designexploder.model.Diagram;
 import designexploder.model.Node;
+import designexploder.model.classconnection.ClassConnection;
 import designexploder.model.classnode.ClassNode;
 
 public class DiagramPartsFactory implements EditPartFactory {
 	
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart editPart = null;
-		if(model instanceof Connection) {
-			editPart = new ConnectionEditPart();
+		if(model instanceof ClassConnection) {
+			editPart = new ClassConnectionEditPart();
 		} else if(model instanceof ClassNode) {
 			editPart = new ClassNodeEditPart();
+		} else if(model instanceof Connection) {
+			editPart = new ConnectionEditPart();
 		} else if(model instanceof Node) {
 			editPart = new NodeEditPart();
 		} else if(model instanceof Diagram) {

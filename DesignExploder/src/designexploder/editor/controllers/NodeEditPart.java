@@ -26,11 +26,13 @@ public class NodeEditPart extends AbstractGraphicalEditPart {
 	protected void createEditPolicies() {}
 
 	@Override
+	@SuppressWarnings("rawtypes")
 	protected List getModelSourceConnections() {
 		return ((Node)getModel()).getOutflows();
 	}
 
 	@Override
+	@SuppressWarnings("rawtypes")
 	protected List getModelTargetConnections() {
 		return ((Node)getModel()).getInflows();
 	}

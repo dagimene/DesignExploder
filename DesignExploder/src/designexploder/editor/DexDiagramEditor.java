@@ -69,29 +69,13 @@ import designexploder.model.utils.ModelUtils;
 public class DexDiagramEditor extends EditorPart implements
 		CommandStackListener, ISelectionListener {
 
-	private static class ActionIDList extends ArrayList {
-		public boolean add(Object o) {
-			if (o instanceof IAction) {
-				try {
-					IAction action = (IAction) o;
-					o = action.getId();
-					throw new IllegalArgumentException(
-							"Action IDs should be added to lists, not the action: " + action); //$NON-NLS-1$
-				} catch (IllegalArgumentException exc) {
-					exc.printStackTrace();
-				}
-			}
-			return super.add(o);
-		}
-	}
-
 	private DefaultEditDomain editDomain;
 	private GraphicalViewer graphicalViewer;
 	private ActionRegistry actionRegistry;
 	private SelectionSynchronizer synchronizer;
-	private List selectionActions = new ActionIDList();
-	private List stackActions = new ActionIDList();
-	private List propertyActions = new ActionIDList();
+	private List<String> selectionActions = new ArrayList<String>();
+	private List<String> stackActions = new ArrayList<String>();
+	private List<String> propertyActions = new ArrayList<String>();
 
 	/**
 	 * Constructs the editor part
@@ -232,7 +216,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
-	public Object getAdapter(Class type) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if (type == org.eclipse.ui.views.properties.IPropertySheetPage.class) {
 			PropertySheetPage page = new PropertySheetPage();
 			page.setRootEntry(new UndoablePropertySheetEntry(getCommandStack()));
@@ -287,7 +271,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * 
 	 * @return the list of property-dependant actions
 	 */
-	protected List getPropertyActions() {
+	protected List<String> getPropertyActions() {
 		return propertyActions;
 	}
 
@@ -301,7 +285,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see #updateActions(List)
 	 * @return the list of selection-dependant action IDs
 	 */
-	protected List getSelectionActions() {
+	protected List<String> getSelectionActions() {
 		return selectionActions;
 	}
 
@@ -326,7 +310,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * 
 	 * @return the list of stack-dependant action IDs
 	 */
-	protected List getStackActions() {
+	protected List<String> getStackActions() {
 		return stackActions;
 	}
 
@@ -462,9 +446,9 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @param actionIds
 	 *            the list of IDs to update
 	 */
-	protected void updateActions(List actionIds) {
+	protected void updateActions(List<String> actionIds) {
 		ActionRegistry registry = getActionRegistry();
-		Iterator iter = actionIds.iterator();
+		Iterator<String> iter = actionIds.iterator();
 		while (iter.hasNext()) {
 			IAction action = registry.getAction(iter.next());
 			if (action instanceof UpdateAction)

@@ -23,14 +23,21 @@ public enum DexConstant implements Named {
 	ATTRIBUTE("Attributes"),
 	METHOD("Methods"),
 
-	/* Natures */
+	/* Class Natures */
 	
 	CLASS("Class"),
 	ABSTRACT_CLASS("Abstract Class"),
 	INTERFACE("Interface"),
-	ABSTRACT_METHOD("Abstract Method");
+	ABSTRACT_METHOD("Abstract Method"),
 	
-
+	/* Connection Natures */
+	
+	ASSOCIATION("Association"),
+	AGREGATION("Agregation"), // TODO: Meaningless to codegeneration.
+	COMPOSITION("Composition"),
+	REALIZATION("Realization"),
+	HIERARCHY("Hierarchy");
+	
 	private String name;
 	
 	DexConstant(String name) {

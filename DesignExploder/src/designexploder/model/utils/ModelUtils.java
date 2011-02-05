@@ -11,6 +11,7 @@ import designexploder.model.Connection;
 import designexploder.model.Diagram;
 import designexploder.model.ModelFactory;
 import designexploder.model.Node;
+import designexploder.model.classconnection.ClassConnection;
 import designexploder.model.classnode.Attribute;
 import designexploder.model.classnode.ClassModelFactory;
 import designexploder.model.classnode.ClassNode;
@@ -93,11 +94,12 @@ public class ModelUtils {
 		n2.setBounds(new Rectangle(new Point(480, 370), NO_DIM));
 		n2.setSections(Arrays.asList(new ClassSection[]{attributes, methods}));
 
-		Connection c = mf.createConnection();
-		c.setSource(n1);
-		c.setTarget(n2);
-		n1.setOutflows(Collections.singletonList(c));
-		n2.setInflows(Collections.singletonList(c));
+		ClassConnection c = cmf.createConnection(n1, n2, DexConstant.ASSOCIATION);
+		c.setName("likes");
+		c.setOriginCardinality(1);
+		c.setTargetCardinality(Integer.MAX_VALUE);
+		n1.setOutflows(Collections.singletonList((Connection)c));
+		n2.setInflows(Collections.singletonList((Connection)c));
 		diagram.setNodes(Arrays.asList(n1, n2));
 		
 		return diagram;

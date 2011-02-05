@@ -3,7 +3,7 @@ package designexploder.editor.graphics;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.PolylineConnection;
 
-class ConnectionFigure extends PolylineConnection {
+public class ConnectionFigure extends PolylineConnection {
 
 	public ConnectionFigure(ClassFigure source, ClassFigure target) {
 		this();
@@ -11,11 +11,8 @@ class ConnectionFigure extends PolylineConnection {
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(target);
 		setSourceAnchor(sourceAnchor);
 		setTargetAnchor(targetAnchor);
-		
 	}
 	
-	public ConnectionFigure() {
-		setSourceDecoration(EndpointDecorationsFactory.createDiamond());
-	}
+	public ConnectionFigure() {}
 
 }
