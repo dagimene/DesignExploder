@@ -21,6 +21,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchPart;
@@ -53,13 +54,12 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
 import designexploder.editor.controllers.DiagramPartsFactory;
-import designexploder.model.Diagram;
-import designexploder.model.utils.ModelUtils;
+import designexploder.model.ast.ModelBuilder;
 
 /**
  * This class serves as a quick starting point for clients who are new to GEF.
  * It will create an Editor containing a single GraphicalViewer as its control.
- * <P>
+ * <P>z
  * <EM>IMPORTANT</EM>This class should only be used as a reference for creating
  * your own EditorPart implementation. This class will not suit everyone's
  * needs, and may change in the future. Clients may copy the implementation.
@@ -335,6 +335,9 @@ public class DexDiagramEditor extends EditorPart implements
 	 */
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
+		if(!(input instanceof IFileEditorInput)) {
+			throw new PartInitException("Invalid editor input of type "+input.getClass()+". Must be a IFileEditorInput.");
+		}
 		setSite(site);
 		setInput(input);
 		getCommandStack().addCommandStackListener(this);
@@ -357,8 +360,6 @@ public class DexDiagramEditor extends EditorPart implements
 		updateActions(stackActions);
 	}
 
-	private Diagram diagram = ModelUtils.createClassDummyModel();
-
 	/**
 	 * Override to set the contents of the GraphicalViewer after it has been
 	 * created.
@@ -366,7 +367,8 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see #createGraphicalViewer(Composite)
 	 */
 	protected void initializeGraphicalViewer() {
-		getGraphicalViewer().setContents(diagram);
+		getGraphicalViewer().setContents(new ModelBuilder().buildModel(getEditorInput()));
+		//getGraphicalViewer().setContents(ModelUtils.createClassDummyModel());
 	}
 
 	/**

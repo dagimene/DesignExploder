@@ -44,6 +44,10 @@ public class ModelUtils {
 		return diagram;
 	}
 	
+	public static void fillDummyNode(ClassNode node) {
+		
+	}
+
 	public static Diagram createClassDummyModel() {
 		ModelFactory mf = ModelFactory.getFactory();
 		ClassModelFactory cmf = ClassModelFactory.getFactory();

@@ -1,5 +1,7 @@
 package designexploder.editor.graphics.styles;
 
+import static designexploder.editor.graphics.styles.Style.Constant.*; 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,34 +12,46 @@ import org.eclipse.swt.graphics.Font;
 public enum Style {
 	
 	BASE_STYLE(null,
-			Constant.FOREGROUND, new Color(null,0,0,0),
-			Constant.SELECTED_FOREGROUND, new Color(null,0,0,0),
-			Constant.BACKGROUNG, new Color(null,255,255,255),
-			Constant.SELECTED_BACKGROUND, new Color(null,255,255,255),
-			Constant.FONT, new Font(null, "Arial", 10, SWT.NORMAL),
-			Constant.SELECTED_FONT, new Font(null, "Arial", 10, SWT.NORMAL)),
-	
-	CLASS(BASE_STYLE,
-			Constant.BACKGROUNG, new Color(null,255,255,206),
-			Constant.SELECTED_BACKGROUND, new Color(null,255,206,255),
-			Constant.FONT, new Font(null, "Arial", 12, SWT.NORMAL),
-			Constant.SELECTED_FONT, new Font(null, "Arial", 12, SWT.BOLD)),
-	
-	ABSTRACT_CLASS(CLASS,
-			Constant.FONT, new Font(null, "Arial", 12, SWT.ITALIC),
-			Constant.SELECTED_FONT, new Font(null, "Arial", 12, SWT.ITALIC | SWT.BOLD)),
+			FOREGROUND, new Color(null,0,0,0),
+			SELECTED_FOREGROUND, new Color(null,0,0,0),
+			BACKGROUNG, new Color(null,255,255,255),
+			SELECTED_BACKGROUND, new Color(null,255,255,255),
+			FONT, new Font(null, "Arial", 10, SWT.NORMAL),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.NORMAL)),
 
-	INTERFACE(ABSTRACT_CLASS,
-			Constant.BACKGROUNG, new Color(null,255,206,206),
-			Constant.SELECTED_BACKGROUND, new Color(null,206,206,255)),
+	ERROR(null,
+			FOREGROUND, new Color(null,125,0,0),
+			SELECTED_FOREGROUND, new Color(null,125,0,0),
+			BACKGROUNG, new Color(null,255,0,0),
+			SELECTED_BACKGROUND, new Color(null,255,0,0),
+			FONT, new Font(null, "Arial", 10, SWT.BOLD),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)),
 			
-	MEMBER(BASE_STYLE,
-			Constant.FONT, new Font(null, "Arial", 10, SWT.NORMAL),
-			Constant.SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)),
+	CLASS(BASE_STYLE,
+			BACKGROUNG, new Color(null,245,228,156),
+			SELECTED_BACKGROUND, new Color(null,245,228,156),
+			FONT, new Font(null, "Arial", 12, SWT.NORMAL),
+			SELECTED_FONT, new Font(null, "Arial", 12, SWT.NORMAL)),
+	
+	ENUM(CLASS,
+			BACKGROUNG, new Color(null,255,255,128),
+			SELECTED_BACKGROUND, new Color(null,255,255,128)),
+
+	ABSTRACT_CLASS(CLASS,
+			FONT, new Font(null, "Arial", 12, SWT.ITALIC),
+			SELECTED_FONT, new Font(null, "Arial", 12, SWT.ITALIC)),
+			
+	INTERFACE(ABSTRACT_CLASS,
+			BACKGROUNG, new Color(null,204,125,146),
+			SELECTED_BACKGROUND, new Color(null,204,125,146)),
+			
+	MEMBER(BASE_STYLE/*,
+			FONT, new Font(null, "Arial", 10, SWT.NORMAL),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)*/),
 	
 	ABSTRACT_METHOD(MEMBER,
-			Constant.FONT, new Font(null, "Arial", 10, SWT.ITALIC),
-			Constant.SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC | SWT.BOLD));
+			FONT, new Font(null, "Arial", 10, SWT.ITALIC),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC));
 			
 	private Map<Style.Constant, Object> properties;
 	private Style parent;
@@ -73,15 +87,15 @@ public enum Style {
 		BACKGROUNG, SELECTED_BACKGROUND;
 		
 		public static Constant getBackground(boolean selected) {
-			return selected ? Constant.SELECTED_BACKGROUND : Constant.BACKGROUNG;
+			return selected ? SELECTED_BACKGROUND : BACKGROUNG;
 		}
 
 		public static Constant getForeground(boolean selected) {
-			return selected ? Constant.SELECTED_FOREGROUND : Constant.FOREGROUND;
+			return selected ? SELECTED_FOREGROUND : FOREGROUND;
 		}
 
 		public static Constant getFont(boolean selected) {
-			return selected ? Constant.SELECTED_FONT : Constant.FONT;
+			return selected ? SELECTED_FONT : FONT;
 		}
 	}
 }

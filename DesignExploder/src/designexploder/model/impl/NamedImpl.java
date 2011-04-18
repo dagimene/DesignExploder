@@ -1,8 +1,9 @@
 package designexploder.model.impl;
 
+import designexploder.model.BasicModelEventTypes;
 import designexploder.model.Named;
 
-public class NamedImpl implements Named {
+public class NamedImpl extends ModelPropertyChangeEventTrigger implements Named {
 	
 	public String name;
 	
@@ -15,6 +16,8 @@ public class NamedImpl implements Named {
 	}
 
 	public void setName(String name) {
+		String oldName = this.name;
 		this.name = name;
+		fireModelPropertyChangeEvent(BasicModelEventTypes.NAME_CHANGED, oldName, name);
 	}
 }

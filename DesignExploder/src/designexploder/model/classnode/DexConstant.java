@@ -17,6 +17,7 @@ public enum DexConstant implements Named {
 	ABSTRACT("abstract"),
 	TRANSIENT("transient"),
 	VOLATILE("volatile"),
+	NATIVE("native"),
 	
 	/* CLASS SECTIONS */
 	
@@ -28,6 +29,8 @@ public enum DexConstant implements Named {
 	CLASS("Class"),
 	ABSTRACT_CLASS("Abstract Class"),
 	INTERFACE("Interface"),
+	ENUM("Enum"),
+	
 	ABSTRACT_METHOD("Abstract Method"),
 	
 	/* Connection Natures */
@@ -36,7 +39,10 @@ public enum DexConstant implements Named {
 	AGREGATION("Agregation"), // TODO: Meaningless to codegeneration.
 	COMPOSITION("Composition"),
 	REALIZATION("Realization"),
-	HIERARCHY("Hierarchy");
+	HIERARCHY("Hierarchy"),
+	
+	/* Nature for fail loading */
+	ERROR("Error");
 	
 	private String name;
 	

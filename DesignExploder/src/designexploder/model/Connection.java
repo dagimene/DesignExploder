@@ -1,6 +1,6 @@
 package designexploder.model;
 
-public interface Connection {
+public interface Connection extends ModelEventTrigger {
 
 	Node getTarget();
 	

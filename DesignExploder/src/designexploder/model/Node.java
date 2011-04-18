@@ -6,7 +6,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public interface Node extends Named {
+public interface Node extends Named, ModelEventTrigger {
 
 	Point getLocation();
 

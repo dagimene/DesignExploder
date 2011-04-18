@@ -9,7 +9,13 @@ public class GraphicsFactory {
 	public static IFigure createDiagramFigure() {
 		Figure diagram = new Figure();
 		diagram.setOpaque(true);
-		diagram.setLayoutManager(new XYLayout());
+		diagram.setLayoutManager(new XYLayout() {
+			@Override
+			public void layout(IFigure parent) {
+				// TODO Auto-generated method stub
+				super.layout(parent);
+			}
+		});
 		return diagram;
 	}
 	
