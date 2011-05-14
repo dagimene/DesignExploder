@@ -53,7 +53,7 @@ public class DexDiagramEditPart extends AbstractGraphicalEditPart {
 			@Override
 			protected Command createChangeConstraintCommand(EditPart child,
 					Object constraint) {
-				return new MoveNodeCommand((ClassNode)((ClassNodeEditPart)child).getModel(), (Point)constraint);
+				return new MoveNodeCommand((ClassNode<?>)((ClassNodeEditPart)child).getModel(), (Point)constraint);
 			}
 		});
 	}

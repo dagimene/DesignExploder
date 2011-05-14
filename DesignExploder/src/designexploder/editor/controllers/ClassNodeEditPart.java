@@ -10,11 +10,21 @@ public class ClassNodeEditPart extends NodeEditPart {
 	
 	@Override
 	protected void refreshVisuals() {
-		renderer.render((ClassNode)getModel(), (ClassFigure)getFigure());
+		renderer.render(getModel(), getFigure());
 		super.refreshVisuals();
 	}
 
 	protected void createEditPolicies() {
 		//installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new ClassSelectionPolicy());
+	}
+
+	@Override
+	public ClassFigure getFigure() {
+		return (ClassFigure) super.getFigure();
+	}
+
+	@Override
+	public ClassNode<?> getModel() {
+		return (ClassNode<?>) super.getModel();
 	}
 }

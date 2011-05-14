@@ -6,7 +6,7 @@ import org.eclipse.gef.EditPartFactory;
 import designexploder.model.Connection;
 import designexploder.model.Diagram;
 import designexploder.model.Node;
-import designexploder.model.classconnection.ClassConnection;
+import designexploder.model.classnode.ClassConnection;
 import designexploder.model.classnode.ClassNode;
 
 public class DiagramPartsFactory implements EditPartFactory {

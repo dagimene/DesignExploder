@@ -2,7 +2,7 @@ package designexploder.editor.controllers;
 
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.renderers.ClassConnectionRenderer;
-import designexploder.model.classconnection.ClassConnection;
+import designexploder.model.classnode.ClassConnection;
 
 public class ClassConnectionEditPart extends ConnectionEditPart {
 

@@ -5,7 +5,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.swt.graphics.Image;
 
-
 /**
  * Adds support for additional ClassConnection's name and cardinality
  */
@@ -48,11 +47,11 @@ public class ClassConnectionFigure extends ConnectionFigure {
 	
 	private Label getLabelFor(int position) {
 		switch(position) {
-		case 0:
+		case CONNECTION:
 			return connectionLabel;
-		case 1:
+		case SOURCE:
 			return souceLabel;
-		case 2:
+		case TARGET:
 			return targetLabel;
 		}
 		throw new IllegalArgumentException("No label component for given constant");

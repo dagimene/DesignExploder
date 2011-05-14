@@ -54,7 +54,7 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
 import designexploder.editor.controllers.DiagramPartsFactory;
-import designexploder.model.ast.ModelBuilder;
+import designexploder.model.classnode.impl.eclipse.jdt.JDTModelBuilder;
 
 /**
  * This class serves as a quick starting point for clients who are new to GEF.
@@ -367,8 +367,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see #createGraphicalViewer(Composite)
 	 */
 	protected void initializeGraphicalViewer() {
-		getGraphicalViewer().setContents(new ModelBuilder().buildModel(getEditorInput()));
-		//getGraphicalViewer().setContents(ModelUtils.createClassDummyModel());
+		getGraphicalViewer().setContents(JDTModelBuilder.create().buildDiagram());
 	}
 
 	/**

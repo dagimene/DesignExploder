@@ -1,72 +1,65 @@
 package designexploder.editor.renderers;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import designexploder.editor.graphics.ClassFigure;
-import designexploder.model.Naturalized;
 import designexploder.model.classnode.Attribute;
 import designexploder.model.classnode.ClassNode;
-import designexploder.model.classnode.ClassSection;
 import designexploder.model.classnode.DexConstant;
 import designexploder.model.classnode.Method;
 import designexploder.model.classnode.Modifiable;
+import designexploder.model.classnode.Parameter;
 import designexploder.util.Pair;
 
-public class ClassNodeRenderer implements Renderer<ClassNode, ClassFigure> {
+public class ClassNodeRenderer implements Renderer<ClassNode<?>, ClassFigure> {
 
-	public void render(ClassNode model, ClassFigure figure) {
+	public void render(ClassNode<?> model, ClassFigure figure) {
 		updateHeader(figure, model);
 		
-		List<ClassSection> sections = model.getSections();
-		for (ClassSection section : sections) {
-			if(section.getNature().equals(DexConstant.ATTRIBUTE)) {
-				figure.getAttributesCompartment().setLabels(createLabelsFor(section));
-			} else if(section.getNature().equals(DexConstant.METHOD)) {
-				figure.getMethodsCompartment().setLabels(createLabelsFor(section));
-			}
-		}
+		figure.getAttributesCompartment().setLabels(createLabelsForAttributes(model.getAttributes()));
+		figure.getMethodsCompartment().setLabels(createLabelsForMethods(model.getMethods()));
 	}
 
-	private void updateHeader(ClassFigure figure, ClassNode header) {
-		figure.setNature(header.getNature());
-		figure.setLabel(header.getName());
+	private void updateHeader(ClassFigure figure, ClassNode<?> model) {
+		figure.setNature(model.getNature());
+		figure.setLabel(model.getType().getName());
 	}
 
-	private List<Pair<String, DexConstant>> createLabelsFor(ClassSection section) {
-		List<? extends Naturalized> members = section.getMembers();
-		List<Pair<String, DexConstant>> labels = new ArrayList<Pair<String, DexConstant>>(members.size());
-		for (Naturalized member : members) {
-			if(section.getNature().equals(DexConstant.ATTRIBUTE)) {
-				Attribute attribute = (Attribute)member;
-				labels.add(new Pair<String, DexConstant>(getSymbolFor(attribute.getModifiers()) + " " + attribute.getName() + " : " + attribute.getType().getFirstname(), attribute.getNature()));
-			} else {
-				Method method = (Method)member;
-				labels.add(new Pair<String, DexConstant>(getSymbolFor(method.getModifiers()) + " " + method.getName() + getParams(method.getParameters()) + " : " + method.getType().getFirstname(), method.getNature()));
-			}
+	private List<Pair<String, DexConstant>> createLabelsForAttributes(List<Attribute> attributes) {
+		List<Pair<String, DexConstant>> labels = new ArrayList<Pair<String, DexConstant>>(attributes.size());
+		for (Attribute attribute : attributes) {
+			labels.add(new Pair<String, DexConstant>(getSymbolFor(attribute) + " " + attribute.getName() + " : " + attribute.getType().getFirstname(), attribute.getNature()));
 		}
 		return labels;
 	}
 
-	private String getSymbolFor(List<DexConstant> modifiers) {
-		return modifiers.contains(DexConstant.PUBLIC) ? "+" :
-			(modifiers.contains(DexConstant.PRIVATE) ? "-" : "#");
+	private List<Pair<String, DexConstant>> createLabelsForMethods(List<Method> methods) {
+		List<Pair<String, DexConstant>> labels = new ArrayList<Pair<String, DexConstant>>(methods.size());
+		for(Method method : methods) {
+			labels.add(new Pair<String, DexConstant>(getSymbolFor(method) + " " + method.getName() + getParams(method.getParameters()) + " : " + method.getType().getFirstname(), method.getNature()));
+		}
+		return labels;
+	}
+	
+	private String getSymbolFor(Modifiable modifiable) {
+		return modifiable.isPublic() ? "+" :
+			(modifiable.isPrivate() ? "-" : "#");
 	}
 
-	private String getParams(List<Modifiable> parameters) {
+	private String getParams(List<Parameter> parameters) {
 		StringBuilder builder = new StringBuilder("(");
 		if(!parameters.isEmpty()) {
-			Modifiable modifiable = parameters.get(0);
-			builder.append(modifiable.getName());
+			Parameter parameter = parameters.get(0);
+			builder.append(parameter.getName());
 			builder.append(" : ");
-			builder.append(modifiable.getType().getFirstname());
+			builder.append(parameter.getType().getFirstname());
 			for (int i = 1; i < parameters.size(); i++) {
-				modifiable = parameters.get(i);
+				parameter = parameters.get(i);
 				builder.append(", ");
-				builder.append(modifiable.getName());
+				builder.append(parameter.getName());
 				builder.append(" : ");
-				builder.append(modifiable.getType().getFirstname());
+				builder.append(parameter.getType().getFirstname());
 			}
 		}
 		builder.append(")");

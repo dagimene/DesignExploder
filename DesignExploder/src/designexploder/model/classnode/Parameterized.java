@@ -4,8 +4,10 @@ import java.util.List;
 
 public interface Parameterized extends Modifiable {
 
-	List<Modifiable> getParameters();
+	List<Parameter> getParameters();
 	
-	void setParameters(List<Modifiable> parameters);
+	void addParameter(Parameter parameter);
+
+	void removeParameter(Parameter parameter);
 
 }

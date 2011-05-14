@@ -1,11 +1,33 @@
 package designexploder.model.classnode;
 
-import java.util.List;
+import java.util.Set;
 
 public interface Modifiable extends Typed {
 
-	List<DexConstant> getModifiers();
+	Set<DexConstant> getModifiers();
 	
-	void setModifiers(List<DexConstant> modifiers);
+	void addModifier(DexConstant modifier);
+	
+	void removeModifier(DexConstant modifier);
+	
+	/* Convenient Methods */
+	
+	boolean isPublic();
+	
+	boolean isPrivate();
+	
+	boolean isProtected();
+	
+	boolean isStatic();
+	
+	boolean isFinal();
+	
+	boolean isTransient();
+	
+	boolean isVolatile();
+	
+	boolean isNative();
+	
+	boolean isAbstract();
 	
 }

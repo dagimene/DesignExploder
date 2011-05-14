@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import designexploder.editor.graphics.GraphicsFactory;
 import designexploder.model.BasicModelEventTypes;
@@ -13,7 +12,7 @@ import designexploder.model.ModelEventListener;
 import designexploder.model.ModelEventType;
 import designexploder.model.Node;
 
-public class NodeEditPart extends AbstractGraphicalEditPart implements ModelEventListener {
+public class NodeEditPart extends ModelEventListenerEditPart implements ModelEventListener {
 	
 	@Override
 	protected IFigure createFigure() {
@@ -22,24 +21,16 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements ModelEven
 	
 	@Override
 	protected void refreshVisuals() {
-		Node model = (Node)getModel();
+		Node<?> model = (Node<?>)getModel();
 		((GraphicalEditPart)getParent()).setLayoutConstraint(this, getFigure(), model.getBounds());
 	}
 	
+	@Override
+	public List<ModelEventType> getListenedProperties(List<ModelEventType> properties) {
+		properties.add(BasicModelEventTypes.BOUNDS_CHANGED);
+		return properties;
+	}
 	
-	@Override
-	public void activate() {
-		super.activate();
-		((Node)getModel()).addListener(BasicModelEventTypes.NAME_CHANGED, this);
-		((Node)getModel()).addListener(BasicModelEventTypes.BOUNDS_CHANGED, this);
-	}
-
-	@Override
-	public void deactivate() {
-		// TODO Auto-generated method stub
-		super.deactivate();
-	}
-
 	@Override
 	protected void createEditPolicies() {}
 
@@ -59,9 +50,6 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements ModelEven
 	public void processModelEvent(ModelEvent e) {
 		ModelEventType type = e.getType();
 		if(type == BasicModelEventTypes.BOUNDS_CHANGED) {
-			refresh();
-		}
-		if(type == BasicModelEventTypes.NAME_CHANGED) {
 			refresh();
 		}
 	}

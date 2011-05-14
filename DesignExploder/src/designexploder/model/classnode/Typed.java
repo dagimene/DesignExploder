@@ -1,8 +1,8 @@
 package designexploder.model.classnode;
 
-import designexploder.model.Named;
+import designexploder.model.ModelEventTrigger;
 
-public interface Typed extends Named {
+public interface Typed extends ModelEventTrigger {
 	
 	Type getType();
 	

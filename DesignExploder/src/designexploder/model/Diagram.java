@@ -2,10 +2,12 @@ package designexploder.model;
 
 import java.util.List;
 
-public interface Diagram {
+public interface Diagram<N extends Node<C>, C extends Connection> extends ModelEventTrigger {
 
-	List<? extends Node> getNodes();
+	List<N> getNodes();
 	
-	void setNodes(List<? extends Node> nodes);
+	void addNode(N node);
 	
+	void removeNode(N node);
+
 }

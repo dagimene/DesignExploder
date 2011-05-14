@@ -4,7 +4,7 @@ import org.eclipse.draw2d.RotatableDecoration;
 
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.graphics.EndpointDecorationsFactory;
-import designexploder.model.classconnection.ClassConnection;
+import designexploder.model.classnode.ClassConnection;
 import designexploder.model.classnode.DexConstant;
 
 public class ClassConnectionRenderer implements Renderer<ClassConnection, ClassConnectionFigure> {

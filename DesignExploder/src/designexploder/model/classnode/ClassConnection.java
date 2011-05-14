@@ -1,8 +1,6 @@
-package designexploder.model.classconnection;
+package designexploder.model.classnode;
 
 import designexploder.model.Connection;
-import designexploder.model.Named;
-import designexploder.model.Naturalized;
 
 public interface ClassConnection extends Connection, Named, Naturalized {
 	
@@ -10,7 +8,7 @@ public interface ClassConnection extends Connection, Named, Naturalized {
 	
 	int getTargetCardinality();
 
-	void setOriginCardinality(int cardinality);
+	void setSourceCardinality(int cardinality);
 	
 	void setTargetCardinality(int cardinality);
 	

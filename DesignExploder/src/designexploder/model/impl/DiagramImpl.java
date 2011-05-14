@@ -1,21 +1,33 @@
 package designexploder.model.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import designexploder.model.BasicModelEventTypes;
+import designexploder.model.Connection;
 import designexploder.model.Diagram;
 import designexploder.model.Node;
 
-public class DiagramImpl implements Diagram {
+class DiagramImpl<N extends Node<C>, C extends Connection> extends ExtendedModelEventTrigger implements Diagram<N, C> {
 	
-	public List<? extends Node> nodes = Collections.emptyList();
+	public List<N> nodes = (List<N>) new ArrayList<N>();
 
-	public List<? extends Node> getNodes() {
-		return nodes;
+	protected DiagramImpl() {}
+	
+	public List<N> getNodes() {
+		return Collections.unmodifiableList(nodes);
 	}
 
-	public void setNodes(List<? extends Node> nodes) {
-		this.nodes = nodes;
+	@Override
+	public void addNode(N node) {
+		nodes.add(node);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.NODE_ADDED, nodes, node);
 	}
-	
+
+	@Override
+	public void removeNode(N node) {
+		nodes.remove(node);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.NODE_REMOVED, nodes, node);
+	}
 }

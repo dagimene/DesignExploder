@@ -6,11 +6,11 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 public class AutolayoutLayoutBridge implements LayoutManager {
 
-	private final Autolayot autolayuot;
+	//private final Autolayot autolayuot;
 	private final LayoutManager delegate;
 
 	public AutolayoutLayoutBridge(Autolayot autolayuot, LayoutManager delegate) {
-		this.autolayuot = autolayuot;
+		//this.autolayuot = autolayuot;
 		this.delegate = delegate;
 	}
 

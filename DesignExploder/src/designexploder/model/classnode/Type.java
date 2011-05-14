@@ -1,17 +1,20 @@
 package designexploder.model.classnode;
 
-import designexploder.model.Named;
 
-public interface Type extends Named {
+public interface Type extends InmutableNamed {
 
 	String getFirstname();
 
-	void setFirstname(String firstname);
-
 	String getLastname();
 
-	void setLastname(String lastname);
-	
 	boolean isBasic();
+	
+	boolean isClassType();
+	
+	ClassType asClassType();
+	
+	boolean isArray();
+
+	ArrayType asArrayType();
 	
 }

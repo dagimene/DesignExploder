@@ -4,17 +4,27 @@ import designexploder.model.BasicModelEventTypes;
 import designexploder.model.Connection;
 import designexploder.model.Node;
 
-public class ConnectionImpl extends ModelPropertyChangeEventTrigger implements Connection {
+@SuppressWarnings("rawtypes")
+public class ConnectionImpl extends ExtendedModelEventTrigger implements Connection {
+	
+	private String id;
 	
 	private Node target;
 	
 	private Node source;
 	
-	public ConnectionImpl() {}
+	private static long ID_GENERATOR;
 
-	public ConnectionImpl(Node target, Node source) {
-		this.target = target;
-		this.source = source;
+	protected ConnectionImpl() {
+		this(String.valueOf(ID_GENERATOR++));
+	}
+
+	protected ConnectionImpl(String id) {
+		this.id = id;
+	}
+	
+	protected void setId(String id) {
+		this.id = id;
 	}
 
 	public Node getTarget() {
@@ -36,5 +46,9 @@ public class ConnectionImpl extends ModelPropertyChangeEventTrigger implements C
 		this.source = source;
 		fireModelPropertyChangeEvent(BasicModelEventTypes.TARGET_CHANGED, oldSource, source);
 	}
-	
+
+	@Override
+	public String getId() {
+		return id;
+	}
 }

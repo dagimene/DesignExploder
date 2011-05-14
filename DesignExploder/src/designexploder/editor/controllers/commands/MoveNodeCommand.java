@@ -7,10 +7,10 @@ import designexploder.model.classnode.ClassNode;
 
 public class MoveNodeCommand extends Command {
 
-	private ClassNode node;
+	private ClassNode<?> node;
 	private Point location;
 
-	public MoveNodeCommand(ClassNode node, Point location) {
+	public MoveNodeCommand(ClassNode<?> node, Point location) {
 		super("MoveNodeCommand");
 		this.node = node;
 		this.location = location;

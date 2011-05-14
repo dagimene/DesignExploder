@@ -1,6 +1,5 @@
 package designexploder.model;
 
-
 public interface ModelEventTrigger {
 
 	void addListener(ModelEventType event, ModelEventListener listener);

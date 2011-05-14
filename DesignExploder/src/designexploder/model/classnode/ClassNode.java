@@ -2,13 +2,21 @@ package designexploder.model.classnode;
 
 import java.util.List;
 
-import designexploder.model.Naturalized;
+import designexploder.model.Connection;
 import designexploder.model.Node;
 
-public interface ClassNode extends Node, Naturalized, Modifiable, Type {
+public interface ClassNode<C extends Connection> extends Node<C>, Naturalized, Modifiable {
 	
-	List<ClassSection> getSections();
+	List<Method> getMethods();
 	
-	void setSections(List<ClassSection> sections);
+	List<Attribute> getAttributes();
+	
+	void addMethod(Method method);
 
+	void removeMethod(Method method);
+	
+	void addAttribute(Attribute attribute);
+
+	void removeAttribute(Attribute attribute);
+	
 }

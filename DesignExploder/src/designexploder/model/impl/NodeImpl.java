@@ -1,6 +1,7 @@
 package designexploder.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -11,19 +12,31 @@ import designexploder.model.BasicModelEventTypes;
 import designexploder.model.Connection;
 import designexploder.model.Node;
 
-public class NodeImpl extends NamedImpl implements Node {
+public class NodeImpl<C extends Connection> extends ExtendedModelEventTrigger implements Node<C> {
 
-	public NodeImpl(String name) {
-		super(name);
-		outflows = new ArrayList<Connection>();
-		inflows = new ArrayList<Connection>();
-		bounds = new Rectangle(); 
+	private List<C> outflows = new ArrayList<C>();
+	private List<C> inflows = new ArrayList<C>();
+	private Rectangle bounds = new Rectangle();
+	private String id;
+	
+	private static long ID_GENERATOR;
+
+	protected NodeImpl() {
+		this(String.valueOf(ID_GENERATOR++));
 	}
 
-	private List<Connection> outflows;
-	private List<Connection> inflows;
-	private Rectangle bounds;
+	protected NodeImpl(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
 	
+	protected void setId(String id) {
+		this.id = id;
+	}
+
 	public Rectangle getBounds() {
 		return bounds;
 	}
@@ -61,26 +74,31 @@ public class NodeImpl extends NamedImpl implements Node {
 		fireModelPropertyChangeEvent(BasicModelEventTypes.BOUNDS_CHANGED, oldBounds, bounds);
 	}
 
-	public List<Connection> getOutflows() {
+	public List<C> getOutflows() {
 		return outflows;
 	}
 
-	public void setOutflows(List<Connection> outflows) {
-		List<Connection> oldOutflows = this.outflows;
-		this.outflows = outflows;
-		fireModelPropertyChangeEvent(BasicModelEventTypes.OUTFLOWS_CHANGED, oldOutflows, outflows);
-		fireEvent(BasicModelEventTypes.CONNECTIONS_CHANGED);
+	public void addOutflow(C outflow) {
+		outflows.add(outflow);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_ADDED, outflows, outflow);
 	}
 
-	public List<Connection> getInflows() {
-		return inflows;
+	public List<C> getInflows() {
+		return Collections.unmodifiableList(inflows);
 	}
 
-	public void setInflows(List<Connection> inflows) {
-		List<Connection> oldInflows = this.inflows;
-		this.inflows = inflows;
-		fireModelPropertyChangeEvent(BasicModelEventTypes.INFLOWS_CHANGED, oldInflows, inflows);
-		fireEvent(BasicModelEventTypes.CONNECTIONS_CHANGED);
+	public void addInflow(C inflow) {
+		inflows.add(inflow);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.INFLOW_ADDED, Collections.unmodifiableList(inflows), inflow);
 	}
 
+	public void removeOutflow(C outflow) {
+		outflows.add(outflow);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_REMOVED, outflows, outflow);
+	}
+
+	public void removeInflow(C inflow) {
+		inflows.remove(inflow);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.INFLOW_REMOVED, Collections.unmodifiableList(inflows), inflow);
+	}
 }

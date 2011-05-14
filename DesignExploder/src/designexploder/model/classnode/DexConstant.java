@@ -1,8 +1,6 @@
 package designexploder.model.classnode;
 
-import designexploder.model.Named;
-
-public enum DexConstant implements Named {
+public enum DexConstant implements InmutableNamed {
 	
 	/* ACCESS MODIFIERS */
 	
@@ -19,11 +17,6 @@ public enum DexConstant implements Named {
 	VOLATILE("volatile"),
 	NATIVE("native"),
 	
-	/* CLASS SECTIONS */
-	
-	ATTRIBUTE("Attributes"),
-	METHOD("Methods"),
-
 	/* Class Natures */
 	
 	CLASS("Class"),
@@ -31,12 +24,15 @@ public enum DexConstant implements Named {
 	INTERFACE("Interface"),
 	ENUM("Enum"),
 	
+	/* Class Elements Natures */
+	METHOD("Method"),
+	ATTRIBUTE("Attribute"),
 	ABSTRACT_METHOD("Abstract Method"),
 	
 	/* Connection Natures */
 	
 	ASSOCIATION("Association"),
-	AGREGATION("Agregation"), // TODO: Meaningless to codegeneration.
+	AGREGATION("Agregation"), // TODO: Meaningless to code generation.
 	COMPOSITION("Composition"),
 	REALIZATION("Realization"),
 	HIERARCHY("Hierarchy"),
@@ -52,9 +48,5 @@ public enum DexConstant implements Named {
 
 	public String getName() {
 		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 }

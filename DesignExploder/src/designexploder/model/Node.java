@@ -6,26 +6,32 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public interface Node extends Named, ModelEventTrigger {
+public interface Node<C extends Connection> extends ModelEventTrigger {
 
+	String getId();
+	
 	Point getLocation();
 
-	void setLocation(Point location);
+	Rectangle getBounds();
 	
 	Dimension getSize();
 	
-	void setSize(Dimension size);
+	void setLocation(Point location);
 	
-	Rectangle getBounds();
+	void setSize(Dimension size);
 	
 	void setBounds(Rectangle bounds);
 	
-	void setOutflows(List<Connection> connections);
+	List<C> getOutflows();
 
-	List<Connection> getOutflows();
+	void addOutflow(C connection);
 
-	List<Connection> getInflows();
+	void removeOutflow(C connection);
 
-	void setInflows(List<Connection> connections);
+	List<C> getInflows();
+
+	void addInflow(C connection);
+
+	void removeInflow(C connection);
 
 }

@@ -1,27 +1,33 @@
 package designexploder.model.classnode.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import designexploder.model.classnode.ClassModelEventTypes;
 import designexploder.model.classnode.DexConstant;
 import designexploder.model.classnode.Method;
-import designexploder.model.classnode.Modifiable;
 import designexploder.model.classnode.Type;
 
-public class MethodImpl extends AttributeImpl implements Method {
+public class MethodImpl extends ParameterizedImpl implements Method {
+
+	private String name;
+
+	protected MethodImpl(String name, Type type) {
+		super(type);
+		this.name = name;
+	}
 	
-	private List<Modifiable> parameters;
-	
-	public MethodImpl(String name, Type type, DexConstant nature) {
-		super(name, type, nature);
-		parameters = new ArrayList<Modifiable>(10);
+	public void setName(String name) {
+		String oldName = this.name;
+		this.name = name;
+		fireModelPropertyChangeEvent(ClassModelEventTypes.NAME_CHANGED, oldName, name);
 	}
 
-	public List<Modifiable> getParameters() {
-		return parameters;
+	@Override
+	public String getName() {
+		return name;
 	}
 
-	public void setParameters(List<Modifiable> parameters) {
-		this.parameters = parameters;
+	@Override
+	public DexConstant getNature() {
+		return isAbstract() ? DexConstant.ABSTRACT_METHOD : DexConstant.METHOD;
 	}
+	
 }
