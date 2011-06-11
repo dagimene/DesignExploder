@@ -1,5 +1,6 @@
 package designexploder.model.classnode.impl;
 
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class TypeImpl implements Type {
 	}
 
 	public boolean isClassType() {
-		return !isBasic();
+		return !isBasic() && !isArray();
 	}
 
 	public ClassType asClassType() {
@@ -97,5 +98,10 @@ public class TypeImpl implements Type {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " [ "+ getName() +  (basic ? " (primitive)" : " (class)") +" ]";
+	}
+
+	@Override
+	public boolean isTypeVariable() {
+		return false;
 	}
 }

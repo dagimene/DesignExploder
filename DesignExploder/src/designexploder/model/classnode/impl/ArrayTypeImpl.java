@@ -32,11 +32,18 @@ public class ArrayTypeImpl implements ArrayType {
 	private final Type inner;
 	private final int deepCount;
 	private final String compoundName;
+	private final String compoundFirstname;
 
 	private ArrayTypeImpl(Type inner, int deepCount) {
 		this.inner = inner;
 		this.deepCount = deepCount;
-		compoundName = createCompoundName(inner.getName(), deepCount); 
+		StringBuilder builder = new StringBuilder();
+		while(deepCount > 0) {
+			builder.append("[]");
+			deepCount--;
+		}
+		compoundName = inner.getName() + builder.toString();
+		compoundFirstname = inner.getFirstname() + builder.toString();
 	}
 	
 	public String getName() {
@@ -44,7 +51,7 @@ public class ArrayTypeImpl implements ArrayType {
 	}
 
 	public String getFirstname() {
-		return inner.getFirstname();
+		return compoundFirstname;
 	}
 
 	public String getLastname() {
@@ -81,17 +88,13 @@ public class ArrayTypeImpl implements ArrayType {
 		return deepCount;
 	}
 
-	private static String createCompoundName(String name, int deepCount) {
-		StringBuilder builder = new StringBuilder(name);
-		while(deepCount > 0) {
-			builder.append("[]");
-			deepCount--;
-		}
-		return builder.toString();
-	}
 	@Override
-
 	public String toString() {
 		return getClass().getSimpleName() + " ("+ getDeepCount() +") [ " + inner.toString() +" ]";
+	}
+
+	@Override
+	public boolean isTypeVariable() {
+		return false;
 	}
 }

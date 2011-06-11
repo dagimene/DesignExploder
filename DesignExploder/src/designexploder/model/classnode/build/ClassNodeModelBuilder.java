@@ -106,6 +106,7 @@ public class ClassNodeModelBuilder<N extends ClassNode<C>,C extends ClassConnect
 	}
 	
 	private void buildRelation(N node, ClassType target, DexConstant nature) {
+		target = target.getTypeErasure();
 		N supertypeNode = nodes.get(target.getName());
 		if(supertypeNode != null) {
 			buildConnection(new ClassConnectionDataProviderImpl(node, supertypeNode, nature));

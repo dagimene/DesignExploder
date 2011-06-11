@@ -54,7 +54,7 @@ public class JDTClassType extends TypeImpl implements ClassType {
 		try {
 			String signature = type.getSuperclassTypeSignature();
 			if(signature == null) {
-				JDTClassType objectType = factory.typeFor(Object.class);
+				ClassType objectType = factory.typeFor(Object.class);
 				if(this != objectType) {
 					result = objectType;
 				}
@@ -94,7 +94,6 @@ public class JDTClassType extends TypeImpl implements ClassType {
 
 	@Override
 	public List<Type> getTypeParameters() {
-		// TODO: What to do?
 		return Collections.emptyList();
 	}
 	
@@ -105,5 +104,10 @@ public class JDTClassType extends TypeImpl implements ClassType {
 	@Override
 	public ClassTypeFactory getFactory() {
 		return factory;
+	}
+
+	@Override
+	public ClassType getTypeErasure() {
+		return this;
 	}
 }

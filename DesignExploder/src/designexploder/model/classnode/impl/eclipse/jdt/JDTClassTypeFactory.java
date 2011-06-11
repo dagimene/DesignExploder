@@ -1,6 +1,8 @@
 package designexploder.model.classnode.impl.eclipse.jdt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -8,10 +10,13 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 
+import designexploder.model.classnode.ClassType;
 import designexploder.model.classnode.ClassTypeFactory;
 import designexploder.model.classnode.Type;
 import designexploder.model.classnode.impl.ArrayTypeImpl;
+import designexploder.model.classnode.impl.ParameterizedClassTypeImpl;
 import designexploder.model.classnode.impl.TypeImpl;
+import designexploder.model.classnode.impl.UnresolvedClassTypeImpl;
 
 public class JDTClassTypeFactory implements ClassTypeFactory {
 
@@ -39,7 +44,7 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 	
 	/* PUBLIC */
 
-	public JDTClassType typeFor(Class<?> clazz) throws JavaModelException {
+	public ClassType typeFor(Class<?> clazz) throws JavaModelException {
 		return typeFor(clazz.getName());
 	}
 
@@ -51,8 +56,8 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 		return result;
 	}
 	
-	public JDTClassType typeFor(String fullyQualifiedName) throws JavaModelException {
-		JDTClassType result = null;
+	public ClassType typeFor(String fullyQualifiedName) throws JavaModelException {
+		ClassType result = null;
 		if(checkFullyQualifiedName(fullyQualifiedName)) {
 			result = types.get(fullyQualifiedName);
 			if(result == null) {
@@ -60,12 +65,18 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 				type = project.findType(fullyQualifiedName);
 				if(type != null) {
 					result = typeFor(type);
+				} else {
+					result = unresolvedTypeFor(fullyQualifiedName);
 				}
 			}
 		}
 		return result;
 	}
 	
+	private ClassType unresolvedTypeFor(String name) {
+		return UnresolvedClassTypeImpl.instanceForUnknownType(name, this);
+	}
+
 	public Type typeFor(String signature, IType context) throws JavaModelException {
 		Type result;
 		switch (Signature.getTypeSignatureKind(signature)) {
@@ -77,10 +88,32 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 			result = TypeImpl.instanceFor(Signature.toString(signature));
 			break;
 		case Signature.CLASS_TYPE_SIGNATURE:
-			result = typeFor(getFullyQualifiedName(signature, context));
+			result = buildClassType(signature, context);
+			break;
+		case Signature.TYPE_VARIABLE_SIGNATURE:
+		case Signature.WILDCARD_TYPE_SIGNATURE:
+		case Signature.CAPTURE_TYPE_SIGNATURE:
+			result = UnresolvedClassTypeImpl.instanceForTypeVariable(Signature.toString(signature), this);
 			break;
 		default:
-			result = null;
+			throw new IllegalArgumentException("Invalid signature type for '"+signature+"': "+Signature.getTypeSignatureKind(signature));
+		}
+		return result;
+	}
+
+	private ClassType buildClassType(String signature, IType context) throws JavaModelException {
+		ClassType result = null;
+		Type type = typeFor(getFullyQualifiedName(signature, context));
+		if(type.isClassType()) {
+			result = type.asClassType();
+			String[] parametersSignatures = Signature.getTypeArguments(signature);
+			if(parametersSignatures.length != 0) {
+				List<Type> typeParameters = new ArrayList<Type>(parametersSignatures.length);
+				for (String parameterSignature : parametersSignatures) {
+					typeParameters.add(typeFor(parameterSignature, context));
+				}
+				result = new ParameterizedClassTypeImpl(result, typeParameters); 
+			}
 		}
 		return result;
 	}
@@ -107,9 +140,9 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 
 	/**
 	 * 
-	 * @param simple An non array signature
+	 * @param signature A type signature
 	 * @param context
-	 * @return
+	 * @return the fully qualified type signature 
 	 * @throws JavaModelException 
 	 */
 	private String getFullyQualifiedName(String signature, IType context) throws JavaModelException {
@@ -121,6 +154,8 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 			String[][] posibleFullyQualifiedNames = context.resolveType(Signature.toString(erasure));
 			if(posibleFullyQualifiedNames != null) {
 				result = Signature.toQualifiedName(posibleFullyQualifiedNames[0]);
+			} else {
+				result = Signature.toString(erasure);
 			}
 		}
 		return result;

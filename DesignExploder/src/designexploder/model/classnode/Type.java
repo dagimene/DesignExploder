@@ -9,12 +9,14 @@ public interface Type extends InmutableNamed {
 
 	boolean isBasic();
 	
-	boolean isClassType();
-	
-	ClassType asClassType();
-	
 	boolean isArray();
 
+	boolean isClassType();
+	
+	boolean isTypeVariable();
+
+	ClassType asClassType();
+	
 	ArrayType asArrayType();
 	
 }

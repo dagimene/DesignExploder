@@ -15,7 +15,12 @@ public interface ClassType extends Type {
 	List<ClassType> getInterfaces();
 	
 	/**
-	 * @return list of ClassTypes and ArrayTypes.
+	 * @return A class type corresponding to this type without type parameters.
+	 */
+	ClassType getTypeErasure();
+	
+	/**
+	 * @return list of ClassTypes and ArrayTypes corresponding to type parameters, if the type is parameterized, or an empty list.
 	 */
 	List<Type> getTypeParameters();
 	

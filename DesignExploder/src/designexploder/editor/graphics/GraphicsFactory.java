@@ -12,7 +12,6 @@ public class GraphicsFactory {
 		diagram.setLayoutManager(new XYLayout() {
 			@Override
 			public void layout(IFigure parent) {
-				// TODO Auto-generated method stub
 				super.layout(parent);
 			}
 		});

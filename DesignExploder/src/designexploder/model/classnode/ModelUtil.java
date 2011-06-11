@@ -38,7 +38,7 @@ public class ModelUtil {
 		hierarchy.add(type);
 		while(!hierarchy.isEmpty()) {
 			type = hierarchy.pop();
-			if(type.isInterface() && collectionType.equals(type)) {
+			if(type.isInterface() && collectionType.equals(type.getTypeErasure())) {
 				return true;
 			}
 			ClassType superclass = type.getSuperclass();
@@ -142,6 +142,16 @@ public class ModelUtil {
 		@Override
 		public ClassTypeFactory getFactory() {
 			return null;
+		}
+
+		@Override
+		public ClassType getTypeErasure() {
+			return this;
+		}
+
+		@Override
+		public boolean isTypeVariable() {
+			return false;
 		}
 	};
 	
