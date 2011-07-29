@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import designexploder.model.ModelEventListener;
-import designexploder.model.ModelEventTrigger;
-import designexploder.model.ModelEventType;
+import designexploder.model.event.ModelEventListener;
+import designexploder.model.event.ModelEventTrigger;
+import designexploder.model.event.ModelEventType;
 
 public abstract class ModelEventListenerEditPart extends AbstractGraphicalEditPart implements ModelEventListener {
 

@@ -4,55 +4,78 @@ import org.eclipse.draw2d.RotatableDecoration;
 
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.graphics.EndpointDecorationsFactory;
-import designexploder.model.classnode.ClassConnection;
-import designexploder.model.classnode.DexConstant;
+import designexploder.model.Connection;
+import designexploder.model.extension.classnode.ClassConnection;
+import designexploder.model.extension.common.Nature;
 
-public class ClassConnectionRenderer implements Renderer<ClassConnection, ClassConnectionFigure> {
+import static designexploder.model.extension.classnode.ClassModelNatures.*;
+
+public class ClassConnectionRenderer implements Renderer<Connection, ClassConnectionFigure> {
 
 	@Override
-	public void render(ClassConnection model, ClassConnectionFigure figure) {
+	public void render(Connection connection, ClassConnectionFigure figure) {
+
+		figure.setSourceDecoration(getDecoration(connection, Endpoint.SOURCE));
+		figure.setTargetDecoration(getDecoration(connection, Endpoint.TARGET));
+
+		figure.setLabelText(ClassConnectionFigure.SOURCE, cardinalityString(getCardinality(connection, Endpoint.SOURCE)));
+		figure.setLabelText(ClassConnectionFigure.TARGET, cardinalityString(getCardinality(connection, Endpoint.TARGET)));
+		figure.setLabelText(ClassConnectionFigure.CONNECTION, getName(connection));
+
+		figure.setLineDash(getLinedDash(connection));
+	
+	}
 		
-		RotatableDecoration decoration;
-		
-		switch (model.getNature()) {
-		case COMPOSITION:
-			decoration = EndpointDecorationsFactory.createFilledDiamond();
-			break;
-		case AGREGATION:
-			decoration = EndpointDecorationsFactory.createEmptyDiamond();
-			break;
-		case HIERARCHY:
-		case REALIZATION:
-			decoration = EndpointDecorationsFactory.createClosedArrow();
-			break;
-		//case ASSOCIATION:
-		default:
-			decoration = EndpointDecorationsFactory.createOpenArrow();
+	public float[] getLinedDash(Connection connection) {
+		ClassConnection classConnection = connection.getExtension(ClassConnection.class);
+		return classConnection.getNature() == REALIZATION ? new float[] {5f, 5f} : null;
+	}
+
+	public String getName(Connection connection) {
+		ClassConnection classConnection = connection.getExtension(ClassConnection.class);
+		return classConnection.getName();
+	}
+
+
+	public int getCardinality(Connection connection, Endpoint endpoint) {
+		ClassConnection classConnection = connection.getExtension(ClassConnection.class);
+		return endpoint == Endpoint.SOURCE ? classConnection.getSourceCardinality() : classConnection.getTargetCardinality();
+	}
+
+	public RotatableDecoration getDecoration(Connection connection, Endpoint endpoint) {
+		ClassConnection classConnection = connection.getExtension(ClassConnection.class);
+		if(getDecoratedEndpoint(classConnection.getNature()) == endpoint) {
+			return getDecoration(classConnection.getNature());
 		}
-		
-		switch (model.getNature()) {
-		case COMPOSITION:
-		case AGREGATION:
-			figure.setTargetDecoration(null);
-			figure.setSourceDecoration(decoration);
-			break;
-		//case ASSOCIATION:
-		//case HIERARCHY:
-		//case REALIZATION:
-		default:
-			figure.setSourceDecoration(null);
-			figure.setTargetDecoration(decoration);
+		return null;
+	}
+
+	private RotatableDecoration getDecoration(Nature nature) {
+		if(nature == COMPOSITION) {
+			return EndpointDecorationsFactory.createFilledDiamond();
 		}
-			
-		figure.setLineDash(model.getNature() == DexConstant.REALIZATION ? new float[] {5f, 5f} : null);
-		
-		figure.setLabelText(ClassConnectionFigure.SOURCE, cardinalityString(model.getSourceCardinality()));
-		figure.setLabelText(ClassConnectionFigure.TARGET, cardinalityString(model.getTargetCardinality()));
-		figure.setLabelText(ClassConnectionFigure.CONNECTION, model.getName());
+		if(nature == AGREGATION) {
+			return EndpointDecorationsFactory.createEmptyDiamond();
+		}
+		if(nature == HIERARCHY || nature == REALIZATION) {
+			return EndpointDecorationsFactory.createClosedArrow();
+		}
+		return EndpointDecorationsFactory.createOpenArrow();
+	}
+
+	private Endpoint getDecoratedEndpoint(Nature nature) {
+		if(nature == COMPOSITION || nature == AGREGATION) {
+			return Endpoint.SOURCE;
+		}
+		return Endpoint.TARGET;
 	}
 	
 	private String cardinalityString(int cardinality) {
 		return cardinality >= 0 ? (cardinality == Integer.MAX_VALUE ? "N": String.valueOf(cardinality)) : null;
+	}
+	
+	static enum Endpoint {
+		TARGET, SOURCE
 	}
 
 }

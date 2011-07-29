@@ -1,10 +1,7 @@
 package designexploder.model;
 
-@SuppressWarnings("rawtypes")
-public interface Connection extends ModelEventTrigger {
+public interface Connection extends ExtensibleModelElement {
 
-	String getId();
-	
 	Node getTarget();
 	
 	Node getSource();

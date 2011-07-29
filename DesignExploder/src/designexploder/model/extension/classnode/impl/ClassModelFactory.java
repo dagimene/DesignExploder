@@ -1,0 +1,34 @@
+package designexploder.model.extension.classnode.impl;
+
+import designexploder.model.extension.classnode.*;
+
+public class ClassModelFactory {
+
+	private static final ClassModelFactory instance = new ClassModelFactory();
+
+	public static ClassModelFactory getInstance() {
+		return instance;
+	}
+	
+	private ClassModelFactory() {}
+	
+	public ClassNode createClassNode(Type type) {
+		return new ClassNodeImpl(type);
+	}
+
+	public ClassConnection createClassConnection() {
+		return new ClassConnectionImpl();
+	}
+
+	public Attribute createAttribute(String name, Type type) {
+		return new AttributeImpl(name, type);
+	}
+
+	public Method createMethod(String name, Type type) {
+		return new MethodImpl(name, type);
+	}
+	
+	public Parameter createParameter(String name, Type type) {
+		return new ParameterImpl(name, type);
+	}
+}

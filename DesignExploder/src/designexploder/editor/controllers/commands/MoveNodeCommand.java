@@ -1,25 +1,22 @@
 package designexploder.editor.controllers.commands;
 
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.commands.Command;
 
-import designexploder.model.classnode.ClassNode;
+import designexploder.model.Node;
 
-public class MoveNodeCommand extends Command {
+public class MoveNodeCommand extends NodeCommand {
 
-	private ClassNode<?> node;
 	private Point location;
 
-	public MoveNodeCommand(ClassNode<?> node, Point location) {
-		super("MoveNodeCommand");
-		this.node = node;
+	public MoveNodeCommand(Node node, Point location) {
+		super("MoveNodeCommand", node);
 		this.location = location;
 	}
 
 	@Override
 	public void execute() {
-		Point temp = node.getLocation();
-		node.setLocation(location);
+		Point temp = getModel().getLocation();
+		getModel().setLocation(location);
 		location = temp;
 	}
 

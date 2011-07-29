@@ -6,23 +6,22 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.GraphicalEditPart;
 
 import designexploder.editor.graphics.GraphicsFactory;
-import designexploder.model.BasicModelEventTypes;
-import designexploder.model.ModelEvent;
-import designexploder.model.ModelEventListener;
-import designexploder.model.ModelEventType;
+import designexploder.model.Connection;
 import designexploder.model.Node;
+import designexploder.model.event.BasicModelEventTypes;
+import designexploder.model.event.ModelEvent;
+import designexploder.model.event.ModelEventType;
 
-public class NodeEditPart extends ModelEventListenerEditPart implements ModelEventListener {
+public class NodeEditPart extends ModelEventListenerEditPart {
 	
 	@Override
 	protected IFigure createFigure() {
-		return GraphicsFactory.createClassFigure();
+		return GraphicsFactory.createAbstractNodeFigure();
 	}
 	
 	@Override
 	protected void refreshVisuals() {
-		Node<?> model = (Node<?>)getModel();
-		((GraphicalEditPart)getParent()).setLayoutConstraint(this, getFigure(), model.getBounds());
+		((GraphicalEditPart)getParent()).setLayoutConstraint(this, getFigure(), getModel().getBounds());
 	}
 	
 	@Override
@@ -35,15 +34,13 @@ public class NodeEditPart extends ModelEventListenerEditPart implements ModelEve
 	protected void createEditPolicies() {}
 
 	@Override
-	@SuppressWarnings("rawtypes")
-	protected List getModelSourceConnections() {
-		return ((Node)getModel()).getOutflows();
+	protected List<Connection> getModelSourceConnections() {
+		return getModel().getOutflows();
 	}
 
 	@Override
-	@SuppressWarnings("rawtypes")
-	protected List getModelTargetConnections() {
-		return ((Node)getModel()).getInflows();
+	protected List<Connection> getModelTargetConnections() {
+		return getModel().getInflows();
 	}
 
 	@Override
@@ -52,5 +49,9 @@ public class NodeEditPart extends ModelEventListenerEditPart implements ModelEve
 		if(type == BasicModelEventTypes.BOUNDS_CHANGED) {
 			refresh();
 		}
+	}
+	
+	public Node getModel() {
+		return (Node) super.getModel();
 	}
 }

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import designexploder.model.ModelEvent;
-import designexploder.model.ModelEventListener;
-import designexploder.model.ModelEventTrigger;
-import designexploder.model.ModelEventType;
+import designexploder.model.event.ModelEvent;
+import designexploder.model.event.ModelEventListener;
+import designexploder.model.event.ModelEventTrigger;
+import designexploder.model.event.ModelEventType;
 
 public class ModelEventTriggerImpl implements ModelEventTrigger {
 
@@ -41,6 +41,6 @@ public class ModelEventTriggerImpl implements ModelEventTrigger {
 	}
 	
 	protected void fireEvent(ModelEventType type) {
-		fireEvent(new ModelEvent(type));
+		fireEvent(new ModelEvent(type, this));
 	}
 }

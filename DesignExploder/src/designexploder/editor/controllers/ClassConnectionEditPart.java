@@ -2,7 +2,7 @@ package designexploder.editor.controllers;
 
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.renderers.ClassConnectionRenderer;
-import designexploder.model.classnode.ClassConnection;
+import designexploder.model.Connection;
 
 public class ClassConnectionEditPart extends ConnectionEditPart {
 
@@ -10,7 +10,12 @@ public class ClassConnectionEditPart extends ConnectionEditPart {
 	
 	@Override
 	protected void refreshVisuals() {
-		renderer.render((ClassConnection)getModel(), (ClassConnectionFigure)getFigure());
+		renderer.render(getModel(), (ClassConnectionFigure)getFigure());
 		super.refreshVisuals();
 	}	
+	
+	@Override
+	public Connection getModel() {
+		return (Connection) super.getModel();
+	}
 }

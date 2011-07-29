@@ -9,12 +9,12 @@ import org.eclipse.draw2d.ToolbarLayout;
 import designexploder.editor.graphics.styles.Style;
 import designexploder.editor.graphics.styles.Style.Constant;
 import designexploder.editor.graphics.styles.StylesFactory;
-import designexploder.model.classnode.DexConstant;
+import designexploder.model.extension.common.Nature;
 
 public class ClassFigure extends Figure {
 
 	private Label label;
-	private DexConstant nature;
+	private Nature nature;
 	private boolean selected;
 	private SectionFigure attributeFigure = new SectionFigure();
 	private SectionFigure methodFigure = new SectionFigure();
@@ -31,27 +31,28 @@ public class ClassFigure extends Figure {
 		add(methodFigure);
 	}
 
-	public void setNature(DexConstant nature) {
-		this.nature = nature;
-		updateStyle();
-	}
-	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 		updateStyle();
 	}
 	
-	private void updateStyle() {
-		Style style = StylesFactory.getInstance().getStyleFor(nature);
-		setBackgroundColor(style.getColor(Constant.getBackground(selected)));
-		label.setFont(style.getFont(Constant.getFont(selected)));
-		label.setForegroundColor(style.getColor(Constant.getForeground(selected)));
+	public void setNature(Nature nature) {
+		this.nature = nature;
+		updateStyle();
 	}
 	
 	public void setLabel(String label) {
 		this.label.setText(label);
 	}
 
+	private void updateStyle() {
+		Style style = StylesFactory.getInstance().getStyleFor(nature);
+		setBackgroundColor(style.getColor(Constant.getBackground(selected)));
+		label.setIcon(style.getImage(Constant.getIcon()));
+		label.setFont(style.getFont(Constant.getFont(selected)));
+		label.setForegroundColor(style.getColor(Constant.getForeground(selected)));
+	}
+	
 	public SectionFigure getAttributesCompartment() {
 		return attributeFigure;
 	}

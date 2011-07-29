@@ -3,9 +3,9 @@ package designexploder.editor.graphics.styles;
 import java.util.HashMap;
 import java.util.Map;
 
-import designexploder.model.classnode.DexConstant;
+import designexploder.model.extension.common.Nature;
 
-import static designexploder.model.classnode.DexConstant.*;
+import static designexploder.model.extension.classnode.ClassModelNatures.*;
 
 public class StylesFactory {
 	
@@ -16,7 +16,7 @@ public class StylesFactory {
 	
 	private StylesFactory(){
 		// Should count the applicable DexConstant, not the styles.
-		styles = new HashMap<DexConstant, Style>(Style.values().length);
+		styles = new HashMap<Nature, Style>(Style.values().length);
 		
 		/* Node styles */
 		styles.put(CLASS, Style.CLASS);
@@ -36,9 +36,9 @@ public class StylesFactory {
 		styles.put(ASSOCIATION, null);
 	}
 	
-	private Map<DexConstant, Style> styles;
+	private Map<Nature, Style> styles;
 	
-	public Style getStyleFor(DexConstant nature) {
+	public Style getStyleFor(Nature nature) {
 		return styles.get(nature);
 	}
 }

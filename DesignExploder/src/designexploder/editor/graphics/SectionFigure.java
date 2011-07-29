@@ -1,25 +1,25 @@
 package designexploder.editor.graphics;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.AbstractBorder;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Insets;
 
 import designexploder.editor.graphics.styles.Style;
+import designexploder.editor.graphics.styles.Style.Constant;
 import designexploder.editor.graphics.styles.StylesFactory;
-import designexploder.model.classnode.DexConstant;
-import designexploder.util.Pair;
+import designexploder.model.extension.common.Nature;
 
 public class SectionFigure extends Figure {
 
-	private List<Pair<Label, DexConstant>> labels = new LinkedList<Pair<Label, DexConstant>>();
+	private List<Figure> rows = new ArrayList<Figure>();
 	
 	public SectionFigure() {
 		ToolbarLayout layout = new ToolbarLayout(false);
@@ -38,29 +38,35 @@ public class SectionFigure extends Figure {
 		});
 	}
 	
-	public void setLabels(List<Pair<String, DexConstant>> components) {
-		int lSize = labels.size();
-		int cSize = components.size(); 
-		while(lSize > cSize) {
-			remove(labels.remove(--lSize).getFirst());
+	public void setLabelsQuantity(int quantity) {
+		int lSize = rows.size();
+		while(lSize > quantity) {
+			remove(rows.remove(--lSize));
 		}
-		while(lSize < cSize) {
-			Label l = new Label();
-			labels.add(new Pair<Label, DexConstant>(l, null));
-			add(l);
+		while(lSize < quantity) {
+			Figure row = new Figure();
+			row.setLayoutManager(new ToolbarLayout());
+			row.add(new Label());
+			rows.add(row);
+			add(row);
 			lSize++;
 		}
-		Iterator<Pair<Label, DexConstant>> labelsItt = labels.iterator();
-		for (Pair<String, DexConstant> component : components) {
-			Pair<Label, DexConstant> label = labelsItt.next(); 
-			label.getFirst().setText(component.getFirst());
-			if(label.getSecond() != component.getSecond()) {
-				label.setSecond(component.getSecond());
-				Label l = label.getFirst();
-				Style s = StylesFactory.getInstance().getStyleFor(label.getSecond());
-				l.setForegroundColor(s.getColor(Style.Constant.FOREGROUND));
-				l.setFont(s.getFont(Style.Constant.FONT));
-			}
+	}
+	
+	public void setLabelContent(int index, String text, Nature nature, List<Nature> icons) {
+		Figure row = rows.get(index);
+		List<?> children = row.getChildren();
+		int childrenCount = children.size();
+		Label label = (Label) children.get(childrenCount - 1);
+		row.removeAll();
+		for (Nature icon : icons) {
+			Style style = StylesFactory.getInstance().getStyleFor(icon);
+			row.add(new ImageFigure(style.getImage(Constant.getIcon())));
 		}
+		label.setText(text);
+		Style style = StylesFactory.getInstance().getStyleFor(nature);
+		label.setFont(style.getFont(Constant.getFont(false)));
+		label.setForegroundColor(style.getColor(Constant.getForeground(false)));
+		row.add(label);
 	}
 }

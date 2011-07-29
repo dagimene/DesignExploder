@@ -8,35 +8,19 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import designexploder.model.BasicModelEventTypes;
 import designexploder.model.Connection;
 import designexploder.model.Node;
+import designexploder.model.NodeContainer;
+import designexploder.model.event.BasicModelEventTypes;
 
-public class NodeImpl<C extends Connection> extends ExtendedModelEventTrigger implements Node<C> {
+class NodeImpl extends ExtensibleModelElementImpl implements Node {
 
-	private List<C> outflows = new ArrayList<C>();
-	private List<C> inflows = new ArrayList<C>();
-	private Rectangle bounds = new Rectangle();
-	private String id;
+	private NodeContainer container;
+	private List<Connection> outflows = new ArrayList<Connection>();
+	private List<Connection> inflows = new ArrayList<Connection>();
+	private Rectangle bounds = new Rectangle(0, 0, -1, -1);
+	private boolean resizeable;
 	
-	private static long ID_GENERATOR;
-
-	protected NodeImpl() {
-		this(String.valueOf(ID_GENERATOR++));
-	}
-
-	protected NodeImpl(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
-	}
-	
-	protected void setId(String id) {
-		this.id = id;
-	}
-
 	public Rectangle getBounds() {
 		return bounds;
 	}
@@ -74,31 +58,49 @@ public class NodeImpl<C extends Connection> extends ExtendedModelEventTrigger im
 		fireModelPropertyChangeEvent(BasicModelEventTypes.BOUNDS_CHANGED, oldBounds, bounds);
 	}
 
-	public List<C> getOutflows() {
+	public List<Connection> getOutflows() {
 		return outflows;
 	}
 
-	public void addOutflow(C outflow) {
+	public void addOutflow(Connection outflow) {
 		outflows.add(outflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_ADDED, outflows, outflow);
 	}
 
-	public List<C> getInflows() {
+	public List<Connection> getInflows() {
 		return Collections.unmodifiableList(inflows);
 	}
 
-	public void addInflow(C inflow) {
+	public void addInflow(Connection inflow) {
 		inflows.add(inflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.INFLOW_ADDED, Collections.unmodifiableList(inflows), inflow);
 	}
 
-	public void removeOutflow(C outflow) {
+	public void removeOutflow(Connection outflow) {
 		outflows.add(outflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_REMOVED, outflows, outflow);
 	}
 
-	public void removeInflow(C inflow) {
+	public void removeInflow(Connection inflow) {
 		inflows.remove(inflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.INFLOW_REMOVED, Collections.unmodifiableList(inflows), inflow);
+	}
+
+	public void setNodeContainer(NodeContainer container) {
+		this.container = container;
+	}
+
+	public NodeContainer getNodeContainer() {
+		return container;
+	}
+
+	@Override
+	public boolean isResizeable() {
+		return resizeable;
+	}
+
+	@Override
+	public void setResizeable(boolean resizeable) {
+		this.resizeable = resizeable;
 	}
 }

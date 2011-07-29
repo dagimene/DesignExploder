@@ -13,7 +13,7 @@ public class ClassSelectionPolicy extends NonResizableEditPolicy {
 	
 	@Override
 	protected void hideSelection() {
-		super.showSelection();
+		super.hideSelection();
 		ClassFigure figure = (ClassFigure)getHostFigure();
 		figure.setSelected(false);
 	}

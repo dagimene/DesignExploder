@@ -8,6 +8,7 @@ import java.util.Map;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 
 public enum Style {
 	
@@ -81,10 +82,16 @@ public enum Style {
 		return value instanceof Color ? (Color) value : null;
 	}
 
+	public Image getImage(Style.Constant property) {
+		Object value = getValue(property);
+		return value instanceof Image ? (Image) value : null;
+	}
+
 	public static enum Constant {
 		FONT, SELECTED_FONT,
 		FOREGROUND, SELECTED_FOREGROUND,
-		BACKGROUNG, SELECTED_BACKGROUND;
+		BACKGROUNG, SELECTED_BACKGROUND,
+		ICON;
 		
 		public static Constant getBackground(boolean selected) {
 			return selected ? SELECTED_BACKGROUND : BACKGROUNG;
@@ -96,6 +103,10 @@ public enum Style {
 
 		public static Constant getFont(boolean selected) {
 			return selected ? SELECTED_FONT : FONT;
+		}
+
+		public static Constant getIcon() {
+			return ICON;
 		}
 	}
 }

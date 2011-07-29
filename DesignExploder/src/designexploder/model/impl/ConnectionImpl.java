@@ -1,32 +1,14 @@
 package designexploder.model.impl;
 
-import designexploder.model.BasicModelEventTypes;
 import designexploder.model.Connection;
 import designexploder.model.Node;
+import designexploder.model.event.BasicModelEventTypes;
 
-@SuppressWarnings("rawtypes")
-public class ConnectionImpl extends ExtendedModelEventTrigger implements Connection {
-	
-	private String id;
+final class ConnectionImpl extends ExtensibleModelElementImpl implements Connection {
 	
 	private Node target;
-	
 	private Node source;
 	
-	private static long ID_GENERATOR;
-
-	protected ConnectionImpl() {
-		this(String.valueOf(ID_GENERATOR++));
-	}
-
-	protected ConnectionImpl(String id) {
-		this.id = id;
-	}
-	
-	protected void setId(String id) {
-		this.id = id;
-	}
-
 	public Node getTarget() {
 		return target;
 	}
@@ -47,8 +29,4 @@ public class ConnectionImpl extends ExtendedModelEventTrigger implements Connect
 		fireModelPropertyChangeEvent(BasicModelEventTypes.TARGET_CHANGED, oldSource, source);
 	}
 
-	@Override
-	public String getId() {
-		return id;
-	}
 }

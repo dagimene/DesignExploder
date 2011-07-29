@@ -4,9 +4,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import designexploder.model.Connection;
-import designexploder.model.Diagram;
 import designexploder.model.Node;
+import designexploder.model.NodeContainer;
 
 /**
  * Spaces given nodes.
@@ -19,9 +18,8 @@ class BasicAutolayoutAlgorithm implements Autolayot {
 	private int x = 20;
 	
 	@Override
-	public <N extends Node<C>, C extends Connection> void autolayout(
-			Diagram<N, C> diagram) {
-		for (N node : diagram.getNodes()) {
+	public void autolayout(NodeContainer diagram) {
+		for (Node node : diagram.getNodes()) {
 			node.setBounds(new Rectangle(new Point(x += 30, 40), NO_DIM));
 		}
 	}

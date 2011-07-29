@@ -1,12 +1,20 @@
 package designexploder.editor.controllers;
 
+import org.eclipse.draw2d.IFigure;
+
 import designexploder.editor.graphics.ClassFigure;
-import designexploder.editor.renderers.ClassNodeRenderer;
-import designexploder.model.classnode.ClassNode;
+import designexploder.editor.graphics.GraphicsFactory;
+import designexploder.editor.renderers.ClassFigureRenderer;
+import designexploder.model.extension.classnode.ClassNode;
 
 public class ClassNodeEditPart extends NodeEditPart {
 
-	private ClassNodeRenderer renderer = new ClassNodeRenderer();
+	private ClassFigureRenderer renderer = new ClassFigureRenderer();
+	
+	@Override
+	protected IFigure createFigure() {
+		return GraphicsFactory.createClassFigure();
+	}
 	
 	@Override
 	protected void refreshVisuals() {
@@ -14,17 +22,12 @@ public class ClassNodeEditPart extends NodeEditPart {
 		super.refreshVisuals();
 	}
 
-	protected void createEditPolicies() {
-		//installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new ClassSelectionPolicy());
-	}
-
 	@Override
 	public ClassFigure getFigure() {
 		return (ClassFigure) super.getFigure();
 	}
 
-	@Override
-	public ClassNode<?> getModel() {
-		return (ClassNode<?>) super.getModel();
+	public ClassNode getClassModel() {
+		return getModel().getExtension(ClassNode.class);
 	}
 }

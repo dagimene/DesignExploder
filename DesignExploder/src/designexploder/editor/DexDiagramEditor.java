@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
@@ -29,6 +30,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -53,8 +55,22 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
-import designexploder.editor.controllers.DiagramPartsFactory;
-import designexploder.model.classnode.impl.eclipse.jdt.JDTModelBuilder;
+import designexploder.actions.CreateApplicationContextAction;
+import designexploder.editor.controllers.factory.DexDiagramPartsFactory;
+import designexploder.editor.tools.EditorToolManager;
+import designexploder.editor.tools.TriggerableSelectionTool;
+import designexploder.model.NodeContainer;
+import designexploder.model.build.ChainedModelBuilder;
+import designexploder.model.build.ModelBasicDataSetter;
+import designexploder.model.build.ModelBuilder;
+import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
+import designexploder.model.extension.classnode.build.ClassRelationsModelBuilder;
+import designexploder.model.extension.classnode.impl.eclipse.jdt.JDTModelBuilder;
+import designexploder.model.impl.BasicModelFactory;
+import designexploder.persistence.xml.XMLBasicModelDataProvider;
+import designexploder.persistence.xml.XMLBasicModelWriter;
+import designexploder.util.DexUtils;
+import designexploder.util.EclipseUtil;
 
 /**
  * This class serves as a quick starting point for clients who are new to GEF.
@@ -73,6 +89,7 @@ public class DexDiagramEditor extends EditorPart implements
 	private GraphicalViewer graphicalViewer;
 	private ActionRegistry actionRegistry;
 	private SelectionSynchronizer synchronizer;
+	private EditorToolManager toolManager;
 	private List<String> selectionActions = new ArrayList<String>();
 	private List<String> stackActions = new ArrayList<String>();
 	private List<String> propertyActions = new ArrayList<String>();
@@ -81,7 +98,45 @@ public class DexDiagramEditor extends EditorPart implements
 	 * Constructs the editor part
 	 */
 	public DexDiagramEditor() {
-		setEditDomain(new DefaultEditDomain(this));
+		DefaultEditDomain editDomain = new DefaultEditDomain(this);
+		editDomain.setDefaultTool(new TriggerableSelectionTool());
+		setEditDomain(editDomain);
+		toolManager = new EditorToolManager(getEditDomain());
+	}
+
+	/**
+	 * Override to set the contents of the GraphicalViewer after it has been
+	 * created.
+	 * 
+	 * @see #createGraphicalViewer(Composite)
+	 */
+	protected void initializeGraphicalViewer() {
+		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
+		IJavaProject project = EclipseUtil.getJavaProject(file.getProject());
+		
+		DexUtils.initializeDexProjectStructure(project);
+		
+		ChainedModelBuilder modelBuilder = new ChainedModelBuilder();
+		JDTModelBuilder jdtMB = JDTModelBuilder.create(DexUtils.getBeansPackageRoot(project));
+		if(jdtMB != null) {
+			modelBuilder.addBuilder(jdtMB);
+		}
+		modelBuilder.addBuilder(new ClassRelationsModelBuilder());
+		ModelBuilder springMB = SpringModelBuilder.create(DexUtils.getContextsPackageRoot(project));
+		if(springMB != null) {
+			modelBuilder.addBuilder(springMB);
+		}
+		modelBuilder.addBuilder(new ModelBasicDataSetter(new XMLBasicModelDataProvider(file)));
+		// modelBuilder.addBuilder(more ioc data?)
+		
+		getGraphicalViewer().setContents(modelBuilder.build(BasicModelFactory.getInstance().createNodeContainer()));
+	}
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
+		NodeContainer model = (NodeContainer) getGraphicalViewer().getContents().getModel(); 
+		new XMLBasicModelWriter(file).write(model, monitor);
 	}
 
 	/**
@@ -103,7 +158,7 @@ public class DexDiagramEditor extends EditorPart implements
 	protected void configureGraphicalViewer() {
 		getGraphicalViewer().getControl().setBackground(
 				ColorConstants.listBackground);
-		getGraphicalViewer().setEditPartFactory(new DiagramPartsFactory());
+		getGraphicalViewer().setEditPartFactory(new DexDiagramPartsFactory());
 	}
 
 	/**
@@ -132,6 +187,9 @@ public class DexDiagramEditor extends EditorPart implements
 		action = new SaveAction(this);
 		registry.registerAction(action);
 		getPropertyActions().add(action.getId());
+		
+		action = new CreateApplicationContextAction(this);
+		registry.registerAction(action);
 
 		registry.registerAction(new PrintAction(this));
 	}
@@ -184,7 +242,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see org.eclipse.ui.ISaveablePart#doSaveAs()
 	 */
 	public void doSaveAs() {
-		throw new RuntimeException("doSaveAs must be overridden"); //$NON-NLS-1$
+		throw new UnsupportedOperationException("cannot do SaveAs");
 	}
 
 	/**
@@ -228,12 +286,18 @@ public class DexDiagramEditor extends EditorPart implements
 			return getCommandStack();
 		if (type == ActionRegistry.class)
 			return getActionRegistry();
+		if(type == EditorToolManager.class)
+			return getToolManager();
 		if (type == EditPart.class && getGraphicalViewer() != null)
 			return getGraphicalViewer().getRootEditPart();
 		if (type == IFigure.class && getGraphicalViewer() != null)
 			return ((GraphicalEditPart) getGraphicalViewer().getRootEditPart())
 					.getFigure();
 		return super.getAdapter(type);
+	}
+
+	public EditorToolManager getToolManager() {
+		return toolManager;
 	}
 
 	/**
@@ -338,12 +402,18 @@ public class DexDiagramEditor extends EditorPart implements
 		if(!(input instanceof IFileEditorInput)) {
 			throw new PartInitException("Invalid editor input of type "+input.getClass()+". Must be a IFileEditorInput.");
 		}
+		
 		setSite(site);
 		setInput(input);
 		getCommandStack().addCommandStackListener(this);
 		getSite().getWorkbenchWindow().getSelectionService()
 				.addSelectionListener(this);
 		initializeActionRegistry();
+	}
+	
+	@Override
+	public IFileEditorInput getEditorInput() {
+		return (IFileEditorInput) super.getEditorInput();
 	}
 
 	/**
@@ -358,16 +428,6 @@ public class DexDiagramEditor extends EditorPart implements
 		createActions();
 		updateActions(propertyActions);
 		updateActions(stackActions);
-	}
-
-	/**
-	 * Override to set the contents of the GraphicalViewer after it has been
-	 * created.
-	 * 
-	 * @see #createGraphicalViewer(Composite)
-	 */
-	protected void initializeGraphicalViewer() {
-		getGraphicalViewer().setContents(JDTModelBuilder.create().buildDiagram());
 	}
 
 	/**
@@ -456,10 +516,4 @@ public class DexDiagramEditor extends EditorPart implements
 				((UpdateAction) action).update();
 		}
 	}
-
-	@Override
-	public void doSave(IProgressMonitor arg0) {
-		throw new UnsupportedOperationException("Not implemented yet.");
-	}
-
 }

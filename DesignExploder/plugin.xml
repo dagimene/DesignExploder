@@ -2,15 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            name="Design Exploder"
-            extensions="dex"
-            icon="icons/sample.gif"
-            class="designexploder.editor.DexDiagramEditor"
-            id="designexploder.editor.DexDiagramEditor">
-      </editor>
-   </extension>
-
+	<extension point="org.eclipse.ui.editors">
+		<editor id="designexploder.editor.DexDiagramEditor"
+			name="Design Exploder"
+			extensions="dex"
+			icon="icons/sample.gif"
+			class="designexploder.editor.DexDiagramEditor"
+			contributorClass="designexploder.editor.DexDiagramEditorActionBarContributor" />
+	</extension>
+	
 </plugin>
