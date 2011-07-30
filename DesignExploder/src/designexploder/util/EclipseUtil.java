@@ -1,8 +1,15 @@
 package designexploder.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import nu.xom.Builder;
+import nu.xom.Document;
+import nu.xom.NodeFactory;
+import nu.xom.ParsingException;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -16,9 +23,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
-import org.springframework.ide.eclipse.beans.core.BeansCorePlugin;
-import org.springframework.ide.eclipse.beans.core.model.IBeansModel;
-import org.springframework.ide.eclipse.beans.core.model.IBeansProject;
 
 public class EclipseUtil {
 
@@ -34,12 +38,6 @@ public class EclipseUtil {
 		return javaProject;
 	}
 	
-	public static IBeansProject getBeansProject(IProject project) {
-		IBeansModel beanModel = BeansCorePlugin.getModel();
-		IBeansProject beanProject = beanModel.getProject(project);
-		return beanProject;
-	}
-
 	public static Set<IFile> getFiles(IContainer container, final Set<String> suffixes) {
 		final Set<IFile> result = new HashSet<IFile>();
 		
@@ -54,7 +52,8 @@ public class EclipseUtil {
 				}
 	
 				private String extension(String name) {
-					return name.substring(name.lastIndexOf('.'));
+					int ix = name.lastIndexOf('.');
+					return ix != -1 ? name.substring(ix + 1) : "";
 				}
 			}, IResource.NONE);
 		} catch (CoreException e) {
@@ -62,6 +61,31 @@ public class EclipseUtil {
 		}
 
 		return result;
+	}
+	
+	public static Document readXMLDocument(IFile file) throws CoreException {
+		return readXMLDocument(file, null);
+	}
+	
+	public static Document readXMLDocument(IFile file, NodeFactory factory) throws CoreException {
+		InputStream contents = null;
+		Document document = null; 
+		try {
+			contents = file.getContents();
+			Builder builder = factory != null ? new Builder(factory) : new Builder();
+			document = builder.build(contents);
+		} catch (ParsingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(contents != null) {
+				try {
+					contents.close();
+				} catch (IOException e) {}
+			}
+		}
+		return document;
 	}
 	
 	public static IPackageFragmentRoot createSourceFolder(IJavaProject javaProject, String name) throws CoreException {

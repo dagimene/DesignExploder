@@ -67,8 +67,8 @@ import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
 import designexploder.model.extension.classnode.build.ClassRelationsModelBuilder;
 import designexploder.model.extension.classnode.impl.eclipse.jdt.JDTModelBuilder;
 import designexploder.model.impl.BasicModelFactory;
-import designexploder.persistence.xml.XMLBasicModelDataProvider;
-import designexploder.persistence.xml.XMLBasicModelWriter;
+import designexploder.model.impl.build.XMLBasicModelDataProvider;
+import designexploder.model.impl.build.XMLBasicModelWriter;
 import designexploder.util.DexUtils;
 import designexploder.util.EclipseUtil;
 

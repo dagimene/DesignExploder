@@ -16,6 +16,7 @@ import designexploder.model.extension.classnode.Modifiable;
 import designexploder.model.extension.classnode.Type;
 import designexploder.model.extension.classnode.impl.ClassModelFactory;
 import designexploder.model.impl.BasicModelFactory;
+import designexploder.util.adt.IdUtil;
 
 import static designexploder.model.extension.classnode.ClassModelNatures.*;
 
@@ -40,7 +41,7 @@ public class JDTModelFactory {
 		}
 		Node result = BasicModelFactory.getInstance().createNode();
 		result.addExtension(ClassNode.class, classNode);
-		result.setId(jdtType.getName());
+		result.setId(IdUtil.createClassId(jdtType.getName()).toString());
 		return result;
 	}
 	

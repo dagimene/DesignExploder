@@ -1,16 +1,23 @@
 package designexploder.model.build;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import designexploder.model.BasicModelUtil;
 import designexploder.model.Connection;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBasicDataProvider.ConnectionBasicDataProvider;
 import designexploder.model.build.ModelBasicDataProvider.NodeBasicDataProvider;
+import designexploder.model.impl.BasicModelFactory;
+import designexploder.util.adt.IdUtil;
+import designexploder.util.adt.IdUtil.ID;
 
-public class ModelBasicDataSetter extends BaseModelBuilder {
+public class ModelBasicDataSetter extends IdAwareModelBuilder {
 
 	private ModelBasicDataProvider provider;
+	private Set<Node> declaredNodes = new HashSet<Node>();
 
 	public ModelBasicDataSetter(ModelBasicDataProvider provider) {
 		this.provider = provider;
@@ -18,16 +25,39 @@ public class ModelBasicDataSetter extends BaseModelBuilder {
 
 	@Override
 	public NodeContainer build(NodeContainer diagram) {
-		return setPresets(super.build(diagram));
+		super.build(diagram);
+		setPresets(diagram);
+		purge(diagram);
+		return diagram;
 	}
 
-	private NodeContainer setPresets(NodeContainer diagram) {
+	private void setPresets(NodeContainer diagram) {
 		Iterator<? extends NodeBasicDataProvider> nodesIterator = provider.getNodes();
 		while(nodesIterator.hasNext()) {
 			NodeBasicDataProvider data = nodesIterator.next();
-			Node node = super.findNode(data.getId());
-			if(node != null) {
-				data.setBasicData(node, diagram);
+			ID id = IdUtil.parseId(data.getId());
+			if(id != null) {
+				Node node = super.findNode(id.toString());
+				if(node == null && id.type == IdUtil.CLASS_TYPE && id.number != -1) {
+					Node baseNode = super.findNode(IdUtil.createClassId(id.name).toString());
+					if(baseNode != null) {
+						node = BasicModelFactory.getInstance().createModelCopy(baseNode, id.toString(), true);
+						super.addNode(node);
+					}
+				}
+				if(node != null) {
+					// Prevent reparent of beans
+					if(id.type == IdUtil.BEAN_TYPE) {
+						NodeContainer parent = node.getNodeContainer();
+						data.setBasicData(node, diagram);
+						if(node.getNodeContainer() != parent) {
+							BasicModelUtil.reparentNode(node, parent);
+						}
+					} else {
+						data.setBasicData(node, diagram);
+					}
+					declaredNodes.add(node);
+				}
 			}
 		}
 		Iterator<? extends ConnectionBasicDataProvider> connectionsIterator = provider.getConnections();
@@ -44,7 +74,30 @@ public class ModelBasicDataSetter extends BaseModelBuilder {
 				}
 			}
 		}
-		return diagram;
+	}
+
+	/**
+	 * Find all class nodes that were not declared in the .dex.
+	 * If the node has duplicates, remove it.
+	 * If the node doesn't has duplicates, leave it.
+	 * @param diagram
+	 */
+	private void purge(NodeContainer diagram) {
+		Set<Node> blackList = new HashSet<Node>();
+		for(Node node : getAllNodes()) {
+			if(!declaredNodes.contains(node)) {
+				ID id = IdUtil.parseId(node.getId());
+				if(id.type == IdUtil.CLASS_TYPE) {
+					Set<Node> duplicates = findNodesFromIdName(id.name);
+					if(duplicates.size() > 1) {
+						blackList.add(node);
+					}
+				}
+			}
+		}
+		for (Node node : blackList) {
+			super.removeNode(node);
+		}
 	}
 
 }

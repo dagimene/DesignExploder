@@ -5,6 +5,7 @@ public class BasicModelEventTypes {
 	/* Extensible Model Element */
 	public static final ModelEventType EXTENSION_ADDED = new ModelEventType.NamedModelEvent("EXTENSION_ADDED");
 	public static final ModelEventType EXTENSION_REMOVED = new ModelEventType.NamedModelEvent("EXTENSION_REMOVED");
+	public static final ModelEventType BEFORE_EXTENSION_REMOVED = new ModelEventType.NamedModelEvent("BEFORE_EXTENSION_REMOVED");
 
 	/* Node */
 	public static final ModelEventType LOCATION_CHANGED = new ModelEventType.NamedModelEvent("LOCATION_CHANGED");

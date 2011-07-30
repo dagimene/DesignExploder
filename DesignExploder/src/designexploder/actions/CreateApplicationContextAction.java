@@ -3,7 +3,6 @@ package designexploder.actions;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
-import org.springframework.ide.eclipse.beans.core.model.IBeansConfig;
 
 import designexploder.editor.DexDiagramEditor;
 import designexploder.editor.tools.EditorToolManager;
@@ -11,13 +10,11 @@ import designexploder.editor.tools.ListenableCreationTool;
 import designexploder.editor.tools.ListenableTool;
 import designexploder.model.extension.IoC.ApplicationContext;
 import designexploder.model.impl.BasicModelFactory;
-import designexploder.ui.DexUIUtil;
 import designexploder.util.DexUtils;
 
 public class CreateApplicationContextAction extends EditorToolBindedAction {
 
 	private ListenableTool creationTool;
-	private IBeansConfig config; 
 	
 	public CreateApplicationContextAction(IEditorPart editor) {
 		super(editor);
@@ -33,7 +30,7 @@ public class CreateApplicationContextAction extends EditorToolBindedAction {
 	@Override
 	public void run() {
 		IFolder defaultFolder = DexUtils.getDefaultAppsContextFolder(getEditorPart().getEditorInput().getFile().getProject());
-		config = DexUIUtil.openNewBeansConfigWizard(getEditorPart(), defaultFolder);
+		String config = "";
 		if(config != null) {
 			IWorkbenchPage page = getEditorPart().getSite().getPage();
 			page.closeEditor(page.getActiveEditor(), true);

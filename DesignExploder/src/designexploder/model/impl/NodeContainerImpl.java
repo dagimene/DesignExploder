@@ -40,7 +40,8 @@ final class NodeContainerImpl extends ExtensibleModelElementImpl implements Node
 		return null;
 	}
 
-	Iterator<Node> getDeepIterator() {
+	@Override
+	public Iterator<Node> getDeepIterator() {
 		return nodes.deepIterator();
 	}
 

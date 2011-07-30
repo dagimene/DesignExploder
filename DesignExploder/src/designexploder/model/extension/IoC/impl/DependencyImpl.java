@@ -3,22 +3,22 @@ package designexploder.model.extension.IoC.impl;
 import designexploder.model.Connection;
 import designexploder.model.extension.IoC.Dependency;
 import designexploder.model.extension.IoC.IoCModelEventTypes;
-import designexploder.model.extension.common.Naturalized;
+import designexploder.model.extension.common.InmutableNaturalized;
 import designexploder.model.impl.ExtendedModelEventTrigger;
 
 class DependencyImpl extends ExtendedModelEventTrigger implements Dependency {
 
-	private Naturalized target;
+	private InmutableNaturalized target;
 	private Connection beanInjection;
 
 	@Override
-	public Naturalized getTarget() {
+	public InmutableNaturalized getTarget() {
 		return target;
 	}
 
 	@Override
-	public void setTarget(Naturalized target) {
-		Naturalized oldValue = this.target;
+	public void setTarget(InmutableNaturalized target) {
+		InmutableNaturalized oldValue = this.target;
 		this.target = target;
 		fireModelPropertyChangeEvent(IoCModelEventTypes.TARGET_CHANGED, oldValue, this.target);
 	}

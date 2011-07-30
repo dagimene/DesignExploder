@@ -1,5 +1,6 @@
 package designexploder.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 public interface NodeContainer extends ExtensibleModelElement {
@@ -12,4 +13,6 @@ public interface NodeContainer extends ExtensibleModelElement {
 
 	Node findNode(String id);
 	
+	Iterator<Node> getDeepIterator();
+
 }

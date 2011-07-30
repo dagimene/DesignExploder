@@ -1,4 +1,4 @@
-package designexploder.persistence.xml;
+package designexploder.model.impl.build;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;

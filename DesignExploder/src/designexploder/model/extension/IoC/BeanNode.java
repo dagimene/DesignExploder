@@ -2,10 +2,10 @@ package designexploder.model.extension.IoC;
 
 import java.util.Set;
 
-import designexploder.model.event.ModelEventTrigger;
+import designexploder.model.extension.common.Named;
 import designexploder.model.extension.common.Naturalized;
 
-public interface BeanNode extends Naturalized, ModelEventTrigger {
+public interface BeanNode extends Named, Naturalized {
 
 	Set<Dependency> getDependencies();
 	

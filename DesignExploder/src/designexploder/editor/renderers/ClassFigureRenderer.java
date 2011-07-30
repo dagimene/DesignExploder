@@ -26,7 +26,8 @@ public class ClassFigureRenderer implements Renderer<Node, ClassFigure> {
 	}
 
 	private void updateHeader(ClassFigure figure, Node node) {
-		figure.setNature(getNodeNature(node));
+		Nature nodeNature = getNodeNature(node);
+		figure.setNature(nodeNature);
 		figure.setLabel(getNodeLabel(node));
 	}
 	

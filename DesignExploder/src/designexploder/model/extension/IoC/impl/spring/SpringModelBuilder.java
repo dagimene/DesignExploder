@@ -1,8 +1,7 @@
 package designexploder.model.extension.IoC.impl.spring;
 
 import java.util.Iterator;
-
-import nu.xom.Document;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IJavaProject;
@@ -14,8 +13,10 @@ import designexploder.model.build.BaseModelBuilder;
 import designexploder.model.build.ModelBuilder;
 import designexploder.model.extension.IoC.ApplicationContext;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
+import designexploder.model.extension.IoC.impl.spring.parsing.SpringConfigFile;
 import designexploder.model.impl.BasicModelFactory;
-import designexploder.util.Pair;
+import designexploder.util.adt.IdUtil;
+import designexploder.util.adt.Pair;
 
 public class SpringModelBuilder extends BaseModelBuilder {
 
@@ -37,27 +38,31 @@ public class SpringModelBuilder extends BaseModelBuilder {
 		diagram = super.build(diagram);
 		initializeApplicationContext(diagram, "main.ctx");
 		SpingBeansModelFactory factory = new SpingBeansModelFactory(project);
-		Iterator<Pair<IFile, Document>> iterator = new ContextsFilesIterator(contextsFragmentRoot);
+		Iterator<Pair<IFile, SpringConfigFile>> iterator = new SpringConfigFilesIterator(contextsFragmentRoot);
 		while(iterator.hasNext()) {
-			Pair<IFile, Document> next = iterator.next();
+			Pair<IFile, SpringConfigFile> next = iterator.next();
 			NodeContainer context;
 			if(next.getFirst().getName().equals(MAIN_CONTEXT_FILE)) {
 				context = diagram;
 			} else {
 				context = BasicModelFactory.getInstance().createContainerNode();
-				initializeApplicationContext(context, next.getFirst().getProjectRelativePath().toString());
+				initializeApplicationContext(context, next.getFirst().getFullPath().makeRelativeTo(contextsFragmentRoot.getPath()).toString());
+				((Node)context).setResizeable(true);
 				super.addNode((Node) context);
 			}
-			factory.addBeansToContainer(context, next.getSecond(), diagram);
+			Set<Node> beans = factory.getBeans(context, next.getSecond(), diagram);
+			for (Node bean : beans) {
+				super.addNode(bean, context);
+			}
 		}
 		return diagram;
 	}
 
-	private void initializeApplicationContext(NodeContainer diagram, String filename) {
+	private void initializeApplicationContext(NodeContainer contextNode, String filename) {
 		ApplicationContext context = IoCModelFactory.getInstance().createApplicationContext();
+		contextNode.setId(IdUtil.createContextId(filename).toString());
 		context.setName(transformFilenameToName(filename));
-		diagram.addExtension(ApplicationContext.class, context);
-		diagram.setId(filename);
+		contextNode.addExtension(ApplicationContext.class, context);
 	}
 
 	/**

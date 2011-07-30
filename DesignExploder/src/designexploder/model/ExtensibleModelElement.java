@@ -8,10 +8,10 @@ public interface ExtensibleModelElement extends ModelEventTrigger {
 
 	void setId(String id);
 
-	<T> void addExtension(Class<T> clazz, T extension);
+	<T extends ModelEventTrigger> void addExtension(Class<T> clazz, T extension);
 	
-	<T> T removeExtension(Class<T> clazz);
+	<T extends ModelEventTrigger> T removeExtension(Class<T> clazz);
 
-	<T> T getExtension(Class<T> clazz);
+	<T extends ModelEventTrigger> T getExtension(Class<T> clazz);
 	
 }

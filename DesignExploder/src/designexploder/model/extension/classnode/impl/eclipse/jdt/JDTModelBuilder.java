@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 
+import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.BaseModelBuilder;
 
@@ -35,7 +36,10 @@ public class JDTModelBuilder extends BaseModelBuilder {
 		try {
 			Iterator<IType> iterator = packageRoot != null ? new ITypesIterator(packageRoot) : new ITypesIterator(project);
 			while(iterator.hasNext()) {
-				super.addNode(factory.createNode(iterator.next()));
+				Node newNode = factory.createNode(iterator.next());
+				if(diagram.findNode(newNode.getId()) == null) {
+					super.addNode(newNode);
+				}
 			}
 		} catch (JavaModelException e) {
 			e.printStackTrace();

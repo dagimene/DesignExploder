@@ -1,4 +1,4 @@
-package designexploder.util;
+package designexploder.util.adt;
 
 import java.util.Iterator;
 

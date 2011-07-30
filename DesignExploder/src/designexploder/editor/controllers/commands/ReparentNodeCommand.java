@@ -1,5 +1,6 @@
 package designexploder.editor.controllers.commands;
 
+import designexploder.model.BasicModelUtil;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 
@@ -14,11 +15,9 @@ public class ReparentNodeCommand extends NodeCommand {
 
 	@Override
 	public void execute() {
-		NodeContainer newContainer = parent;
-		parent = (NodeContainer) getModel().getNodeContainer(); 
-		parent.removeNode(getModel());
-		getModel().setNodeContainer(newContainer);
-		newContainer.addNode(getModel());
+		NodeContainer parent = this.parent;
+		this.parent = (NodeContainer) getModel().getNodeContainer();
+		BasicModelUtil.reparentNode(getModel(), parent);
 	}
 
 	@Override

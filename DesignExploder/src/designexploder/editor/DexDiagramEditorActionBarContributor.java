@@ -20,7 +20,7 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 
 	private RetargetAction createCreateApplicationContextAction() {
 		RetargetAction result = new RetargetAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.getId(), "Create Application Context");
-		result.setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../resources/images/context_obj.gif"));
+		result.setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../resources/images/context.gif"));
 		return result;
 	}
 

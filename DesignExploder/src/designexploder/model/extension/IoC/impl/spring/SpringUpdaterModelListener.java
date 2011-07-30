@@ -3,15 +3,12 @@ package designexploder.model.extension.IoC.impl.spring;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 import nu.xom.Attribute;
-import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParentNode;
-import nu.xom.ParsingException;
 import nu.xom.Serializer;
 
 import org.eclipse.core.resources.IFile;
@@ -26,7 +23,8 @@ import designexploder.model.event.ModelEventListener;
 import designexploder.model.event.ModelEventType;
 import designexploder.model.extension.IoC.ApplicationContext;
 import designexploder.model.extension.classnode.ClassNode;
-import designexploder.util.XMLDocumentIterator;
+import designexploder.util.EclipseUtil;
+import designexploder.util.adt.XMLDocumentIterator;
 
 public class SpringUpdaterModelListener implements ModelEventListener {
 
@@ -53,7 +51,7 @@ public class SpringUpdaterModelListener implements ModelEventListener {
 		
 		Document document;
 		try {
-			document = readDocument(file);
+			document = EclipseUtil.readXMLDocument(file);
 			if(document != null) {
 				if(eventType == BasicModelEventTypes.NODE_ADDED) {
 					addBean(document, clazz.getId());
@@ -100,24 +98,4 @@ public class SpringUpdaterModelListener implements ModelEventListener {
 		file.setContents(pipeIn, false, true, null);
 	}
 
-	private Document readDocument(IFile file) throws CoreException {
-		InputStream contents = null;
-		Document document = null; 
-		try {
-			contents = file.getContents();
-			Builder builder = new Builder();
-			document = builder.build(contents);
-		} catch (ParsingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if(contents != null) {
-				try {
-					contents.close();
-				} catch (IOException e) {}
-			}
-		}
-		return document;
-	}
 }

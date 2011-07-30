@@ -1,17 +1,18 @@
 package designexploder.model.extension.IoC.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.Dependency;
 import designexploder.model.extension.IoC.IoCAwareMethod;
 import designexploder.model.extension.IoC.IoCModelEventTypes;
-import designexploder.model.extension.common.impl.NaturalizedImpl;
+import designexploder.model.extension.common.impl.NamedNaturalizedImpl;
 
-class BeanNodeImpl extends NaturalizedImpl implements BeanNode {
+class BeanNodeImpl extends NamedNaturalizedImpl implements BeanNode {
 
-	private Set<IoCAwareMethod> IoCAwareMethods;
-	private Set<Dependency> dependencies;
+	private Set<IoCAwareMethod> IoCAwareMethods = new HashSet<IoCAwareMethod>();
+	private Set<Dependency> dependencies = new HashSet<Dependency>();
 
 	@Override
 	public Set<IoCAwareMethod> getIoCAwareMethods() {

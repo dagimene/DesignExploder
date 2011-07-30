@@ -1,4 +1,4 @@
-package designexploder.persistence.xml;
+package designexploder.model.impl.build;
 
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -11,12 +11,13 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.XMLMemento;
 
+import designexploder.model.BasicModelUtil;
 import designexploder.model.Connection;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBasicDataProvider;
-import designexploder.util.DexModelUtil;
-import designexploder.util.TypeAdapterIterator;
+import designexploder.util.adt.Mapper;
+import designexploder.util.adt.TypeAdapterIterator;
 
 public class XMLBasicModelDataProvider implements ModelBasicDataProvider {
 
@@ -64,7 +65,7 @@ public class XMLBasicModelDataProvider implements ModelBasicDataProvider {
 		if(containerId != null) {
 			NodeContainer container = asContainer(root.findNode(containerId));
 			if(container != null) {
-				DexModelUtil.reparentNode(node, container);
+				BasicModelUtil.reparentNode(node, container);
 			}
 		}
 	}
@@ -74,11 +75,11 @@ public class XMLBasicModelDataProvider implements ModelBasicDataProvider {
 	}
 	
 	private Iterator<NodeBasicDataProvider> getNodesSafe(XMLMemento document) {
-		return new TypeAdapterIterator<IMemento, NodeBasicDataProvider>(Arrays.asList(document.getChildren("node")).iterator()) {
+		return new TypeAdapterIterator<IMemento, NodeBasicDataProvider>(Arrays.asList(document.getChildren("node")).iterator(),
+			new Mapper<IMemento, NodeBasicDataProvider>() {
 			@Override
-			protected NodeBasicDataProvider adapt(final IMemento memento) {
+			public NodeBasicDataProvider map(final IMemento memento) {
 				return new NodeBasicDataProvider() {
-
 					@Override
 					public String getId() {
 						return memento.getString("id");
@@ -90,38 +91,37 @@ public class XMLBasicModelDataProvider implements ModelBasicDataProvider {
 					}
 				};
 			}
-		};
+		});
 	}
 	
 	private Iterator<ConnectionBasicDataProvider> getConnectionsSafe(XMLMemento document) {
-		return new TypeAdapterIterator<IMemento, ConnectionBasicDataProvider>(Arrays.asList(document.getChildren("connection")).iterator()) {
-			@Override
-			protected ConnectionBasicDataProvider adapt(final IMemento memento) {
-				return new ConnectionBasicDataProvider() {
-
-					@Override
-					public String getId() {
-						return memento.getString("id");
-					}
-
-					@Override
-					public String getSourceID() {
-						return memento.getString("source");
-					}
-
-					@Override
-					public String getTargetID() {
-						return memento.getString("target");
-					}
-
-					@Override
-					public void setBasicData(Connection connection, Node source, Node target, NodeContainer root) {
-						setConnectionData(memento, source, target, root);
-					}
-
-				};
-			}
-		};
+		return new TypeAdapterIterator<IMemento, ConnectionBasicDataProvider>(Arrays.asList(document.getChildren("connection")).iterator(),
+			new Mapper<IMemento, ConnectionBasicDataProvider>() {
+				@Override
+				public ConnectionBasicDataProvider map(final IMemento memento) {
+					return new ConnectionBasicDataProvider() {
+						@Override
+						public String getId() {
+							return memento.getString("id");
+						}
+	
+						@Override
+						public String getSourceID() {
+							return memento.getString("source");
+						}
+	
+						@Override
+						public String getTargetID() {
+							return memento.getString("target");
+						}
+	
+						@Override
+						public void setBasicData(Connection connection, Node source, Node target, NodeContainer root) {
+							setConnectionData(memento, source, target, root);
+						}
+					};
+				}
+		});
 	}
 
 	protected NodeContainer asContainer(Node node) {

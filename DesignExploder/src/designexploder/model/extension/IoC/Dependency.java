@@ -2,7 +2,7 @@ package designexploder.model.extension.IoC;
 
 import designexploder.model.Connection;
 import designexploder.model.event.ModelEventTrigger;
-import designexploder.model.extension.common.Naturalized;
+import designexploder.model.extension.common.InmutableNaturalized;
 
 public interface Dependency extends ModelEventTrigger {
 
@@ -10,9 +10,9 @@ public interface Dependency extends ModelEventTrigger {
 	 * The targeted attribute or method where the injection is performed.
 	 * @return
 	 */
-	Naturalized getTarget();
+	InmutableNaturalized getTarget();
 	
-	void setTarget(Naturalized target);
+	void setTarget(InmutableNaturalized target);
 
 	/**
 	 * Whether the dependency is resolved or not.

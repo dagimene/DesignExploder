@@ -62,13 +62,13 @@ class NodeImpl extends ExtensibleModelElementImpl implements Node {
 		return outflows;
 	}
 
+	public List<Connection> getInflows() {
+		return Collections.unmodifiableList(inflows);
+	}
+
 	public void addOutflow(Connection outflow) {
 		outflows.add(outflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_ADDED, outflows, outflow);
-	}
-
-	public List<Connection> getInflows() {
-		return Collections.unmodifiableList(inflows);
 	}
 
 	public void addInflow(Connection inflow) {
@@ -77,7 +77,7 @@ class NodeImpl extends ExtensibleModelElementImpl implements Node {
 	}
 
 	public void removeOutflow(Connection outflow) {
-		outflows.add(outflow);
+		outflows.remove(outflow);
 		fireModelCollectionAlterEvent(BasicModelEventTypes.OUTFLOW_REMOVED, outflows, outflow);
 	}
 

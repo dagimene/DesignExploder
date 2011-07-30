@@ -1,4 +1,4 @@
-package designexploder.persistence.xml;
+package designexploder.model.impl.build;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

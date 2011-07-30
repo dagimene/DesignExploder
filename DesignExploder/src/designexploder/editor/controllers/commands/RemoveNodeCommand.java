@@ -1,7 +1,7 @@
 package designexploder.editor.controllers.commands;
 
+import designexploder.model.BasicModelUtil;
 import designexploder.model.Node;
-import designexploder.model.NodeContainer;
 
 public class RemoveNodeCommand extends NodeCommand {
 
@@ -11,12 +11,12 @@ public class RemoveNodeCommand extends NodeCommand {
 
 	@Override
 	public void execute() {
-		((NodeContainer)getModel().getNodeContainer()).removeNode(getModel());
+		BasicModelUtil.removeNode(getModel());
 	}
 
 	@Override
 	public void undo() {
-		((NodeContainer)getModel().getNodeContainer()).addNode(getModel());
+		BasicModelUtil.addNode(getModel());
 	}
-	
+
 }

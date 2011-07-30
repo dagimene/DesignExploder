@@ -6,6 +6,7 @@ import java.util.Map;
 import designexploder.model.extension.common.Nature;
 
 import static designexploder.model.extension.classnode.ClassModelNatures.*;
+import static designexploder.model.extension.IoC.IoCModelNatures.*;
 
 public class StylesFactory {
 	
@@ -27,6 +28,9 @@ public class StylesFactory {
 		styles.put(ATTRIBUTE, Style.MEMBER);
 		styles.put(ABSTRACT_METHOD, Style.ABSTRACT_METHOD);
 		styles.put(ERROR, Style.ERROR);
+
+		// Bean styles
+		styles.put(COMMON_BEAN, Style.COMMON_BEAN);
 
 		/* Connection styles */
 		styles.put(HIERARCHY, null);

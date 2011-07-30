@@ -13,7 +13,8 @@ final class ContainerNodeImpl extends NodeImpl implements ContainerNode {
 	
 	private NodeContainerImpl containerDelegate = new NodeContainerImpl();
 
-	Iterator<Node> getDeepIterator() {
+	@Override
+	public Iterator<Node> getDeepIterator() {
 		return containerDelegate.getDeepIterator();
 	}
 

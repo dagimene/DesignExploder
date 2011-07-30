@@ -10,6 +10,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
+import designexploder.resources.ResourcesManager;
+
 public enum Style {
 	
 	BASE_STYLE(null,
@@ -32,20 +34,29 @@ public enum Style {
 			BACKGROUNG, new Color(null,245,228,156),
 			SELECTED_BACKGROUND, new Color(null,245,228,156),
 			FONT, new Font(null, "Arial", 12, SWT.NORMAL),
-			SELECTED_FONT, new Font(null, "Arial", 12, SWT.NORMAL)),
+			SELECTED_FONT, new Font(null, "Arial", 12, SWT.NORMAL),
+			ICON, ResourcesManager.CLASS_ICON),
 	
 	ENUM(CLASS,
 			BACKGROUNG, new Color(null,255,255,128),
-			SELECTED_BACKGROUND, new Color(null,255,255,128)),
+			SELECTED_BACKGROUND, new Color(null,255,255,128),
+			ICON, ResourcesManager.ENUM_ICON),
 
 	ABSTRACT_CLASS(CLASS,
 			FONT, new Font(null, "Arial", 12, SWT.ITALIC),
-			SELECTED_FONT, new Font(null, "Arial", 12, SWT.ITALIC)),
+			SELECTED_FONT, new Font(null, "Arial", 12, SWT.ITALIC),
+			ICON, ResourcesManager.ABSTRACT_CLASS_ICON),
 			
 	INTERFACE(ABSTRACT_CLASS,
 			BACKGROUNG, new Color(null,204,125,146),
-			SELECTED_BACKGROUND, new Color(null,204,125,146)),
+			SELECTED_BACKGROUND, new Color(null,204,125,146),
+			ICON, ResourcesManager.INTERFACE_ICON),
 			
+	COMMON_BEAN(CLASS,
+			BACKGROUNG, new Color(null,206,169,144),
+			SELECTED_BACKGROUND, new Color(null,206,169,144),
+			ICON, ResourcesManager.BEAN_ICON),
+
 	MEMBER(BASE_STYLE/*,
 			FONT, new Font(null, "Arial", 10, SWT.NORMAL),
 			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)*/),
@@ -84,6 +95,10 @@ public enum Style {
 
 	public Image getImage(Style.Constant property) {
 		Object value = getValue(property);
+		// Lazy initialization
+		if(value instanceof String) {
+			properties.put(property, ResourcesManager.getImage((String) value));
+		}
 		return value instanceof Image ? (Image) value : null;
 	}
 

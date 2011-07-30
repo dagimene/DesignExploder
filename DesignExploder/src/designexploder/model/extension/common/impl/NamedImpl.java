@@ -6,7 +6,7 @@ import designexploder.model.impl.ExtendedModelEventTrigger;
 
 public class NamedImpl extends ExtendedModelEventTrigger implements Named {
 	
-	public String name;
+	private String name;
 	
 	protected NamedImpl() {}
 
