@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import designexploder.model.BasicModelUtil;
+import designexploder.model.Connection;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.util.adt.IterableIterator;
@@ -26,6 +27,10 @@ public abstract class BaseModelBuilder implements ModelBuilder {
 		}
 		return diagram;
 	}
+	
+	protected void setDiagram(NodeContainer diagram) {
+		this.diagram = diagram;
+	}
 
 	protected void addNode(Node node) {
 		addNode(node, diagram);
@@ -36,6 +41,13 @@ public abstract class BaseModelBuilder implements ModelBuilder {
 		node.setNodeContainer(container);
 		BasicModelUtil.addNode(node);
 	}
+	
+	protected void addConnection(Connection connection, Node source, Node target) {
+		connection.setSource(source);
+		connection.setTarget(target);
+		BasicModelUtil.addConnection(connection);
+	}
+
 	
 	public void removeNode(Node node) {
 		unregisterNode(node);

@@ -18,4 +18,7 @@ public interface IoCModelEventTypes {
 	// IoCAwareMethod
 	public static final ModelEventType METHOD_CHANGED = new ModelEventType.NamedModelEvent("METHOD_CHANGED");
 
+	// BeanInjection
+	public static final ModelEventType DEPENDENCY_CHANGED = new ModelEventType.NamedModelEvent("DEPENDENCY_CHANGED");
+	
 }

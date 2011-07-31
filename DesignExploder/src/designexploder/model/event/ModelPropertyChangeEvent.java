@@ -1,22 +1,22 @@
 package designexploder.model.event;
 
 
-public class ModelPropertyChangeEvent extends ModelEvent {
+public class ModelPropertyChangeEvent<T> extends ModelEvent {
 
-	private Object oldValue;
-	private Object newValue;
+	private T oldValue;
+	private T newValue;
 
-	public ModelPropertyChangeEvent(ModelEventType type, ModelEventTrigger source, Object oldValue, Object newValue) {
+	public ModelPropertyChangeEvent(ModelEventType type, ModelEventTrigger source, T oldValue, T newValue) {
 		super(type, source);
 		this.oldValue = oldValue;
 		this.newValue = newValue;
 	}
 
-	public Object getOldValue() {
+	public T getOldValue() {
 		return oldValue;
 	}
 
-	public Object getNewValue() {
+	public T getNewValue() {
 		return newValue;
 	}
 

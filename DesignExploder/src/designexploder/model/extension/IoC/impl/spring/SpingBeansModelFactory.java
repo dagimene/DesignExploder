@@ -65,13 +65,22 @@ public class SpingBeansModelFactory {
 		String property = element.getName().intern();
 		Dependency result = null;
 		if(property != null) {
+			/*
+			 * TODO: add recursive search in superclass methods.
+			 * Add class reference to method model, and method to superclass.
+			 * Same for attributes.
+			 */
+			// TODO: Handle collections at this point? Only if spring has a special handling...
+			// TODO: Analyze visibility check requirements.
 			for (Method method : clazz.getMethods()) {
 				if(method.isSetter() && method.getProperty() == property) {
 					result = IoCModelFactory.getInstance().createDependency();
 					result.setTarget(method);
+					result.setNature(IoCModelNatures.SINGLE);
 					break;
 				}
 			}
+			// TODO: Attribute handling.
 		}
 		return result;
 	}

@@ -1,6 +1,6 @@
 package designexploder.model.event;
 
-public class BasicModelEventTypes {
+public interface BasicModelEventTypes {
 
 	/* Extensible Model Element */
 	public static final ModelEventType EXTENSION_ADDED = new ModelEventType.NamedModelEvent("EXTENSION_ADDED");

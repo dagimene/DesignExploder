@@ -2,6 +2,8 @@ package designexploder.util.adt;
 
 import java.util.Iterator;
 
+import designexploder.model.extension.classnode.Type;
+
 public class IdUtil {
 
 	public static final String CLASS_TYPE = "class";
@@ -67,6 +69,10 @@ public class IdUtil {
 		}
 	}
 
+	public static ID createTypeId(Type type) {
+		return IdUtil.createClassId(type.getName());
+	}
+
 	public static ID createClassId(String name) {
 		return createId(CLASS_TYPE, name);
 	}
@@ -87,7 +93,7 @@ public class IdUtil {
 		return createId(CONTEXT_TYPE, name);
 	}
 
-	public static ConnectionID creteConnectionId(String sourceId, String targetId) {
+	public static ConnectionID createConnectionId(String sourceId, String targetId) {
 		return creteConnectionId(sourceId, targetId, -1);
 	}
 
@@ -119,7 +125,7 @@ public class IdUtil {
 		
 		private ID(String type, String name, int number) {
 			this.type = type.intern();
-			this.name = name;
+			this.name = name.intern();
 			this.number = number;
 		}
 		
@@ -150,15 +156,11 @@ public class IdUtil {
 		public final int sourceNumber;
 		public final int targetNumber;
 		
-		
-		
 		public ConnectionID(String type, String name, int number, int sourceNumber, int targetNumber) {
 			super(type, name, number);
 			this.sourceNumber = sourceNumber;
 			this.targetNumber = targetNumber;
 		}
-
-
 
 		@Override
 		protected boolean appendParameters(StringBuilder builder) {

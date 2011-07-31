@@ -1,9 +1,8 @@
 package designexploder.model.extension.classnode;
 
-import designexploder.model.extension.common.Named;
 import designexploder.model.extension.common.Naturalized;
 
-public interface ClassConnection extends Named, Naturalized {
+public interface ClassConnection extends InmutableNamed, Naturalized {
 	
 	int getSourceCardinality();
 	
@@ -12,5 +11,9 @@ public interface ClassConnection extends Named, Naturalized {
 	void setSourceCardinality(int cardinality);
 	
 	void setTargetCardinality(int cardinality);
+	
+	Attribute getOrigin();
+	
+	void setOrigin(Attribute origin);
 	
 }

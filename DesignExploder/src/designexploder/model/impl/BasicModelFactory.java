@@ -74,12 +74,12 @@ public class BasicModelFactory {
 			// Deep copy connections
 			if(deepCopyConnections) {
 				for (Connection outflow : node.getOutflows()) {
-					Connection newOutflow = createModelCopy(outflow, IdUtil.creteConnectionId(newId, outflow.getTarget().getId()).toString());
+					Connection newOutflow = createModelCopy(outflow, IdUtil.createConnectionId(newId, outflow.getTarget().getId()).toString());
 					newOutflow.setSource(newNode);
 					newNode.addOutflow(newOutflow);
 				}
 				for (Connection inflow : node.getInflows()) {
-					Connection newInflow = createModelCopy(inflow, IdUtil.creteConnectionId(inflow.getSource().getId(), newId).toString());
+					Connection newInflow = createModelCopy(inflow, IdUtil.createConnectionId(inflow.getSource().getId(), newId).toString());
 					newInflow.setTarget(newNode);
 					newNode.addInflow(newInflow);
 				}

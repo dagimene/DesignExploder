@@ -19,7 +19,9 @@ public class StylesFactory {
 		// Should count the applicable DexConstant, not the styles.
 		styles = new HashMap<Nature, Style>(Style.values().length);
 		
-		/* Node styles */
+		styles.put(NONE, Style.ERROR);
+
+		// Class Node styles
 		styles.put(CLASS, Style.CLASS);
 		styles.put(ABSTRACT_CLASS, Style.ABSTRACT_CLASS);
 		styles.put(ENUM, Style.ENUM);
@@ -29,15 +31,20 @@ public class StylesFactory {
 		styles.put(ABSTRACT_METHOD, Style.ABSTRACT_METHOD);
 		styles.put(ERROR, Style.ERROR);
 
-		// Bean styles
+		// Bean Node styles
 		styles.put(COMMON_BEAN, Style.COMMON_BEAN);
 
-		/* Connection styles */
-		styles.put(HIERARCHY, null);
-		styles.put(REALIZATION, null);
-		styles.put(COMPOSITION, null);
-		styles.put(AGREGATION, null);
-		styles.put(ASSOCIATION, null);
+		// Class Connection styles
+		
+		styles.put(HIERARCHY, Style.HIERARCHY);
+		styles.put(REALIZATION, Style.REALIZATION);
+		styles.put(COMPOSITION, Style.COMPOSITION);
+		styles.put(ASSOCIATION, Style.ASSOCIATION);
+		// styles.put(AGREGATION, Style.AGREGATION);
+		
+		// Bean Injection styles
+		styles.put(SINGLE, Style.SINGLE);
+		
 	}
 	
 	private Map<Nature, Style> styles;

@@ -1,6 +1,6 @@
 package designexploder.model.event;
 
-public class ModelEvent {
+public class ModelEvent implements Cloneable {
 
 	private ModelEventType type;
 	private ModelEventTrigger source;
@@ -26,4 +26,13 @@ public class ModelEvent {
 	public String toString() {
 		return "[ModelEvent. Type: "+type+"]";
 	}
+
+	@Override
+	public ModelEvent clone() {
+		try {
+			return (ModelEvent) super.clone();
+		} catch (CloneNotSupportedException ignore) {}
+		return null;
+	}	
+
 }

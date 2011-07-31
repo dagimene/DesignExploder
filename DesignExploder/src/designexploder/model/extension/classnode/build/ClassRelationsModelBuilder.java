@@ -18,7 +18,7 @@ import designexploder.model.extension.classnode.ClassConnection;
 import designexploder.model.extension.classnode.ClassNode;
 import designexploder.model.extension.classnode.ClassType;
 import designexploder.model.extension.classnode.ClassModelNatures;
-import designexploder.model.extension.classnode.ModelUtil;
+import designexploder.model.extension.classnode.ClassModelUtil;
 import designexploder.model.extension.classnode.Type;
 import designexploder.model.extension.classnode.impl.ClassModelFactory;
 import designexploder.model.impl.BasicModelFactory;
@@ -75,7 +75,7 @@ public class ClassRelationsModelBuilder extends BaseModelBuilder {
 					} else {
 						ClassType attributeClassType = attributeType.asClassType();
 						buildRelation(node, attributeClassType, ClassModelNatures.ASSOCIATION);
-						if(ModelUtil.isCollection(attributeClassType)) {
+						if(ClassModelUtil.isCollection(attributeClassType)) {
 							buildRelations(node, attributeClassType.getTypeParameters(), ClassModelNatures.COMPOSITION);
 						}
 					}
@@ -112,7 +112,7 @@ public class ClassRelationsModelBuilder extends BaseModelBuilder {
 		Connection connection = BasicModelFactory.getInstance().createConnection();
 		ClassConnection classConnection = ClassModelFactory.getInstance().createClassConnection();
 		classConnection.setNature(nature);
-		connection.setId(IdUtil.creteConnectionId(source.getId(), target.getId()).toString());
+		connection.setId(IdUtil.createConnectionId(source.getId(), target.getId()).toString());
 		connection.addExtension(ClassConnection.class, classConnection);
 		connection.setSource(source);
 		connection.setTarget(target);

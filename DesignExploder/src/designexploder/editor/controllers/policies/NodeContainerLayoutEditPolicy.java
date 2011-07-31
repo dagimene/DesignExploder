@@ -89,9 +89,16 @@ public class NodeContainerLayoutEditPolicy extends XYLayoutEditPolicy {
 	}
 
 	private void setNodeBounds(Node node, Point location, Dimension size) {
+		location = location.getCopy();
 		if(size == null) {
 			size = new Dimension(15, 15);
 			location.translate(-15, -15);
+		}
+		NodeContainer container = BasicModelUtil.findModelRoot(node);
+		NodeContainer parent = node.getNodeContainer();
+		while(parent != container) {
+			location.translate(((Node) parent).getLocation().getNegated());
+			parent = ((Node) parent).getNodeContainer();
 		}
 		node.setLocation(location);
 		node.setSize(size);

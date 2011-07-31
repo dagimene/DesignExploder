@@ -63,6 +63,7 @@ import designexploder.model.NodeContainer;
 import designexploder.model.build.ChainedModelBuilder;
 import designexploder.model.build.ModelBasicDataSetter;
 import designexploder.model.build.ModelBuilder;
+import designexploder.model.extension.IoC.build.IoCModelPostProcessor;
 import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
 import designexploder.model.extension.classnode.build.ClassRelationsModelBuilder;
 import designexploder.model.extension.classnode.impl.eclipse.jdt.JDTModelBuilder;
@@ -127,7 +128,7 @@ public class DexDiagramEditor extends EditorPart implements
 			modelBuilder.addBuilder(springMB);
 		}
 		modelBuilder.addBuilder(new ModelBasicDataSetter(new XMLBasicModelDataProvider(file)));
-		// modelBuilder.addBuilder(more ioc data?)
+		modelBuilder.addBuilder(new IoCModelPostProcessor());
 		
 		getGraphicalViewer().setContents(modelBuilder.build(BasicModelFactory.getInstance().createNodeContainer()));
 	}
@@ -137,6 +138,10 @@ public class DexDiagramEditor extends EditorPart implements
 		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
 		NodeContainer model = (NodeContainer) getGraphicalViewer().getContents().getModel(); 
 		new XMLBasicModelWriter(file).write(model, monitor);
+	}
+
+	public NodeContainer getModel() {
+		return (NodeContainer) getGraphicalViewer().getContents().getModel();
 	}
 
 	/**
@@ -516,4 +521,5 @@ public class DexDiagramEditor extends EditorPart implements
 				((UpdateAction) action).update();
 		}
 	}
+
 }

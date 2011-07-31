@@ -22,4 +22,7 @@ public interface ClassModelEventTypes {
 	public static final ModelEventType METHOD_ADDED  = new ModelEventType.NamedModelEvent("METHOD_ADDED");
 	public static final ModelEventType METHOD_REMOVED  = new ModelEventType.NamedModelEvent("METHOD_REMOVED");
 
+	/* Connection */
+	public static final ModelEventType ORIGIN_CHANGED = new ModelEventType.NamedModelEvent("ORIGIN_CHANGED");
+
 }

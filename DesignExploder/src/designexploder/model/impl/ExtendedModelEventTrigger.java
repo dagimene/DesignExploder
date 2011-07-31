@@ -8,8 +8,8 @@ import designexploder.model.event.ModelPropertyChangeEvent;
 
 public class ExtendedModelEventTrigger extends ModelEventTriggerImpl {
 
-	protected void fireModelPropertyChangeEvent(ModelEventType type, Object oldValue, Object newValue) {
-		fireEvent(new ModelPropertyChangeEvent(type, this, oldValue, newValue));
+	protected <T> void fireModelPropertyChangeEvent(ModelEventType type, T oldValue, T newValue) {
+		fireEvent(new ModelPropertyChangeEvent<T>(type, this, oldValue, newValue));
 	}
 
 	protected <T> void fireModelCollectionAlterEvent(ModelEventType type, Collection<T> collection, T element) {

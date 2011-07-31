@@ -3,6 +3,7 @@ package designexploder.model.extension.classnode.impl.eclipse.jdt;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -13,6 +14,7 @@ import designexploder.model.extension.classnode.ClassNode;
 import designexploder.model.extension.classnode.ClassModelNatures;
 import designexploder.model.extension.classnode.Method;
 import designexploder.model.extension.classnode.Modifiable;
+import designexploder.model.extension.classnode.Parameter;
 import designexploder.model.extension.classnode.Type;
 import designexploder.model.extension.classnode.impl.ClassModelFactory;
 import designexploder.model.impl.BasicModelFactory;
@@ -36,12 +38,13 @@ public class JDTModelFactory {
 			setMofiers(classNode, type.getFlags());
 			buildMethods(classNode, type);
 			buildAttributes(classNode, type);
+			// TODO: Synthesize getters and setters to attributes
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
 		Node result = BasicModelFactory.getInstance().createNode();
 		result.addExtension(ClassNode.class, classNode);
-		result.setId(IdUtil.createClassId(jdtType.getName()).toString());
+		result.setId(IdUtil.createTypeId(jdtType).toString());
 		return result;
 	}
 	
@@ -64,15 +67,33 @@ public class JDTModelFactory {
 		for(IMethod method : type.getMethods()) {
 			try {
 				Type methodType = typesFactory.typeFor(method.getReturnType(), type);
-				if(methodType != null) {
+				ILocalVariable[] parameterElements = method.getParameters();
+				Parameter[] parameters = new Parameter[parameterElements.length];
+				if(methodType != null && parseParameters(parameterElements, type, parameters)) {
 					Method aMethod = ClassModelFactory.getInstance().createMethod(method.getElementName(), methodType);
 					setMofiers(aMethod, method.getFlags());
+					for (Parameter parameter : parameters) {
+						aMethod.addParameter(parameter);
+					}
 					node.addMethod(aMethod);
 				}
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public boolean parseParameters(ILocalVariable[] parameterElements, IType type, Parameter[] parameters) throws JavaModelException {
+		for (int i = 0; i < parameterElements.length; i++) {
+			ILocalVariable parameterElement = parameterElements[i];
+			Type parameterType = typesFactory.typeFor(parameterElement.getTypeSignature(), type);
+			if(parameterType != null) {
+				parameters[i] = ClassModelFactory.getInstance().createParameter(parameterElement.getElementName(), parameterType);
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private void setMofiers(Modifiable modifiable, int flags) {

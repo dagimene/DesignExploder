@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 
 import designexploder.editor.graphics.GraphicsFactory;
 import designexploder.model.Connection;
@@ -65,5 +67,22 @@ public class NodeEditPart extends ExtensibleModelEditPart {
 	
 	public Node getModel() {
 		return (Node) super.getModel();
+	}
+	
+	
+	/**
+	 * Redirect Requests to node's edit policies.
+	 */
+	@Override
+	public void performRequest(Request request) {
+		Command command = null;
+		EditPolicyIterator i = getEditPolicyIterator();
+		while (i.hasNext()) {
+			if (command != null)
+				command = command.chain(i.next().getCommand(request));
+			else
+				command = i.next().getCommand(request);
+		}
+		getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 }

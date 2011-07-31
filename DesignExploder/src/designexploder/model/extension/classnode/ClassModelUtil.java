@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModelUtil {
+public class ClassModelUtil {
 
-	private static Map<Class<? extends ClassType>, ModelUtil> instances = new HashMap<Class<? extends ClassType>, ModelUtil>();
+	private static Map<Class<? extends ClassType>, ClassModelUtil> instances = new HashMap<Class<? extends ClassType>, ClassModelUtil>();
 	
 	private final Map<Class<?>, ClassType> knownTypes = new HashMap<Class<?>, ClassType>();
 	
 	private final ClassTypeFactory factory;
 	
-	private ModelUtil(ClassTypeFactory classTypeFactory) {
+	private ClassModelUtil(ClassTypeFactory classTypeFactory) {
 		factory = classTypeFactory;
 	}
 	
@@ -23,22 +23,29 @@ public class ModelUtil {
 		return getInstance(type).isCollection0(type);
 	}
 
-	private static ModelUtil getInstance(ClassType classType) {
-		ModelUtil instance = instances.get(classType.getClass());
+	public static boolean isSubclass(ClassType type, ClassType supertype) {
+		return getInstance(type).isSubclass0(type, supertype);
+	}
+
+	private static ClassModelUtil getInstance(ClassType classType) {
+		ClassModelUtil instance = instances.get(classType.getClass());
 		if(instance == null) {
-			instance = new ModelUtil(classType.getFactory());
+			instance = new ClassModelUtil(classType.getFactory());
 			instances.put(classType.getClass(), instance);
 		}
 		return instance;
 	}
 	
 	private boolean isCollection0(ClassType type) {
+		return isSubclass0(type, getKnownType(Collection.class));
+	}
+
+	private boolean isSubclass0(ClassType type, ClassType supertype) {
 		Deque<ClassType> hierarchy = new ArrayDeque<ClassType>();
-		ClassType collectionType = getKnownType(Collection.class);
 		hierarchy.add(type);
 		while(!hierarchy.isEmpty()) {
 			type = hierarchy.pop();
-			if(type.isInterface() && collectionType.equals(type.getTypeErasure())) {
+			if(supertype.equals(type.getTypeErasure())) {
 				return true;
 			}
 			ClassType superclass = type.getSuperclass();

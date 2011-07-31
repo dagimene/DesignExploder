@@ -13,4 +13,14 @@ class AttributeImpl extends ParameterImpl implements Attribute {
 	public ClassModelNatures getNature() {
 		return ClassModelNatures.ATTRIBUTE;
 	}
+
+	@Override
+	public boolean isMethod() {
+		return false;
+	}
+
+	@Override
+	public boolean isAttribute() {
+		return true;
+	}
 }

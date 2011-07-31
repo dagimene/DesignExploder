@@ -5,14 +5,19 @@ import static designexploder.editor.graphics.styles.Style.Constant.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
+import designexploder.editor.graphics.EndpointDecorationsFactory;
 import designexploder.resources.ResourcesManager;
 
 public enum Style {
+	
+	// Node styles
 	
 	BASE_STYLE(null,
 			FOREGROUND, new Color(null,0,0,0),
@@ -63,7 +68,39 @@ public enum Style {
 	
 	ABSTRACT_METHOD(MEMBER,
 			FONT, new Font(null, "Arial", 10, SWT.ITALIC),
-			SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC));
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC)),
+			
+	// Connection styles
+	
+	BASE_CONNECTION_STYLE(null,
+			LINE_COLOR, ColorConstants.black,
+			LINE_DASH, SWT.LINE_SOLID,
+			LINE_WIDTH, Integer.valueOf(2)),			
+			
+	HIERARCHY(BASE_CONNECTION_STYLE,
+			TARGET_DECORATION, EndpointDecorationsFactory.CLOSED_ARROW),			
+
+	REALIZATION(HIERARCHY,
+			LINE_DASH, SWT.LINE_DASH),			
+
+	COMPOSITION(BASE_CONNECTION_STYLE,
+			SOURCE_DECORATION, EndpointDecorationsFactory.FILLED_DIAMOND),			
+			
+	ASSOCIATION(BASE_CONNECTION_STYLE,
+			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
+			
+	//AGREGATION(BASE_CONNECTION_STYLE),
+
+	BASE_INJECTION_STYLE(null,
+			LINE_COLOR, ColorConstants.blue,
+			LINE_DASH, SWT.LINE_SOLID,
+			LINE_WIDTH, Integer.valueOf(1),
+			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
+
+	SINGLE(BASE_INJECTION_STYLE,
+			ICON, ResourcesManager.BEAN_ICON);
+	
+	// -----------------------------------------------------------
 			
 	private Map<Style.Constant, Object> properties;
 	private Style parent;
@@ -95,17 +132,34 @@ public enum Style {
 
 	public Image getImage(Style.Constant property) {
 		Object value = getValue(property);
-		// Lazy initialization
 		if(value instanceof String) {
-			properties.put(property, ResourcesManager.getImage((String) value));
+			// Lazy initialization
+			value = ResourcesManager.getImage((String) value);
+			properties.put(property, value);
 		}
 		return value instanceof Image ? (Image) value : null;
 	}
 
+	public Integer getInt(Constant property) {
+		Object value = getValue(property);
+		return (value instanceof Integer ? (Integer) value : null);
+	}
+
+	public RotatableDecoration getDecoration(Constant property) {
+		Object value = getValue(property);
+		return (value instanceof EndpointDecorationsFactory ? ((EndpointDecorationsFactory) value).create() : null);
+	}
+
 	public static enum Constant {
+		// Node
 		FONT, SELECTED_FONT,
 		FOREGROUND, SELECTED_FOREGROUND,
 		BACKGROUNG, SELECTED_BACKGROUND,
+		
+		//Connection
+		LINE_COLOR, LINE_WIDTH, LINE_DASH, SOURCE_DECORATION, TARGET_DECORATION,
+		
+		// Mixed
 		ICON;
 		
 		public static Constant getBackground(boolean selected) {
@@ -120,8 +174,28 @@ public enum Style {
 			return selected ? SELECTED_FONT : FONT;
 		}
 
+		public static Constant getLineColor() {
+			return LINE_COLOR;
+		}
+
 		public static Constant getIcon() {
 			return ICON;
+		}
+
+		public static Constant getLineDash() {
+			return LINE_DASH;
+		}
+
+		public static Constant getSourceDecoration() {
+			return SOURCE_DECORATION;
+		}
+
+		public static Constant getTargetDecoration() {
+			return TARGET_DECORATION;
+		}
+
+		public static Constant getLineWidth() {
+			return LINE_WIDTH;
 		}
 	}
 }
