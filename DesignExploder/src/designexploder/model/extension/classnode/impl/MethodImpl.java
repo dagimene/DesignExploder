@@ -92,5 +92,5 @@ class MethodImpl extends ParameterizedImpl implements Method {
 	@Override
 	public boolean isAttribute() {
 		return false;
-	}	
+	}
 }

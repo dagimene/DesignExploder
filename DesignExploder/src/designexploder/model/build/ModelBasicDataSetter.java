@@ -10,7 +10,7 @@ import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBasicDataProvider.ConnectionBasicDataProvider;
 import designexploder.model.build.ModelBasicDataProvider.NodeBasicDataProvider;
-import designexploder.model.impl.BasicModelFactory;
+import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.util.adt.IdUtil;
 import designexploder.util.adt.IdUtil.ID;
 
@@ -41,7 +41,7 @@ public class ModelBasicDataSetter extends IdAwareModelBuilder {
 				if(node == null && id.type == IdUtil.CLASS_TYPE && id.number != -1) {
 					Node baseNode = super.findNode(IdUtil.createClassId(id.name).toString());
 					if(baseNode != null) {
-						node = BasicModelFactory.getInstance().createModelCopy(baseNode, id.toString(), true);
+						node = IoCModelUtil.createClassNodeCopy(baseNode, id.toString());
 						super.addNode(node);
 					}
 				}
@@ -79,7 +79,7 @@ public class ModelBasicDataSetter extends IdAwareModelBuilder {
 	/**
 	 * Find all class nodes that were not declared in the .dex.
 	 * If the node has duplicates, remove it.
-	 * If the node doesn't has duplicates, leave it.
+	 * If the node doesn't have duplicates, leave it.
 	 * @param diagram
 	 */
 	private void purge(NodeContainer diagram) {

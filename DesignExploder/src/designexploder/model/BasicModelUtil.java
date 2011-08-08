@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import designexploder.model.event.ModelEventTrigger;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.CastIterator;
 import designexploder.util.adt.Condition;
@@ -40,6 +39,11 @@ public class BasicModelUtil {
 			pruneConnections(node, Collections.singleton(node));
 		}
 		node.getNodeContainer().removeNode(node);
+	}
+	
+	public static void removeConnection(Connection connection) { 
+		connection.getSource().removeOutflow(connection);
+		connection.getTarget().removeInflow(connection);
 	}
 
 	private static void pruneConnections(ContainerNode container) {
@@ -155,15 +159,15 @@ public class BasicModelUtil {
 		return classFilterIterator(container.getNodes().iterator(), ContainerNode.class);
 	}
 
-	public static Iterable<Node> getExtendedNodes(NodeContainer container, Class<? extends ModelEventTrigger> extension) {
+	public static Iterable<Node> getExtendedNodes(NodeContainer container, Class<? extends ModelExtension> extension) {
 		return getExtendedModels(container.getNodes(), extension);
 	}
 
-	public static <M extends ExtensibleModelElement> Iterable<M> getExtendedModels(Collection<M> models, Class<? extends ModelEventTrigger> extension) {
+	public static <M extends ExtensibleModelElement> Iterable<M> getExtendedModels(Collection<M> models, Class<? extends ModelExtension> extension) {
 		return extensionFilterIterator(models.iterator(), extension);
 	}
 	
-	private static <M extends ExtensibleModelElement> Iterable<M> extensionFilterIterator(Iterator<M> base, final Class<? extends ModelEventTrigger> extension) {
+	private static <M extends ExtensibleModelElement> Iterable<M> extensionFilterIterator(Iterator<M> base, final Class<? extends ModelExtension> extension) {
 		return new IterableIterator<M>(
 					new FilteredIterator<M>(base,
 							new Condition<M>() {

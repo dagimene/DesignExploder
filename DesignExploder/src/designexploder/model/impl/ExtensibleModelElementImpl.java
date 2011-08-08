@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Set;
 
 import designexploder.model.ExtensibleModelElement;
+import designexploder.model.ModelExtension;
 import designexploder.model.event.BasicModelEventTypes;
-import designexploder.model.event.ModelEventTrigger;
 
 abstract class ExtensibleModelElementImpl extends ExtendedModelEventTrigger implements ExtensibleModelElement {
 
-	private Map<Class<?>, Object> extensions = new HashMap<Class<?>, Object>(5);
+	private Map<Class<? extends ModelExtension>, ModelExtension> extensions = new HashMap<Class<? extends ModelExtension>, ModelExtension>(2);
 	private String id;
 	
 	public String getId() {
@@ -22,31 +22,31 @@ abstract class ExtensibleModelElementImpl extends ExtendedModelEventTrigger impl
 	}
 
 	@Override
-	public <T extends ModelEventTrigger> T getExtension(Class<T> clazz) {
+	public <T extends ModelExtension> T getExtension(Class<T> clazz) {
 		return clazz.cast(extensions.get(clazz));
 	}
 
 	@Override
-	public <T extends ModelEventTrigger> void addExtension(Class<T> clazz, T extension) {
-		extensions.put(clazz, extension);
-		fireModelCollectionAlterEvent(BasicModelEventTypes.EXTENSION_ADDED, extensions.keySet(), clazz);
+	public <T extends ModelExtension> void addExtension(T extension) {
+		extensions.put(extension.getExtensionClass(), extension);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.EXTENSION_ADDED, extensions.values(), extension);
 	}
 
 	@Override
-	public <T extends ModelEventTrigger> T removeExtension(Class<T> clazz) {
-		fireModelCollectionAlterEvent(BasicModelEventTypes.BEFORE_EXTENSION_REMOVED, extensions.keySet(), clazz);
+	public <T extends ModelExtension> T removeExtension(Class<T> clazz) {
 		T result = clazz.cast(extensions.remove(clazz));
-		fireModelCollectionAlterEvent(BasicModelEventTypes.EXTENSION_REMOVED, extensions.keySet(), clazz);
+		fireModelCollectionAlterEvent(BasicModelEventTypes.EXTENSION_REMOVED, extensions.values(), result);
 		return result;
+	}
+	
+	@Override
+	public Set<Class<? extends ModelExtension>> getExtensions() {
+		return extensions.keySet();
 	}
 	
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "[" + getId() + "]";
-	}
-	
-	protected Set<Class<?>> getInstalledExtensions() {
-		return extensions.keySet();
 	}
 
 }

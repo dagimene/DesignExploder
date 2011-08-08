@@ -1,6 +1,7 @@
 package designexploder.model.extension.IoC.impl;
 
 import designexploder.model.extension.IoC.*;
+import designexploder.model.extension.classnode.ClassItem;
 
 public class IoCModelFactory {
 	
@@ -28,8 +29,11 @@ public class IoCModelFactory {
 		return new BeanInjectionImpl();
 	}
 	
-	public Dependency createDependency() {
-		return new DependencyImpl();
+	public Dependency createDependency(ClassItem target) {
+		DependencyImpl dependency = new DependencyImpl();
+		dependency.setNature(IoCModelNatures.UNRESOLVED_DEPENDENCY);
+		dependency.setTarget(target);
+		return dependency;
 	}
 
 }

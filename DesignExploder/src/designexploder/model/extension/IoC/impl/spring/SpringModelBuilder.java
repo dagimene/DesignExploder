@@ -37,7 +37,7 @@ public class SpringModelBuilder extends BaseModelBuilder {
 	public NodeContainer build(NodeContainer diagram) {
 		diagram = super.build(diagram);
 		initializeApplicationContext(diagram, "main.ctx");
-		SpingBeansModelFactory factory = new SpingBeansModelFactory(project);
+		SpringBeansModelFactory factory = new SpringBeansModelFactory(project);
 		Iterator<Pair<IFile, SpringConfigFile>> iterator = new SpringConfigFilesIterator(contextsFragmentRoot);
 		while(iterator.hasNext()) {
 			Pair<IFile, SpringConfigFile> next = iterator.next();
@@ -62,7 +62,7 @@ public class SpringModelBuilder extends BaseModelBuilder {
 		ApplicationContext context = IoCModelFactory.getInstance().createApplicationContext();
 		contextNode.setId(IdUtil.createContextId(filename).toString());
 		context.setName(transformFilenameToName(filename));
-		contextNode.addExtension(ApplicationContext.class, context);
+		contextNode.addExtension(context);
 	}
 
 	/**

@@ -11,6 +11,9 @@ public class ConnectionFigure extends PolylineConnection {
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(target);
 		setSourceAnchor(sourceAnchor);
 		setTargetAnchor(targetAnchor);
+		if(source == target) {
+			setVisible(false);
+		}
 	}
 	
 	public ConnectionFigure() {}

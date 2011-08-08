@@ -8,5 +8,5 @@ public interface ClassItem extends Modifiable, Named, InmutableNaturalized {
 	boolean isMethod();
 	
 	boolean isAttribute();
-	
+
 }

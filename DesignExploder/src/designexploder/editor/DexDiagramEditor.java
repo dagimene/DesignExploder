@@ -55,7 +55,12 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
-import designexploder.actions.CreateApplicationContextAction;
+import designexploder.editor.actions.CreateApplicationContextAction;
+import designexploder.editor.actions.InjectClassItemAction;
+import designexploder.editor.actions.TransformToBeanAction;
+import designexploder.editor.actions.TransformToFacadeAction;
+import designexploder.editor.actions.TransformToIoCAwareMethodAction;
+import designexploder.editor.controllers.IoCModelUpdateListener;
 import designexploder.editor.controllers.factory.DexDiagramPartsFactory;
 import designexploder.editor.tools.EditorToolManager;
 import designexploder.editor.tools.TriggerableSelectionTool;
@@ -63,8 +68,8 @@ import designexploder.model.NodeContainer;
 import designexploder.model.build.ChainedModelBuilder;
 import designexploder.model.build.ModelBasicDataSetter;
 import designexploder.model.build.ModelBuilder;
-import designexploder.model.extension.IoC.build.IoCModelPostProcessor;
 import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
+import designexploder.model.extension.classnode.build.ClassMembersCondensatorBuilder;
 import designexploder.model.extension.classnode.build.ClassRelationsModelBuilder;
 import designexploder.model.extension.classnode.impl.eclipse.jdt.JDTModelBuilder;
 import designexploder.model.impl.BasicModelFactory;
@@ -123,12 +128,13 @@ public class DexDiagramEditor extends EditorPart implements
 			modelBuilder.addBuilder(jdtMB);
 		}
 		modelBuilder.addBuilder(new ClassRelationsModelBuilder());
+		modelBuilder.addBuilder(new ClassMembersCondensatorBuilder());
 		ModelBuilder springMB = SpringModelBuilder.create(DexUtils.getContextsPackageRoot(project));
 		if(springMB != null) {
 			modelBuilder.addBuilder(springMB);
 		}
 		modelBuilder.addBuilder(new ModelBasicDataSetter(new XMLBasicModelDataProvider(file)));
-		modelBuilder.addBuilder(new IoCModelPostProcessor());
+		modelBuilder.addBuilder(new IoCModelUpdateListener());
 		
 		getGraphicalViewer().setContents(modelBuilder.build(BasicModelFactory.getInstance().createNodeContainer()));
 	}
@@ -155,14 +161,18 @@ public class DexDiagramEditor extends EditorPart implements
 		updateActions(stackActions);
 	}
 
+	public void forceUpdateSelectionActions() {
+		updateActions(selectionActions);
+	}
+
 	/**
 	 * Called to configure the graphical viewer before it receives its contents.
 	 * This is where the root editpart should be configured. Subclasses should
 	 * extend or override this method as needed.
 	 */
 	protected void configureGraphicalViewer() {
-		getGraphicalViewer().getControl().setBackground(
-				ColorConstants.listBackground);
+		getGraphicalViewer().getControl().setBackground(ColorConstants.listBackground);
+		getGraphicalViewer().setContextMenu(new DexDiagramEditorContextMenu(getGraphicalViewer(), getActionRegistry()));
 		getGraphicalViewer().setEditPartFactory(new DexDiagramPartsFactory());
 	}
 
@@ -195,6 +205,22 @@ public class DexDiagramEditor extends EditorPart implements
 		
 		action = new CreateApplicationContextAction(this);
 		registry.registerAction(action);
+		
+		action = new TransformToBeanAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
+
+		action = new TransformToFacadeAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
+		
+		action = new TransformToIoCAwareMethodAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
+
+		action = new InjectClassItemAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
 
 		registry.registerAction(new PrintAction(this));
 	}

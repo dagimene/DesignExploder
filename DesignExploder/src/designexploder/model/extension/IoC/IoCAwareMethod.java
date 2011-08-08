@@ -1,16 +1,15 @@
 package designexploder.model.extension.IoC;
 
 import designexploder.model.extension.classnode.Method;
-import designexploder.model.extension.common.Naturalized;
 
-public interface IoCAwareMethod extends Naturalized {
+public interface IoCAwareMethod extends ClassItemTargeted {
 
 	/**
 	 * The ClassModel method that is IoC aware.
 	 * @return
 	 */
-	Method getMethod();
+	Method getTarget();
 	
-	void setMethod(Method method);
+	void setTarget(Method method);
 
 }

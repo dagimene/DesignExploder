@@ -6,7 +6,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.GroupRequest;
 
-import designexploder.editor.controllers.commands.RemoveNodeCommand;
+import designexploder.editor.commands.RemoveNodeCommand;
 import designexploder.model.BasicModelUtil;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;

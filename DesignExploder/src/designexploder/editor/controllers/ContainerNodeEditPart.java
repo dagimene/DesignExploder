@@ -9,9 +9,6 @@ import designexploder.editor.graphics.ContainerNodeFigure;
 import designexploder.editor.graphics.GraphicsFactory;
 import designexploder.model.Connection;
 import designexploder.model.ContainerNode;
-import designexploder.model.event.BasicModelEventTypes;
-import designexploder.model.event.ModelEvent;
-import designexploder.model.event.ModelEventType;
 
 public class ContainerNodeEditPart extends NodeContainerEditPart {
 
@@ -21,15 +18,8 @@ public class ContainerNodeEditPart extends NodeContainerEditPart {
 	}
 	
 	@Override
-	protected void refreshVisuals() {
+	public void refreshVisuals() {
 		((GraphicalEditPart)getParent()).setLayoutConstraint(this, getFigure(), getModel().getBounds());
-	}
-	
-	@Override
-	public List<ModelEventType> getListenedProperties(List<ModelEventType> properties) {
-		super.getListenedProperties(properties);
-		properties.add(BasicModelEventTypes.BOUNDS_CHANGED);
-		return properties;
 	}
 	
 	@Override
@@ -42,16 +32,6 @@ public class ContainerNodeEditPart extends NodeContainerEditPart {
 		return getModel().getInflows();
 	}
 
-	@Override
-	public void processModelEvent(ModelEvent e) {
-		ModelEventType type = e.getType();
-		if(type == BasicModelEventTypes.BOUNDS_CHANGED) {
-			refresh();
-		} else {
-			super.processModelEvent(e);
-		}
-	}
-	
 	public ContainerNode getModel() {
 		return (ContainerNode) super.getModel();
 	}

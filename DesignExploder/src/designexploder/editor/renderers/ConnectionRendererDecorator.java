@@ -7,6 +7,8 @@ public interface ConnectionRendererDecorator {
 
 	String getConnectionLabel(Connection connection);
 	
-	Nature getConnectionNature(Connection connection);
+	Nature getConnectionMainNature(Connection connection);
 
+	Nature getConnectionEndpointsNature(Connection connection);
+	
 }

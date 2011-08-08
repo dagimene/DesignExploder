@@ -60,8 +60,8 @@ public class BasicModelFactory {
 		
 		// Copy extensible model element properties
 		copy.setId(newId);
-		for (@SuppressWarnings("rawtypes") Class extensionType : ((ExtensibleModelElementImpl) model).getInstalledExtensions()) {
-			copy.addExtension(extensionType, model.getExtension(extensionType));
+		for (@SuppressWarnings("rawtypes") Class extensionType : ((ExtensibleModelElement) model).getExtensions()) {
+			copy.addExtension(model.getExtension(extensionType));
 		}
 		
 		// Copy node properties

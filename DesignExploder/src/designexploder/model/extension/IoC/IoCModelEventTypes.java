@@ -13,7 +13,8 @@ public interface IoCModelEventTypes {
 
 	// Dependency
 	public static final ModelEventType TARGET_CHANGED = new ModelEventType.NamedModelEvent("TARGET_CHANGED");
-	public static final ModelEventType BEAN_INJECTION_CHANGED = new ModelEventType.NamedModelEvent("BEAN_INJECTION_CHANGED");
+	public static final ModelEventType BEAN_INJECTION_ADDED = new ModelEventType.NamedModelEvent("BEAN_INJECTION_ADDED");
+	public static final ModelEventType BEAN_INJECTION_REMOVED = new ModelEventType.NamedModelEvent("BEAN_INJECTION_REMOVED");
 
 	// IoCAwareMethod
 	public static final ModelEventType METHOD_CHANGED = new ModelEventType.NamedModelEvent("METHOD_CHANGED");

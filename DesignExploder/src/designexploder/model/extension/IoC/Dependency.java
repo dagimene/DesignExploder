@@ -1,18 +1,13 @@
 package designexploder.model.extension.IoC;
 
+import java.util.Set;
+
 import designexploder.model.Connection;
 import designexploder.model.extension.classnode.ClassItem;
 import designexploder.model.extension.classnode.InmutableNamed;
-import designexploder.model.extension.common.Naturalized;
 
-public interface Dependency extends InmutableNamed, Naturalized {
+public interface Dependency extends InmutableNamed, ClassItemTargeted {
 
-	/**
-	 * The targeted attribute or method where the injection is performed.
-	 * @return
-	 */
-	ClassItem getTarget();
-	
 	void setTarget(ClassItem target);
 
 	/**
@@ -26,8 +21,10 @@ public interface Dependency extends InmutableNamed, Naturalized {
 	 * A connection with the bean injection associated with this resolved dependency, or null.
 	 * @return
 	 */
-	Connection getBeanInjection(); 
+	Set<Connection> getBeanInjections(); 
 	
-	void setBeanInjection(Connection injection); 
+	void addBeanInjection(Connection injection); 
+
+	void removeBeanInjection(Connection injection); 
 
 }

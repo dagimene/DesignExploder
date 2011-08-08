@@ -10,14 +10,15 @@ import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
 
 import designexploder.editor.graphics.EndpointDecorationsFactory;
-import designexploder.resources.ResourcesManager;
+import designexploder.resources.IconResource;
 
 public enum Style {
 	
 	// Node styles
+	
+	// General
 	
 	BASE_STYLE(null,
 			FOREGROUND, new Color(null,0,0,0),
@@ -33,49 +34,86 @@ public enum Style {
 			BACKGROUNG, new Color(null,255,0,0),
 			SELECTED_BACKGROUND, new Color(null,255,0,0),
 			FONT, new Font(null, "Arial", 10, SWT.BOLD),
-			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD),
+			ICON, IconResource.ERROR_ICON),
+			
+	// classmodel	
 			
 	CLASS(BASE_STYLE,
 			BACKGROUNG, new Color(null,245,228,156),
 			SELECTED_BACKGROUND, new Color(null,245,228,156),
 			FONT, new Font(null, "Arial", 12, SWT.NORMAL),
 			SELECTED_FONT, new Font(null, "Arial", 12, SWT.NORMAL),
-			ICON, ResourcesManager.CLASS_ICON),
+			ICON, IconResource.CLASS_ICON),
 	
 	ENUM(CLASS,
 			BACKGROUNG, new Color(null,255,255,128),
 			SELECTED_BACKGROUND, new Color(null,255,255,128),
-			ICON, ResourcesManager.ENUM_ICON),
+			ICON, IconResource.ENUM_ICON),
 
 	ABSTRACT_CLASS(CLASS,
 			FONT, new Font(null, "Arial", 12, SWT.ITALIC),
 			SELECTED_FONT, new Font(null, "Arial", 12, SWT.ITALIC),
-			ICON, ResourcesManager.ABSTRACT_CLASS_ICON),
+			ICON, IconResource.ABSTRACT_CLASS_ICON),
 			
 	INTERFACE(ABSTRACT_CLASS,
 			BACKGROUNG, new Color(null,204,125,146),
 			SELECTED_BACKGROUND, new Color(null,204,125,146),
-			ICON, ResourcesManager.INTERFACE_ICON),
-			
-	COMMON_BEAN(CLASS,
-			BACKGROUNG, new Color(null,206,169,144),
-			SELECTED_BACKGROUND, new Color(null,206,169,144),
-			ICON, ResourcesManager.BEAN_ICON),
+			ICON, IconResource.INTERFACE_ICON),
 
-	MEMBER(BASE_STYLE/*,
+	MEMBER(BASE_STYLE,
 			FONT, new Font(null, "Arial", 10, SWT.NORMAL),
-			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)*/),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.BOLD)),
 	
 	ABSTRACT_METHOD(MEMBER,
 			FONT, new Font(null, "Arial", 10, SWT.ITALIC),
-			SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC)),
+			SELECTED_FONT, new Font(null, "Arial", 10, SWT.ITALIC | SWT.BOLD)),
+			
+	// IoC model
+			
+	CONTEXT(CLASS,
+			BACKGROUNG, new Color(null,206,169,144),
+			SELECTED_BACKGROUND, new Color(null,206,169,144),
+			ICON, IconResource.BEAN_ICON),
+
+	BEAN(CLASS,
+			BACKGROUNG, new Color(null,206,169,144),
+			SELECTED_BACKGROUND, new Color(null,206,169,144),
+			ICON, IconResource.BEAN_ICON),
+
+	BEAN_FACADE(BEAN,
+			ICON, IconResource.BEAN_FACADE_ICON),
+
+	BEAN_AUTO(BEAN,
+			ICON, IconResource.BEAN_AUTO_ICON),
+			
+	BEAN_STATELESS(BEAN,
+			ICON, IconResource.BEAN_STATELESS_ICON),
+
+	BEAN_FACTORY(BEAN,
+			ICON, IconResource.BEAN_FACTORY_ICON),
+
+	// IoCAwareMethods
+			
+	IOC_METHOD_FACTORY(MEMBER,
+			ICON, IconResource.BEAN_METHOD_FACTORY_ICON),
+			
+	IOC_METHOD_INIT(MEMBER,
+			ICON, IconResource.BEAN_METHOD_INIT_ICON),
+
+	IOC_METHOD_INSTANTIATE(MEMBER,
+			ICON, IconResource.BEAN_METHOD_INSTANTIATE_ICON),
 			
 	// Connection styles
-	
+			
 	BASE_CONNECTION_STYLE(null,
 			LINE_COLOR, ColorConstants.black,
 			LINE_DASH, SWT.LINE_SOLID,
 			LINE_WIDTH, Integer.valueOf(2)),			
+
+	INDIFFERENT_CONNECTION(BASE_CONNECTION_STYLE,
+			LINE_COLOR, ColorConstants.lightGray,
+			LINE_WIDTH, Integer.valueOf(1)),
 			
 	HIERARCHY(BASE_CONNECTION_STYLE,
 			TARGET_DECORATION, EndpointDecorationsFactory.CLOSED_ARROW),			
@@ -84,21 +122,42 @@ public enum Style {
 			LINE_DASH, SWT.LINE_DASH),			
 
 	COMPOSITION(BASE_CONNECTION_STYLE,
-			SOURCE_DECORATION, EndpointDecorationsFactory.FILLED_DIAMOND),			
+			SOURCE_DECORATION, EndpointDecorationsFactory.FILLED_DIAMOND,
+			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
 			
 	ASSOCIATION(BASE_CONNECTION_STYLE,
 			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
 			
 	//AGREGATION(BASE_CONNECTION_STYLE),
 
-	BASE_INJECTION_STYLE(null,
+	// Nature used for both members and connections
+	BASE_INJECTION(MEMBER,
 			LINE_COLOR, ColorConstants.blue,
 			LINE_DASH, SWT.LINE_SOLID,
 			LINE_WIDTH, Integer.valueOf(1),
 			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
 
-	SINGLE(BASE_INJECTION_STYLE,
-			ICON, ResourcesManager.BEAN_ICON);
+	UNRESOLVED_DEPENDENCY(BASE_INJECTION,
+			LINE_COLOR, ColorConstants.red,
+			LINE_DASH, SWT.LINE_DASH,
+			ICON, IconResource.INJECTION_WARNING_ICON,			
+			LINE_ICON, IconResource.WARNING_ICON),
+	
+	INJECTION_BEAN(BASE_INJECTION,
+			ICON, IconResource.BEAN_ICON,
+			LINE_ICON, IconResource.BEAN_ICON),			
+
+	INJECTION_COLLECTION(BASE_INJECTION,
+			ICON, IconResource.BEAN_FIELD_COLLECTION_ICON,
+			LINE_ICON, IconResource.BEAN_FIELD_COLLECTION_ICON),
+	
+	INJECTION_TREE(BASE_INJECTION,
+			ICON, IconResource.BEAN_FIELD_TREE_ICON,
+			LINE_ICON, IconResource.BEAN_FIELD_TREE_ICON),
+	
+	INJECTION_PROXY(BASE_INJECTION,
+			ICON, IconResource.BEAN_FIELD_PROXY_ICON,
+			LINE_ICON, IconResource.BEAN_FIELD_PROXY_ICON);
 	
 	// -----------------------------------------------------------
 			
@@ -130,14 +189,9 @@ public enum Style {
 		return value instanceof Color ? (Color) value : null;
 	}
 
-	public Image getImage(Style.Constant property) {
+	public IconResource getImage(Style.Constant property) {
 		Object value = getValue(property);
-		if(value instanceof String) {
-			// Lazy initialization
-			value = ResourcesManager.getImage((String) value);
-			properties.put(property, value);
-		}
-		return value instanceof Image ? (Image) value : null;
+		return value instanceof IconResource ? (IconResource) value : null;
 	}
 
 	public Integer getInt(Constant property) {
@@ -157,10 +211,10 @@ public enum Style {
 		BACKGROUNG, SELECTED_BACKGROUND,
 		
 		//Connection
-		LINE_COLOR, LINE_WIDTH, LINE_DASH, SOURCE_DECORATION, TARGET_DECORATION,
+		LINE_COLOR, LINE_ALPHA, LINE_WIDTH, LINE_DASH, SOURCE_DECORATION, TARGET_DECORATION,
 		
 		// Mixed
-		ICON;
+		ICON, LINE_ICON, ;
 		
 		public static Constant getBackground(boolean selected) {
 			return selected ? SELECTED_BACKGROUND : BACKGROUNG;
@@ -196,6 +250,14 @@ public enum Style {
 
 		public static Constant getLineWidth() {
 			return LINE_WIDTH;
+		}
+
+		public static Constant getLineIcon() {
+			return LINE_ICON;
+		}
+
+		public static Constant getLineAlpha() {
+			return LINE_ALPHA;
 		}
 	}
 }

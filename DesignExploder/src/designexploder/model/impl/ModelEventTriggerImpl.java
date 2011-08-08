@@ -34,7 +34,7 @@ public class ModelEventTriggerImpl implements ModelEventTrigger {
 	protected void fireEvent(ModelEvent event) {
 		List<ModelEventListener> typeListeners = listeners.get(event.getType());
 		if(typeListeners != null) {
-			for (ModelEventListener listener : typeListeners) {
+			for (ModelEventListener listener : typeListeners.toArray(new ModelEventListener[typeListeners.size()])) {
 				listener.processModelEvent(event);
 			}
 		}

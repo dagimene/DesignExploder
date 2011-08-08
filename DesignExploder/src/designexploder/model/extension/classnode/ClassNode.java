@@ -2,9 +2,10 @@ package designexploder.model.extension.classnode;
 
 import java.util.List;
 
+import designexploder.model.ModelExtension;
 import designexploder.model.extension.common.Naturalized;
 
-public interface ClassNode extends Naturalized, Modifiable {
+public interface ClassNode extends Naturalized, Modifiable, ModelExtension {
 	
 	List<Method> getMethods();
 	

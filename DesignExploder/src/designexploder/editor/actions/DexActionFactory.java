@@ -1,0 +1,11 @@
+package designexploder.editor.actions;
+
+public enum DexActionFactory {
+
+	CREATE_APPLICATION_CONTEXT,
+	TRANSFORM_TO_BEAN,
+	TRANSFORM_TO_FACADE,
+	TRANSFORM_TO_IOC_AWARE_METHOD,
+	INJECT_CLASS_ITEM
+
+}

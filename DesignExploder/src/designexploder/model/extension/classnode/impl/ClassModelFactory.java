@@ -1,5 +1,6 @@
 package designexploder.model.extension.classnode.impl;
 
+import designexploder.model.Node;
 import designexploder.model.extension.classnode.*;
 
 public class ClassModelFactory {
@@ -16,19 +17,20 @@ public class ClassModelFactory {
 		return new ClassNodeImpl(type);
 	}
 
-	public ClassConnection createClassConnection() {
-		return new ClassConnectionImpl();
+	public ClassRelation createClassConnection() {
+		return new ClassRelationImpl();
 	}
 
-	public Attribute createAttribute(String name, Type type) {
+	public Attribute createAttribute(Node parent, String name, Type type) {
 		return new AttributeImpl(name, type);
 	}
 
-	public Method createMethod(String name, Type type) {
+	public Method createMethod(Node parent, String name, Type type) {
 		return new MethodImpl(name, type);
 	}
 	
 	public Parameter createParameter(String name, Type type) {
 		return new ParameterImpl(name, type);
 	}
+
 }

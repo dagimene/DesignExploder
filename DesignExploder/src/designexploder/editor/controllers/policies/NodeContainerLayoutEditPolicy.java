@@ -15,18 +15,17 @@ import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
+import designexploder.editor.commands.AddNodeCommand;
+import designexploder.editor.commands.MoveAndResizeNodeCommand;
+import designexploder.editor.commands.MoveNodeCommand;
+import designexploder.editor.commands.ReparentNodeCommand;
 import designexploder.editor.controllers.ClassNodeEditPart;
 import designexploder.editor.controllers.ContainerNodeEditPart;
-import designexploder.editor.controllers.commands.AddNodeCommand;
-import designexploder.editor.controllers.commands.MoveAndResizeNodeCommand;
-import designexploder.editor.controllers.commands.MoveNodeCommand;
-import designexploder.editor.controllers.commands.ReparentNodeCommand;
 import designexploder.model.BasicModelUtil;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
-import designexploder.model.extension.IoC.BeanNode;
+import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.model.extension.classnode.ClassNode;
-import designexploder.model.impl.BasicModelFactory;
 
 public class NodeContainerLayoutEditPolicy extends XYLayoutEditPolicy {
 
@@ -61,12 +60,9 @@ public class NodeContainerLayoutEditPolicy extends XYLayoutEditPolicy {
 		Node node = (Node) child.getModel();
 		if(node.getExtension(ClassNode.class) != null) {
 			String newId = BasicModelUtil.nextClassIdLike(node);
-			Node newNode = BasicModelFactory.getInstance().createModelCopy(node, newId, true);
+			Node newNode = IoCModelUtil.createClassNodeCopy(node, newId);
 			newNode.setNodeContainer(container);
 			newNode.setLocation(contraint.getLocation());
-			if(newNode.getExtension(BeanNode.class) != null) {
-				newNode.removeExtension(BeanNode.class);
-			}
 			result = new AddNodeCommand(newNode);
 		}
 		return result; 

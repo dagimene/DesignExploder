@@ -7,7 +7,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
 
-import designexploder.actions.DexActionFactory;
+import designexploder.editor.actions.DexActionFactory;
+import designexploder.resources.IconResource;
 
 public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 	
@@ -19,8 +20,8 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 	}
 
 	private RetargetAction createCreateApplicationContextAction() {
-		RetargetAction result = new RetargetAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.getId(), "Create Application Context");
-		result.setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../resources/images/context.gif"));
+		RetargetAction result = new RetargetAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.name(), "Create Application Context");
+		result.setImageDescriptor(ImageDescriptor.createFromFile(IconResource.class, IconResource.CONTEXT_ICON.getPath()));
 		return result;
 	}
 
@@ -28,7 +29,7 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 		super.contributeToToolBar(toolBarManager);
 		//toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
 		//toolBarManager.add(getAction(ActionFactory.REDO.getId()));
-		toolBarManager.add(getAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.getId()));
+		toolBarManager.add(getAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.name()));
 	}
 
 	protected void declareGlobalActionKeys() {
@@ -37,7 +38,7 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 		this.addGlobalActionKey(ActionFactory.REDO.getId());
 		this.addGlobalActionKey(ActionFactory.DELETE.getId());
 		this.addGlobalActionKey(ActionFactory.SELECT_ALL.getId());
-		this.addGlobalActionKey(DexActionFactory.CREATE_APPLICATION_CONTEXT.getId());
+		this.addGlobalActionKey(DexActionFactory.CREATE_APPLICATION_CONTEXT.name());
 	}
 
 	@Override

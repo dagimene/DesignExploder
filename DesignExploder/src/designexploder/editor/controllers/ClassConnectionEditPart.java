@@ -1,5 +1,7 @@
 package designexploder.editor.controllers;
 
+import designexploder.editor.controllers.listeners.ClassRelationEventListenerDelegate;
+import designexploder.editor.controllers.listeners.ExtensibleModelListenerDelegate;
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.renderers.BaseConnectionRenderer;
 import designexploder.editor.renderers.extension.IoC.BeanInjectionDecorator;
@@ -16,7 +18,7 @@ public class ClassConnectionEditPart extends ConnectionEditPart {
 	}
 
 	@Override
-	protected void refreshVisuals() {
+	public void refreshVisuals() {
 		renderer.render(getModel(), (ClassConnectionFigure)getFigure());
 		super.refreshVisuals();
 	}	
@@ -24,5 +26,9 @@ public class ClassConnectionEditPart extends ConnectionEditPart {
 	@Override
 	public Connection getModel() {
 		return (Connection) super.getModel();
+	}
+	
+	protected ExtensibleModelListenerDelegate createListenerDelegate() {
+		return new ClassRelationEventListenerDelegate(getModel(), this);
 	}
 }

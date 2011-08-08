@@ -27,7 +27,12 @@ public class BaseConnectionRenderer implements ConnectionRendererDecorator, Rend
 	
 	@Override
 	public void render(Connection connection, ClassConnectionFigure figure) {
-		updateHeader(figure, connection);
+		figure.setNature(getConnectionMainNature(connection));
+		figure.setEndpointsNature(getConnectionEndpointsNature(connection));
+		figure.setLabelText(ClassConnectionFigure.SOURCE, getConnectionLabel(connection));
+		
+		// Prevent connections from and to the same node to be shown 
+		figure.setVisible(connection.getSource() != connection.getTarget());
 		
 		/*figure.setSourceDecoration(getDecoration(connection, Endpoint.SOURCE));
 		figure.setTargetDecoration(getDecoration(connection, Endpoint.TARGET));
@@ -39,13 +44,6 @@ public class BaseConnectionRenderer implements ConnectionRendererDecorator, Rend
 		figure.setLineDash(getLinedDash(connection));*/
 	
 	}
-		
-	private void updateHeader(ClassConnectionFigure figure,
-			Connection connection) {
-		figure.setNature(getConnectionNature(connection));
-		figure.setLabelText(ClassConnectionFigure.SOURCE, getConnectionLabel(connection));
-	}
-
 	
 	public String getConnectionLabel(Connection connection) {
 		Iterator<ConnectionRendererDecorator> iterator = decorators.iterator();
@@ -56,13 +54,23 @@ public class BaseConnectionRenderer implements ConnectionRendererDecorator, Rend
 		return result != null ? result : "";
 	}
 
-	public Nature getConnectionNature(Connection connection) {
+	public Nature getConnectionMainNature(Connection connection) {
 		Iterator<ConnectionRendererDecorator> iterator = decorators.iterator();
 		Nature result = null;
 		while(result == null && iterator.hasNext()) {
-			result = iterator.next().getConnectionNature(connection);
+			result = iterator.next().getConnectionMainNature(connection);
 		}
 		return result != null ? result : Nature.NONE;
+	}
+
+	@Override
+	public Nature getConnectionEndpointsNature(Connection connection) {
+		Iterator<ConnectionRendererDecorator> iterator = decorators.iterator();
+		Nature result = null;
+		while(result == null && iterator.hasNext()) {
+			result = iterator.next().getConnectionEndpointsNature(connection);
+		}
+		return result;
 	}
 	
 	/*

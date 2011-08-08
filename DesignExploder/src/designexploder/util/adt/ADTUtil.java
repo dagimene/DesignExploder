@@ -1,6 +1,5 @@
 package designexploder.util.adt;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -30,7 +29,7 @@ public class ADTUtil {
 		return result;
 	}
 
-	public static <E> Set<E> filterCollection(Collection<E> elements, Condition<E> condition) {
+	public static <E> Set<E> filterCollection(Iterable<E> elements, Condition<E> condition) {
 		return createSet(new FilteredIterator<E>(elements.iterator(), condition));
 	}
 	

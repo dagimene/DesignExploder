@@ -15,6 +15,7 @@ import designexploder.editor.graphics.styles.Style;
 import designexploder.editor.graphics.styles.Style.Constant;
 import designexploder.editor.graphics.styles.StylesFactory;
 import designexploder.model.extension.common.Nature;
+import designexploder.resources.IconResource;
 
 /**
  * Adds support for additional ClassConnection's name and cardinality
@@ -30,6 +31,7 @@ public class ClassConnectionFigure extends ConnectionFigure {
 	private Label targetLabel;
 	private Nature nature;
 	private ImageFigure icon;
+	private Nature endpointsNature;
 	
 	public ClassConnectionFigure() {
 		super();
@@ -76,17 +78,27 @@ public class ClassConnectionFigure extends ConnectionFigure {
 		this.nature = nature;
 		updateStyle();
 	}
+
+	public void setEndpointsNature(Nature connectionEndpointsNature) {
+		endpointsNature = connectionEndpointsNature;
+		updateEndpoints();
+	}
 	
+	private void updateEndpoints() {
+		Style style = StylesFactory.getInstance().getStyleFor(endpointsNature);
+		setSourceDecoration(style.getDecoration(Constant.getSourceDecoration()));
+		setTargetDecoration(style.getDecoration(Constant.getTargetDecoration()));
+	}
+
 	private void updateStyle() {
 		Style style = StylesFactory.getInstance().getStyleFor(nature);
 		setForegroundColor(style.getColor(Constant.getLineColor()));
 		setLineStyle(style.getInt(Constant.getLineDash()));
+		setLineMiterLimit(2f);
 		setLineWidth(style.getInt(Constant.getLineWidth()));
-		setSourceDecoration(style.getDecoration(Constant.getSourceDecoration()));
-		setTargetDecoration(style.getDecoration(Constant.getTargetDecoration()));
-		Image image = style.getImage(Constant.getIcon());
-		icon.setImage(image);
-		icon.getParent().setVisible(image != null);
+		IconResource resource = style.getImage(Constant.getLineIcon());
+		icon.setImage(resource != null ? resource.getImage() : null);
+		icon.getParent().setVisible(resource != null);
 	}
 
 	private static Figure createIconHolder(Figure icon) {
@@ -98,4 +110,5 @@ public class ClassConnectionFigure extends ConnectionFigure {
 		iconHolder.add(icon, new Rectangle(5, 5, 16, 16));
 		return iconHolder;
 	}
+
 }

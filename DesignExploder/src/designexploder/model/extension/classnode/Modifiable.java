@@ -5,7 +5,7 @@ import java.util.Set;
 import designexploder.model.extension.common.Nature;
 
 public interface Modifiable extends Typed {
-
+	
 	Set<Nature> getModifiers();
 	
 	void addModifier(Nature modifier);
@@ -31,5 +31,7 @@ public interface Modifiable extends Typed {
 	boolean isNative();
 	
 	boolean isAbstract();
+	
+	Nature getAccessModifier();
 	
 }

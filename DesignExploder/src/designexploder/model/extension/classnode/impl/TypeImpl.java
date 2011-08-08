@@ -36,7 +36,8 @@ public class TypeImpl implements Type {
 		int dot = name.lastIndexOf('.');
 		if(basic || dot == -1) {
 			this.lastname = "";
-			this.firstname = name;
+			// Basic type names can be compared with == .
+			this.firstname = basic ? name.intern() : name;
 		} else {
 			this.lastname = name.substring(0, dot);
 			this.firstname = name.substring(dot + 1);

@@ -1,6 +1,7 @@
 package designexploder.model;
 
 import designexploder.model.event.ModelEventTrigger;
+import java.util.Set;
 
 public interface ExtensibleModelElement extends ModelEventTrigger {
 
@@ -8,10 +9,12 @@ public interface ExtensibleModelElement extends ModelEventTrigger {
 
 	void setId(String id);
 
-	<T extends ModelEventTrigger> void addExtension(Class<T> clazz, T extension);
+	<T extends ModelExtension> void addExtension(T extension);
 	
-	<T extends ModelEventTrigger> T removeExtension(Class<T> clazz);
+	<T extends ModelExtension> T removeExtension(Class<T> clazz);
 
-	<T extends ModelEventTrigger> T getExtension(Class<T> clazz);
+	<T extends ModelExtension> T getExtension(Class<T> clazz);
+	
+	Set<Class<? extends ModelExtension>> getExtensions();
 	
 }

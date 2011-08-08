@@ -33,29 +33,31 @@ public class JDTModelFactory {
 	public Node createNode(IType type) {
 		JDTClassType jdtType = typesFactory.typeFor(type);
 		ClassNode classNode = ClassModelFactory.getInstance().createClassNode(jdtType);
+		Node result = BasicModelFactory.getInstance().createNode();
 		try {
 			classNode.setNature(jdtType.getNature());
 			setMofiers(classNode, type.getFlags());
-			buildMethods(classNode, type);
-			buildAttributes(classNode, type);
-			// TODO: Synthesize getters and setters to attributes
+			buildMethods(result, classNode, type);
+			buildAttributes(result, classNode, type);
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
-		Node result = BasicModelFactory.getInstance().createNode();
-		result.addExtension(ClassNode.class, classNode);
+		result.addExtension(classNode);
 		result.setId(IdUtil.createTypeId(jdtType).toString());
 		return result;
 	}
 	
-	private void buildAttributes(ClassNode node, IType type) throws JavaModelException {
+	private void buildAttributes(Node node, ClassNode classNode, IType type) throws JavaModelException {
 		for(IField attribute : type.getFields()) {
 			try {
 				Type attributeType = typesFactory.typeFor(attribute.getTypeSignature(), type);
 				if(attributeType != null) {
-					Attribute anAttribute = ClassModelFactory.getInstance().createAttribute(attribute.getElementName(), attributeType);
+					Attribute anAttribute = ClassModelFactory.getInstance().createAttribute(node, attribute.getElementName(), attributeType);
 					setMofiers(anAttribute, attribute.getFlags());
-					node.addAttribute(anAttribute);
+					if(attribute.isEnumConstant()) {
+						anAttribute.addModifier(ENUM);
+					}
+					classNode.addAttribute(anAttribute);
 				}
 			} catch (JavaModelException e) {
 				e.printStackTrace();
@@ -63,19 +65,19 @@ public class JDTModelFactory {
 		}
 	}
 
-	private void buildMethods(ClassNode node, IType type) throws JavaModelException {
+	private void buildMethods(Node node, ClassNode classNode, IType type) throws JavaModelException {
 		for(IMethod method : type.getMethods()) {
 			try {
 				Type methodType = typesFactory.typeFor(method.getReturnType(), type);
 				ILocalVariable[] parameterElements = method.getParameters();
 				Parameter[] parameters = new Parameter[parameterElements.length];
 				if(methodType != null && parseParameters(parameterElements, type, parameters)) {
-					Method aMethod = ClassModelFactory.getInstance().createMethod(method.getElementName(), methodType);
+					Method aMethod = ClassModelFactory.getInstance().createMethod(node, method.getElementName(), methodType);
 					setMofiers(aMethod, method.getFlags());
 					for (Parameter parameter : parameters) {
 						aMethod.addParameter(parameter);
 					}
-					node.addMethod(aMethod);
+					classNode.addMethod(aMethod);
 				}
 			} catch (JavaModelException e) {
 				e.printStackTrace();

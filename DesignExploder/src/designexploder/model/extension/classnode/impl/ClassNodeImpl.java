@@ -153,4 +153,25 @@ class ClassNodeImpl extends NaturalizedImpl implements ClassNode {
 	private boolean is(Nature modifier) {
 		return modifiers.contains(modifier);
 	}
+	
+	@Override
+	public Nature getAccessModifier() {
+		if(isPublic()) {
+			return PUBLIC;
+		}
+		if(isProtected()) {
+			return PROTECTED;
+		}
+		if(isPrivate()) {
+			return PRIVATE;
+		}
+		return null;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Class<ClassNode> getExtensionClass() {
+		return ClassNode.class;
+	}
+	
 }

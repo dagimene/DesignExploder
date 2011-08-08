@@ -77,4 +77,18 @@ class ModifiableImpl extends TypedImpl implements Modifiable {
 	private boolean is(Nature modifier) {
 		return modifiers.contains(modifier);
 	}
+
+	@Override
+	public Nature getAccessModifier() {
+		if(isPublic()) {
+			return PUBLIC;
+		}
+		if(isProtected()) {
+			return PROTECTED;
+		}
+		if(isPrivate()) {
+			return PRIVATE;
+		}
+		return null;
+	}
 }

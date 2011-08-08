@@ -22,7 +22,7 @@ public class ApplicationContextEditPart extends ContainerNodeEditPart {
 	}
 	
 	@Override
-	protected void refreshVisuals() {
+	public void refreshVisuals() {
 		super.refreshVisuals();
 		getFigure().setLabel(getModel().getId());
 	}

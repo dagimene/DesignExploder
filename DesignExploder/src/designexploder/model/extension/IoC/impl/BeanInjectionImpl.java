@@ -67,4 +67,10 @@ class BeanInjectionImpl extends ExtendedModelEventTrigger implements BeanInjecti
 			fireEvent(fowardEvent);
 		}
 	};
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Class<BeanInjection> getExtensionClass() {
+		return BeanInjection.class;
+	}
 }

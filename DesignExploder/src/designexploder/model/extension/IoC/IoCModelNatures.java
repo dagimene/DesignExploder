@@ -5,22 +5,27 @@ import designexploder.model.extension.common.Nature;
 public enum IoCModelNatures implements Nature {
 	
 	// Bean Natures
-	COMMON_BEAN("Common Bean"),
-	STATELESS_BEAN("Stateless Bean"),
-	AUTOIMPLEMENTED_BEAN("Autoimplemented Bean"),
-	FACADE_BEAN("Facade Bean"),
-	CONTEXT_FACTORY("Context Factory"),
+	BEAN("Bean"),
+	BEAN_STATELESS("Stateless Bean"),
+	BEAN_AUTO("Autoimplemented Bean"),
+	BEAN_FACADE("Facade Bean"),
+	BEAN_FACTORY("Context Factory Bean"),
 
-	// IoC Bean Injection Types
-	SINGLE("Single"),
-	COLLECTION("Collection"),
-	PROXY("Proxy"),
-	TREE("Tree"),
+	// Dependency Natures
+	UNRESOLVED_DEPENDENCY("Dependency"),
+	INJECTION_BEAN("Bean Dependency"),
+	INJECTION_COLLECTION("Collecion Dependency"),
+	INJECTION_TREE("Tree Dependency"),
+	INJECTION_PROXY("Proxy Dependency"),
 
-	// IoC Aware Method
-	CONTEXT_INSTANTIATION("Context Instantiation"),
-	BEAN_FACTORY_METHOD("Bean Factory Method");
+	// IoCAwareMethod natures
+	IOC_METHOD_FACTORY("Factory Method"),
+	IOC_METHOD_INIT("Init Method"),
+	IOC_METHOD_INSTANTIATE("Context Instantiate Method"),
 	
+	// Misc
+	INDIFFERENT_CONNECTION("Indifferent Connection");
+
 	private String name;
 	
 	IoCModelNatures(String name) {

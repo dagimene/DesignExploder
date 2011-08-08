@@ -1,11 +1,15 @@
 package designexploder.model.extension.IoC.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import designexploder.model.Connection;
 import designexploder.model.event.ModelEvent;
 import designexploder.model.event.ModelEventListener;
 import designexploder.model.event.ModelPropertyChangeEvent;
 import designexploder.model.extension.IoC.Dependency;
 import designexploder.model.extension.IoC.IoCModelEventTypes;
+import designexploder.model.extension.IoC.IoCModelNatures;
 import designexploder.model.extension.classnode.ClassItem;
 import designexploder.model.extension.classnode.Method;
 import designexploder.model.extension.common.CommonModelEventTypes;
@@ -14,7 +18,7 @@ import designexploder.model.extension.common.impl.NaturalizedImpl;
 class DependencyImpl extends NaturalizedImpl implements Dependency {
 
 	private ClassItem target;
-	private Connection beanInjection;
+	private Set<Connection> beanInjections = new HashSet<Connection>();
 
 	public DependencyImpl() {
 		addListener(IoCModelEventTypes.TARGET_CHANGED, selfListener);
@@ -36,22 +40,27 @@ class DependencyImpl extends NaturalizedImpl implements Dependency {
 	}
 
 	@Override
-	public Connection getBeanInjection() {
-		return beanInjection;
+	public Set<Connection> getBeanInjections() {
+		return beanInjections;
 	}
 
 	@Override
-	public void setBeanInjection(Connection beanInjection) {
-		Connection oldValue = this.beanInjection;
-		this.beanInjection = beanInjection;
-		fireModelPropertyChangeEvent(IoCModelEventTypes.BEAN_INJECTION_CHANGED, oldValue, beanInjection);
+	public void addBeanInjection(Connection beanInjection) {
+		beanInjections.add(beanInjection);
+		fireModelCollectionAlterEvent(IoCModelEventTypes.BEAN_INJECTION_ADDED, beanInjections, beanInjection);
+	}
+
+	@Override
+	public void removeBeanInjection(Connection beanInjection) {
+		beanInjections.remove(beanInjection);
+		fireModelCollectionAlterEvent(IoCModelEventTypes.BEAN_INJECTION_REMOVED, beanInjections, beanInjection);
 	}
 
 	@Override
 	public boolean isResolved() {
-		return beanInjection != null;
+		return super.getNature() != IoCModelNatures.UNRESOLVED_DEPENDENCY;
 	}
-
+	
 	@Override
 	public String getName() {
 		return target.isMethod() ? ((Method) target).getProperty() : target.getName();

@@ -37,6 +37,7 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 	
 	private final IJavaProject project;
 	private Map<String, JDTClassType> types = new HashMap<String, JDTClassType>();
+	private Map<List<Type>, ParameterizedClassTypeImpl> parameterizedTypes = new HashMap<List<Type>, ParameterizedClassTypeImpl>();
 	
 	private JDTClassTypeFactory(IJavaProject project) {
 		this.project = project;
@@ -114,7 +115,12 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 				for (String parameterSignature : parametersSignatures) {
 					typeParameters.add(typeFor(parameterSignature, context));
 				}
-				result = new ParameterizedClassTypeImpl(result, typeParameters); 
+				ParameterizedClassTypeImpl parameterized = parameterizedTypes.get(typeParameters);
+				if(parameterized == null) {
+					parameterized = new ParameterizedClassTypeImpl(result, typeParameters);
+					parameterizedTypes.put(typeParameters, parameterized);
+				}
+				result = parameterized;
 			}
 		}
 		return result;

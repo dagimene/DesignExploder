@@ -10,12 +10,12 @@ class IoCAwareMethodImpl extends NaturalizedImpl implements IoCAwareMethod {
 	private Method method;
 
 	@Override
-	public Method getMethod() {
+	public Method getTarget() {
 		return method;
 	}
 
 	@Override
-	public void setMethod(Method method) {
+	public void setTarget(Method method) {
 		Method oldValue = this.method;
 		this.method = method;
 		fireModelPropertyChangeEvent(IoCModelEventTypes.METHOD_CHANGED, oldValue, this.method);
