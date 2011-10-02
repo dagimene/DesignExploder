@@ -5,6 +5,7 @@ import java.util.Set;
 
 import designexploder.model.Connection;
 import designexploder.model.Node;
+import designexploder.model.NodeContainer;
 import designexploder.model.extension.classnode.ClassItem;
 import designexploder.model.extension.classnode.ClassModelNatures;
 import designexploder.model.extension.classnode.ClassNode;
@@ -13,6 +14,7 @@ import designexploder.model.extension.classnode.Method;
 import designexploder.model.impl.BasicModelFactory;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.Condition;
+import designexploder.util.adt.IdUtil;
 import designexploder.util.adt.IdUtil.ID;
 
 public class IoCModelUtil {
@@ -85,7 +87,7 @@ public class IoCModelUtil {
 			result = IoCModelNatures.BEAN_AUTO;
 		} else if(classNode.getNature() == ClassModelNatures.ENUM){
 			result = IoCModelNatures.BEAN_FACTORY;
-		} else if(id != null && id.type == "facade") {
+		} else if(id != null && id.type == IdUtil.FACADE_TYPE) {
 			result = IoCModelNatures.BEAN_FACADE;
 		} else if(classNode.getAttributes().isEmpty()) {
 			result = IoCModelNatures.BEAN_STATELESS;
@@ -99,5 +101,20 @@ public class IoCModelUtil {
 			result = IoCModelNatures.BEAN_AUTO;
 		}
 		return result;
+	}
+
+	public static Set<Node> addFacadeBeans(NodeContainer container, Set<Node> availableBeansAndFacades) {
+		for (Node node : container.getNodes()) {
+			if(node instanceof NodeContainer) {
+				availableBeansAndFacades.addAll(ADTUtil.filterCollection(((NodeContainer) node).getNodes(), new Condition<Node>() {
+					@Override
+					public boolean check(Node node) {
+						BeanNode beanNode = node.getExtension(BeanNode.class);
+						return beanNode != null && beanNode.getNature() == IoCModelNatures.BEAN_FACADE;
+					}
+				}));
+			}
+		}
+		return availableBeansAndFacades;
 	}
 }

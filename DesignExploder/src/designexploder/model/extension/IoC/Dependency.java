@@ -18,7 +18,7 @@ public interface Dependency extends InmutableNamed, ClassItemTargeted {
 	boolean isResolved();
 	
 	/**
-	 * A connection with the bean injection associated with this resolved dependency, or null.
+	 * A connections set with the bean injections associated to this dependency.
 	 * @return
 	 */
 	Set<Connection> getBeanInjections(); 

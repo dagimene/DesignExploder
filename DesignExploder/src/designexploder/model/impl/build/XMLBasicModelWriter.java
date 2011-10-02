@@ -15,8 +15,9 @@ import org.eclipse.ui.XMLMemento;
 import designexploder.model.ContainerNode;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
+import designexploder.model.build.ModelBuilder;
 
-public class XMLBasicModelWriter {
+public class XMLBasicModelWriter implements ModelBuilder {
 	
 	private IFile source;
 
@@ -24,10 +25,11 @@ public class XMLBasicModelWriter {
 		this.source = source;
 	}
 
-	public void write(NodeContainer diagram, IProgressMonitor monitor) {
+	public NodeContainer build(NodeContainer diagram) {
 		XMLMemento xml = XMLMemento.createWriteRoot("diagram");
 		writeNodes(diagram, diagram.getNodes(), xml);
-		doWrite(monitor, xml);
+		doWrite(null , xml);
+		return diagram;
 	}
 
 	protected void doWrite(IProgressMonitor monitor, final XMLMemento xml) {

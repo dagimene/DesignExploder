@@ -1,7 +1,6 @@
 package designexploder.model.extension.IoC.impl.spring;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IJavaProject;
@@ -36,7 +35,7 @@ public class SpringModelBuilder extends BaseModelBuilder {
 	@Override
 	public NodeContainer build(NodeContainer diagram) {
 		diagram = super.build(diagram);
-		initializeApplicationContext(diagram, "main.ctx");
+		initializeApplicationContext(diagram, MAIN_CONTEXT_FILE);
 		SpringBeansModelFactory factory = new SpringBeansModelFactory(project);
 		Iterator<Pair<IFile, SpringConfigFile>> iterator = new SpringConfigFilesIterator(contextsFragmentRoot);
 		while(iterator.hasNext()) {
@@ -50,8 +49,7 @@ public class SpringModelBuilder extends BaseModelBuilder {
 				((Node)context).setResizeable(true);
 				super.addNode((Node) context);
 			}
-			Set<Node> beans = factory.getBeans(context, next.getSecond(), diagram);
-			for (Node bean : beans) {
+			for (Node bean : factory.getBeans(context, next.getSecond(), diagram)) {
 				super.addNode(bean, context);
 			}
 		}

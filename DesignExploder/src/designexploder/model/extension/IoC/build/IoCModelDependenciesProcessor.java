@@ -13,6 +13,7 @@ import designexploder.model.extension.IoC.BeanInjection;
 import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.Dependency;
 import designexploder.model.extension.IoC.IoCModelNatures;
+import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
 import designexploder.model.extension.classnode.Attribute;
 import designexploder.model.extension.classnode.ClassRelation;
@@ -36,7 +37,7 @@ public class IoCModelDependenciesProcessor {
 		if(context != null) {
 			Set<Node> beanNodes = ADTUtil.createSet(BasicModelUtil.getExtendedNodes(container, BeanNode.class).iterator());
 			availableBeans.addAll(beanNodes);
-			Set<Node> availableBeansAndFacades = addFacadeBeans(container, new HashSet<Node>(availableBeans));
+			Set<Node> availableBeansAndFacades = IoCModelUtil.addFacadeBeans(container, new HashSet<Node>(availableBeans));
 			for (Node node : beanNodes) {
 				BeanNode bean = node.getExtension(BeanNode.class);
 				for (Dependency dependency : bean.getDependencies()) {
@@ -51,21 +52,6 @@ public class IoCModelDependenciesProcessor {
 		}
 		
 		return container;
-	}
-
-	private Set<Node> addFacadeBeans(NodeContainer container, Set<Node> availableBeansAndFacades) {
-		for (Node node : container.getNodes()) {
-			if(node instanceof NodeContainer) {
-				availableBeansAndFacades.addAll(ADTUtil.filterCollection(((NodeContainer) node).getNodes(), new Condition<Node>() {
-					@Override
-					public boolean check(Node node) {
-						BeanNode beanNode = node.getExtension(BeanNode.class);
-						return beanNode != null && beanNode.getNature() == IoCModelNatures.BEAN_FACADE;
-					}
-				}));
-			}
-		}
-		return availableBeansAndFacades;
 	}
 
 	private void resolveDependency(Set<Node> availableBeans, Node node,

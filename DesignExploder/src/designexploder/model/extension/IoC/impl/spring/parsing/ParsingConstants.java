@@ -21,12 +21,22 @@ public class ParsingConstants {
 
 	public static final String REF = "ref";
 
+	public static final String VALUE = "value";
+
+	public static final String LIST = "list";
+
+	public static final String SET = "set";
+
 	private static Map<String, ParsingElement> elements = new HashMap<String, ParsingElement>();
 	
 	static {
 		elements.put(BEANS, ParsingElement.BEANS);
 		elements.put(BEAN, ParsingElement.BEAN);
 		elements.put(PROPERTY, ParsingElement.PROPERTY);
+		
+		elements.put(REF, ParsingElement.REF);
+		elements.put(LIST, ParsingElement.LIST);
+		elements.put(SET, ParsingElement.SET);
 	}
 	
 	public static ParsingElement valueOf(String name) {
@@ -34,7 +44,7 @@ public class ParsingConstants {
 	}
 	
 	public static enum ParsingElement {
-		BEANS, BEAN, PROPERTY;
+		BEANS, BEAN, PROPERTY, LIST, SET, REF;
 	}
 
 }

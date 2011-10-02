@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import designexploder.util.adt.IdUtil;
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.NodeFactory;
@@ -19,6 +20,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceProxy;
 import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -105,5 +107,25 @@ public class EclipseUtil {
 		// Obtain Package Fragment Root from folder
 		packageRoot = javaProject.getPackageFragmentRoot(folder);
 		return packageRoot;
+	}
+
+	public static IFile createFileHandler(IContainer resource, String id) {
+		return resource.getFile(new Path(IdUtil.parseId(id).name));
+	}
+
+	public static void writeFile(IFile file, InputStream contents) {
+		try {
+			file.setContents(contents, true, true, null);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createAndWriteFile(IFile file, InputStream contents) {
+		try {
+			file.create(contents, true, null);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 }

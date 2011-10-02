@@ -23,6 +23,10 @@ public class ClassModelUtil {
 		return getInstance(type).isCollection0(type);
 	}
 
+	public static boolean isList(ClassType type) {
+		return getInstance(type).isList0(type);
+	}
+	
 	public static boolean isSubclass(ClassType type, ClassType supertype) {
 		return getInstance(type).isSubclass0(type, supertype);
 	}
@@ -38,6 +42,10 @@ public class ClassModelUtil {
 	
 	private boolean isCollection0(ClassType type) {
 		return isSubclass0(type, getKnownType(Collection.class));
+	}
+
+	private boolean isList0(ClassType type) {
+		return isSubclass0(type, getKnownType(List.class));
 	}
 
 	private boolean isSubclass0(ClassType type, ClassType supertype) {
@@ -161,5 +169,20 @@ public class ClassModelUtil {
 			return false;
 		}
 	};
-	
+
+	public static Type getClassItemType(ClassItem classItem) {
+		Type dependencyType = null;
+		if(classItem.isAttribute()) {
+			dependencyType = classItem.getType();
+		} else {
+			Method method = (Method)classItem;
+			if(method.isSetter()) {
+				dependencyType = method.getParameters().get(0).getType();
+			} else if(method.isGetter()) {
+				dependencyType = method.getType();
+			}
+		}
+		return dependencyType;
+	}
+
 }

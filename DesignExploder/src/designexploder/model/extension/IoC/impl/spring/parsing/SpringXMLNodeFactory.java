@@ -23,6 +23,15 @@ public class SpringXMLNodeFactory extends NodeFactory {
 			case PROPERTY:
 				result = new DependencyElement();
 				break;
+			case REF:
+				result = new RefElement();
+				break;
+			case SET:
+				result = new CollectionElement(false);
+				break;
+			case LIST:
+				result = new CollectionElement(true);
+				break;
 			}
 		}
 		if(result == null) { 
@@ -36,4 +45,10 @@ public class SpringXMLNodeFactory extends NodeFactory {
 		return new SpringConfigFile();
 	}
 
+	public SpringConfigFile createSpringConfigFile(BeansElement beans) {
+		SpringConfigFile configFile = new SpringConfigFile();
+		configFile.setRootElement(beans);
+		return configFile;
+	}
+	
 }

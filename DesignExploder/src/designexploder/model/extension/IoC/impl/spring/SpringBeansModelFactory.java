@@ -1,7 +1,6 @@
 package designexploder.model.extension.IoC.impl.spring;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
 
 import org.eclipse.jdt.core.IJavaProject;
 
@@ -18,6 +17,7 @@ import designexploder.model.extension.classnode.Attribute;
 import designexploder.model.extension.classnode.ClassNode;
 import designexploder.model.extension.classnode.Method;
 import designexploder.model.impl.BasicModelFactory;
+import designexploder.util.adt.FindNextIterator;
 import designexploder.util.adt.IdUtil;
 import designexploder.util.adt.IterableIterator;
 import designexploder.util.adt.IdUtil.ID;
@@ -31,23 +31,36 @@ public class SpringBeansModelFactory {
 		this.project = project;
 	}
 
-	public Set<Node> getBeans(NodeContainer container, SpringConfigFile source, NodeContainer diagram) {
-		Set<Node> result = new HashSet<Node>();
-		for (BeanElement element : source.getBeans()) {
-			IdUtil.ID id = IdUtil.parseId(element.getId());
-			if(id != null && diagram.findNode(id.toString()) == null) {
-				ID classNodeId = IdUtil.createClassId(id.name);
-				Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
-				if(classNode != null) {
-					Node node = BasicModelFactory.getInstance().createModelCopy(classNode, id.toString(), true);
-					BeanNode beanNode = createBeanNode(element, node.getExtension(ClassNode.class), id);
-					beanNode.setNode(node);
-					node.addExtension(beanNode);
-					result.add(node);
+	/**
+	 * Nodes must be added to the container as they are returned.
+	 * @param container
+	 * @param source
+	 * @param diagram
+	 * @return
+	 */
+	public Iterable<Node> getBeans(NodeContainer container, SpringConfigFile source, final NodeContainer diagram) {
+		final Iterator<BeanElement> beanElements = source.getBeans().iterator();
+		return new IterableIterator<Node>(new FindNextIterator<Node>() {
+			protected Node findNext() {
+				Node result = null;
+				while(result == null && beanElements.hasNext()) {
+					BeanElement element =beanElements.next();
+					IdUtil.ID id = IdUtil.parseId(element.getId());
+					if(id != null && diagram.findNode(id.toString()) == null) {
+						ID classNodeId = IdUtil.createClassId(id.name);
+						Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
+						if(classNode != null) {
+							Node node = BasicModelFactory.getInstance().createModelCopy(classNode, id.toString(), true);
+							BeanNode beanNode = createBeanNode(element, node.getExtension(ClassNode.class), id);
+							beanNode.setNode(node);
+							node.addExtension(beanNode);
+							result = (node);
+						}
+					}
 				}
+				return result;
 			}
-		}
-		return result;
+		});
 	}
 
 	private BeanNode createBeanNode(BeanElement element, ClassNode clazz, ID id) {

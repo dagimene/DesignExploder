@@ -30,6 +30,10 @@ public class DexUtils {
 		return findOrCreatePackageFragmentRoot(project, CONTEXTS_FOLDER);
 	}
 
+	public static IPackageFragmentRoot getGeneratedPackageRoot(IJavaProject project) {
+		return findOrCreatePackageFragmentRoot(project, GENERATED_FOLDER);
+	}
+
 	public static IPackageFragmentRoot findOrCreatePackageFragmentRoot(IJavaProject javaProject, String name) {
 		IPackageFragmentRoot result = null;
 		try {
@@ -75,7 +79,6 @@ public class DexUtils {
 		IPackageFragment iocPackage = getDefaultAppsContextPackage(project);
 		return (IFolder) iocPackage.getResource();
 	}
-
 
 
 	/*

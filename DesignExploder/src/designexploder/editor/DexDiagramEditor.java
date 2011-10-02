@@ -68,6 +68,10 @@ import designexploder.model.NodeContainer;
 import designexploder.model.build.ChainedModelBuilder;
 import designexploder.model.build.ModelBasicDataSetter;
 import designexploder.model.build.ModelBuilder;
+import designexploder.model.extension.IoC.build.IoCIDsNormalizer;
+import designexploder.model.extension.IoC.impl.spring.DexRuntimeGenerator;
+import designexploder.model.extension.IoC.impl.spring.SpringCodeGenerator;
+import designexploder.model.extension.IoC.impl.spring.SpringContextsWriter;
 import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
 import designexploder.model.extension.classnode.build.ClassMembersCondensatorBuilder;
 import designexploder.model.extension.classnode.build.ClassRelationsModelBuilder;
@@ -127,8 +131,8 @@ public class DexDiagramEditor extends EditorPart implements
 		if(jdtMB != null) {
 			modelBuilder.addBuilder(jdtMB);
 		}
-		modelBuilder.addBuilder(new ClassRelationsModelBuilder());
 		modelBuilder.addBuilder(new ClassMembersCondensatorBuilder());
+		modelBuilder.addBuilder(new ClassRelationsModelBuilder());
 		ModelBuilder springMB = SpringModelBuilder.create(DexUtils.getContextsPackageRoot(project));
 		if(springMB != null) {
 			modelBuilder.addBuilder(springMB);
@@ -142,8 +146,16 @@ public class DexDiagramEditor extends EditorPart implements
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
-		NodeContainer model = (NodeContainer) getGraphicalViewer().getContents().getModel(); 
-		new XMLBasicModelWriter(file).write(model, monitor);
+		IJavaProject project = EclipseUtil.getJavaProject(file.getProject());
+
+		ChainedModelBuilder modelBuilder = new ChainedModelBuilder();
+		modelBuilder.addBuilder(new IoCIDsNormalizer());
+		modelBuilder.addBuilder(new XMLBasicModelWriter(file));
+		modelBuilder.addBuilder(SpringCodeGenerator.create(DexUtils.getGeneratedPackageRoot(project)));
+		modelBuilder.addBuilder(SpringContextsWriter.create(DexUtils.getContextsPackageRoot(project)));
+		//modelBuilder.addBuilder(DexRuntimeGenerator.create(DexUtils.getGeneratedPackageRoot(project)));
+		NodeContainer diagram = (NodeContainer) getGraphicalViewer().getContents().getModel();
+		modelBuilder.build(diagram);
 	}
 
 	public NodeContainer getModel() {

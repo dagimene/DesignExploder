@@ -8,6 +8,7 @@ public class IdUtil {
 
 	public static final String CLASS_TYPE = "class";
 	public static final String BEAN_TYPE = "bean";
+	public static final String FACADE_TYPE = "facade";
 	public static final String CONTEXT_TYPE = "ctx";
 	public static final String CONNECTION_TYPE = "conn";
 
@@ -89,6 +90,14 @@ public class IdUtil {
 		return createId(BEAN_TYPE, name, number);
 	}
 	
+	public static ID createFacadeId(String name) {
+		return createId(FACADE_TYPE, name);
+	}
+
+	public static ID createFacadeId(String name, int number) {
+		return createId(FACADE_TYPE, name, number);
+	}
+
 	public static ID createContextId(String name) {
 		return createId(CONTEXT_TYPE, name);
 	}
