@@ -13,6 +13,9 @@ public class IdUtil {
 	public static final String CONNECTION_TYPE = "conn";
 
 	public static ID parseId(String id) {
+        if(id == null) {
+            return null;
+        }
 		String[] splitted = id.split("://", 2);
 		if(splitted.length != 2) {
 			return null;

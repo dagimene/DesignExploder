@@ -196,9 +196,17 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="dagimene">
+      <words>
+        <w>autowire</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DesignExploder.iml" filepath="$PROJECT_DIR$/DesignExploder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eclipse-module-files/OpenSVG.iml" filepath="$PROJECT_DIR$/eclipse-module-files/OpenSVG.iml" />
     </modules>
   </component>
   <component name="ProjectResources">

@@ -12,7 +12,8 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class DexRuntime {
 
@@ -23,7 +24,7 @@ public class DexRuntime {
 	public void instantiate(String context, BeanFactory parent) {
 		CustomAutowireBeanFactory factory = new CustomAutowireBeanFactory(parent);
 		factory.registerSingleton("dexRuntime", this);
-		InputStreamResource resource = new InputStreamResource(getClass().getResourceAsStream("/"+context));
+		Resource resource = new ClassPathResource("/"+context);
 		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(resource);
 	}
 	

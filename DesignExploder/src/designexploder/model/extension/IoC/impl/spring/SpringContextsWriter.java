@@ -13,27 +13,18 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 import designexploder.model.BasicModelUtil;
-import designexploder.model.Connection;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBuilder;
 import designexploder.model.extension.IoC.ApplicationContext;
 import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelNatures;
 import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.model.extension.IoC.impl.spring.parsing.BeanElement;
 import designexploder.model.extension.IoC.impl.spring.parsing.BeansElement;
-import designexploder.model.extension.IoC.impl.spring.parsing.CollectionElement;
 import designexploder.model.extension.IoC.impl.spring.parsing.DependencyElement;
-import designexploder.model.extension.IoC.impl.spring.parsing.RefElement;
 import designexploder.model.extension.IoC.impl.spring.parsing.SpringConfigFile;
-import designexploder.model.extension.classnode.ClassItem;
-import designexploder.model.extension.classnode.ClassModelUtil;
 import designexploder.model.extension.classnode.ClassNode;
-import designexploder.model.extension.classnode.ClassType;
-import designexploder.model.extension.classnode.Method;
-import designexploder.model.extension.classnode.Type;
 import designexploder.util.EclipseUtil;
 import designexploder.util.adt.ADTUtil;
 
@@ -76,7 +67,7 @@ public class SpringContextsWriter implements ModelBuilder {
 		ApplicationContext context = container.getExtension(ApplicationContext.class);
 		if(context != null) {
 			String id = container.getId();
-			IFile file = EclipseUtil.createFileHandler((IContainer) contextsFragmentRoot.getResource(), id);
+			IFile file = EclipseUtil.createFileHandlerFromId((IContainer) contextsFragmentRoot.getResource(), id);
 			Set<Node> beanNodes = ADTUtil.createSet(BasicModelUtil.getExtendedNodes(container, BeanNode.class).iterator());
 			availableBeans.addAll(beanNodes);
 			Set<Node> availableBeansAndFacades = IoCModelUtil.addFacadeBeans(container, new HashSet<Node>(availableBeans));
@@ -86,7 +77,7 @@ public class SpringContextsWriter implements ModelBuilder {
 			}
 			SpringConfigFile springConfigFile = new SpringConfigFile();
 			springConfigFile.setRootElement(beansElement);
-			EclipseUtil.createAndWriteFile(file, new ByteArrayInputStream(springConfigFile.toXML().getBytes()));
+			EclipseUtil.createAndWriteFile(file, springConfigFile.toPrettyXML());
 		}
 		// Continue with children contexts
 		for(NodeContainer child : BasicModelUtil.getContainerNodes(container)) {
@@ -102,11 +93,9 @@ public class SpringContextsWriter implements ModelBuilder {
 
 		// Set Node Data
 		beanElement.setId(node.getId());
-		String name = beanNode.getName();
-		if(name != null) {
-			beanElement.setName(name);
-		}
+        beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
+        beanElement.setAutowireByType();
 		
 		// Set Injections 
 		for (Dependency dependency : beanNode.getDependencies()) {

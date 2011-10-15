@@ -81,7 +81,7 @@ public class XMLBasicModelWriter implements ModelBuilder {
 		NodeContainer container = node.getNodeContainer();
 		if(container != root) {
 			// diagram is the only not-node node-container
-			memento.putString("containerId", ((ContainerNode)container).getId());
+			memento.putString("containerId", container.getId());
 		}
 	}
 }

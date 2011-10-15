@@ -109,9 +109,25 @@ public class EclipseUtil {
 		return packageRoot;
 	}
 
-	public static IFile createFileHandler(IContainer resource, String id) {
-		return resource.getFile(new Path(IdUtil.parseId(id).name));
+	public static IFile createFileHandlerFromId(IContainer resource, String id) {
+		return createFileHandler(resource, IdUtil.parseId(id).name);
 	}
+
+    public static IFolder createFolder(IContainer resource, String name) {
+        IFolder folder = resource.getFolder(new Path(name));
+        if(!folder.exists()) {
+            try {
+                folder.create(true, true, null);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
+        }
+        return folder;
+    }
+
+    public static IFile createFileHandler(IContainer resource, String name) {
+        return resource.getFile(new Path(name));
+    }
 
 	public static void writeFile(IFile file, InputStream contents) {
 		try {
@@ -123,6 +139,9 @@ public class EclipseUtil {
 	
 	public static void createAndWriteFile(IFile file, InputStream contents) {
 		try {
+            if(file.exists()) {
+                file.delete(true, true, null);
+            }
 			file.create(contents, true, null);
 		} catch (CoreException e) {
 			e.printStackTrace();

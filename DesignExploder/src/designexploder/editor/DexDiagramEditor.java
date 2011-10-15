@@ -145,7 +145,7 @@ public class DexDiagramEditor extends EditorPart implements
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
+		IFile file = getEditorInput().getFile();
 		IJavaProject project = EclipseUtil.getJavaProject(file.getProject());
 
 		ChainedModelBuilder modelBuilder = new ChainedModelBuilder();
