@@ -1,58 +1,12 @@
 package dex;
 
-import java.beans.PropertyDescriptor;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.TypedStringValue;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.MutablePropertyValues;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-
 public class DexRuntime {
 
-	public void instantiate(String context) {
-		instantiate(context, null);
+	public static DexContextInstance initialize() {
+		return new DexRuntime().start();
 	}
 
-	public void instantiate(String context, BeanFactory parent) {
-		CustomAutowireBeanFactory factory = new CustomAutowireBeanFactory(parent);
-		factory.registerSingleton("dexRuntime", this);
-		Resource resource = new ClassPathResource("/"+context);
-		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(resource);
-	}
-	
-	class CustomAutowireBeanFactory extends DefaultListableBeanFactory {
-
-		public CustomAutowireBeanFactory(BeanFactory parentBeanFactory) {
-			super(parentBeanFactory);
-		}
-
-		/**
-		 * Overrides to autowire only 'autowire' declared properties. 
-		 */
-		protected String[] unsatisfiedNonSimpleProperties(AbstractBeanDefinition mbd, BeanWrapper bw) {
-			Set<String> result = new TreeSet<String>();
-			MutablePropertyValues pvs = mbd.getPropertyValues();
-			PropertyDescriptor[] pds = bw.getPropertyDescriptors();
-			for (PropertyDescriptor pd : pds) {
-				if (pd.getWriteMethod() != null && !isExcludedFromDependencyCheck(pd)
-						&& pvs.contains(pd.getName()) && !BeanUtils.isSimpleProperty(pd.getPropertyType())) {
-					Object propertyValueValue = pvs.getPropertyValue(pd.getName()).getValue();
-					if((propertyValueValue instanceof TypedStringValue) && 
-						"autowire".equals(((TypedStringValue)propertyValueValue).getValue())) {
-						result.add(pd.getName());
-						pvs.removePropertyValue(pd.getName());
-					}
-				}
-			}
-			return result.toArray(new String[result.size()]);
-		}
+	private DexContextInstance start() {
+		return DexContextScopeImpl.instantiateContext("ctx://main.xml", null);
 	}
 }

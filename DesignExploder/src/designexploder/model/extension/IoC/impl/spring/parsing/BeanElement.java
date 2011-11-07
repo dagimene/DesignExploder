@@ -40,6 +40,14 @@ public class BeanElement extends Element {
         buildName();
 	}
 
+    public String getInitMethod() {
+        return getAttributeValue(INIT_METHOD);
+    }
+
+    public void setInitMethod(String initMethod) {
+        addAttribute(new Attribute(INIT_METHOD, initMethod));
+    }
+
     public void setClazz(String clazz) {
 		addAttribute(new Attribute(CLASS, clazz));
 	}
@@ -54,6 +62,14 @@ public class BeanElement extends Element {
 
     public void setAutowireByType() {
         setAutowire(BY_TYPE);
+    }
+
+    public void setScope(String scope) {
+        addAttribute(new Attribute(SCOPE, scope));
+    }
+
+    public String getScope() {
+        return getAttributeValue(SCOPE);
     }
 
     private void parseName() {
@@ -83,4 +99,5 @@ public class BeanElement extends Element {
     public Iterator<DependencyElement> getDependencies() {
         return new ElementIterator<DependencyElement>(this.getChildElements(), DependencyElement.class);
     }
+
 }

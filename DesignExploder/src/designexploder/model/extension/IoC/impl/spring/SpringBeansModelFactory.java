@@ -2,13 +2,11 @@ package designexploder.model.extension.IoC.impl.spring;
 
 import java.util.Iterator;
 
+import designexploder.model.extension.IoC.*;
 import org.eclipse.jdt.core.IJavaProject;
 
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
-import designexploder.model.extension.IoC.BeanNode;
-import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
 import designexploder.model.extension.IoC.impl.spring.parsing.BeanElement;
 import designexploder.model.extension.IoC.impl.spring.parsing.DependencyElement;
@@ -54,7 +52,8 @@ public class SpringBeansModelFactory {
 							BeanNode beanNode = createBeanNode(element, node.getExtension(ClassNode.class), id);
 							beanNode.setNode(node);
 							node.addExtension(beanNode);
-							result = (node);
+                            createInitMethod(element, node);
+							result = node;
 						}
 					}
 				}
@@ -77,7 +76,24 @@ public class SpringBeansModelFactory {
 		return bean;
 	}
 
-	private Dependency createDependency(DependencyElement element, ClassNode clazz) {
+    private void createInitMethod(BeanElement element, Node node) {
+        ClassNode clazz = node.getExtension(ClassNode.class);
+        BeanNode bean = node.getExtension(BeanNode.class);
+        String initMethod = element.getInitMethod();
+        if(initMethod != null) {
+            for(Method method : clazz.getMethods()) {
+                if(method.getName().equals(initMethod) && method.getType().isVoid() && method.getParameters().isEmpty()) {
+                    IoCAwareMethod iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod();
+                    iocAwareMethod.setTarget(method);
+                    iocAwareMethod.setNature(IoCModelNatures.IOC_METHOD_INIT);
+                    bean.addIoCAwareMethod(iocAwareMethod);
+                    break;
+                }
+            }
+        }
+    }
+
+    private Dependency createDependency(DependencyElement element, ClassNode clazz) {
 		String property = element.getName();
 		if(property != null) {
 			property = property.intern();

@@ -15,7 +15,11 @@ public class TypeImpl implements Type {
 	private static final Map<String, TypeImpl> instances = new HashMap<String, TypeImpl>(200);
 	
 	private static final Set<String> basicTypes = new HashSet<String>();
-	static {
+
+    public static final String VOID = "void".intern();
+    public static final String EMPTY_STRING = "".intern();
+
+    static {
 		basicTypes.add("boolean");
 		basicTypes.add("byte");
 		basicTypes.add("char");
@@ -23,7 +27,7 @@ public class TypeImpl implements Type {
 		basicTypes.add("float");
 		basicTypes.add("long");
 		basicTypes.add("double");
-		basicTypes.add("void");
+		basicTypes.add(VOID);
 	}
 	
 	private final String firstname;
@@ -45,7 +49,8 @@ public class TypeImpl implements Type {
 	}
 	
 	public String getName() {
-		return this.lastname == "" ? this.firstname : (this.lastname + "." + this.firstname);
+        // Basic type names can be compared with == .
+		return this.lastname == EMPTY_STRING ? this.firstname : (this.lastname + "." + this.firstname);
 	}
 	
 	public String getFirstname() {
@@ -60,7 +65,13 @@ public class TypeImpl implements Type {
 		return basic;
 	}
 
-	public static Type instanceFor(String name) {
+    @Override
+    public boolean isVoid() {
+        // Basic type names can be compared with == .
+        return basic && firstname == VOID;
+    }
+
+    public static Type instanceFor(String name) {
 		TypeImpl instance = instances.get(name);
 		if(instance == null) {
 			instance = new TypeImpl(name);

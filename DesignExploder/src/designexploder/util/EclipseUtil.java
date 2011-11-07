@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceProxy;
 import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -140,9 +141,10 @@ public class EclipseUtil {
 	public static void createAndWriteFile(IFile file, InputStream contents) {
 		try {
             if(file.exists()) {
-                file.delete(true, true, null);
+                file.setContents(contents, true, true, null);
+            } else {
+                file.create(contents, true, null);
             }
-			file.create(contents, true, null);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}

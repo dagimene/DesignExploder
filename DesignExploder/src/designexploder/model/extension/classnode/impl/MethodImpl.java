@@ -68,8 +68,8 @@ class MethodImpl extends ParameterizedImpl implements Method {
 		} else if(name.length() >= 4 && isUppercase(name.charAt(3)) && (name.startsWith("get") || name.startsWith("set"))) {
 			getter = name.charAt(0) == 'g';
 			// Check return type and arguments
-			if((getter && (!getType().isBasic() || !getType().getName().equals("void")) && getParameters().isEmpty()) 
-				|| (!getter && getType().isBasic() && getType().getName().equals("void") && getParameters().size() == 1)) {
+			if((getter && (!getType().isBasic() || !getType().isVoid()) && getParameters().isEmpty())
+				|| (!getter && getType().isBasic() && getType().isVoid() && getParameters().size() == 1)) {
 				hasProperty = true;
 				property = (toLowerCase(name.charAt(3)) + name.substring(4)).intern();
 			}

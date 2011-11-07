@@ -1,10 +1,13 @@
 package designexploder.model.extension.IoC.impl.spring;
 
-import java.io.ByteArrayInputStream;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import designexploder.model.ContainerNode;
+import designexploder.model.extension.IoC.*;
+import designexploder.model.extension.IoC.impl.spring.parsing.*;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -16,14 +19,6 @@ import designexploder.model.BasicModelUtil;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBuilder;
-import designexploder.model.extension.IoC.ApplicationContext;
-import designexploder.model.extension.IoC.BeanNode;
-import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelUtil;
-import designexploder.model.extension.IoC.impl.spring.parsing.BeanElement;
-import designexploder.model.extension.IoC.impl.spring.parsing.BeansElement;
-import designexploder.model.extension.IoC.impl.spring.parsing.DependencyElement;
-import designexploder.model.extension.IoC.impl.spring.parsing.SpringConfigFile;
 import designexploder.model.extension.classnode.ClassNode;
 import designexploder.util.EclipseUtil;
 import designexploder.util.adt.ADTUtil;
@@ -46,7 +41,7 @@ public class SpringContextsWriter implements ModelBuilder {
 	@Override
 	public NodeContainer build(NodeContainer diagram) {
 		clearContexts();
-		saveContext(diagram, new HashSet<Node>());
+		saveContext(diagram/*, new HashSet<Node>()*/);
 		return null;
 	}
 
@@ -63,29 +58,42 @@ public class SpringContextsWriter implements ModelBuilder {
 		}
 	}
 
-	private void saveContext(NodeContainer container, HashSet<Node> availableBeans) {
+	private void saveContext(NodeContainer container/*, HashSet<Node> availableBeans*/) {
 		ApplicationContext context = container.getExtension(ApplicationContext.class);
 		if(context != null) {
 			String id = container.getId();
 			IFile file = EclipseUtil.createFileHandlerFromId((IContainer) contextsFragmentRoot.getResource(), id);
 			Set<Node> beanNodes = ADTUtil.createSet(BasicModelUtil.getExtendedNodes(container, BeanNode.class).iterator());
-			availableBeans.addAll(beanNodes);
-			Set<Node> availableBeansAndFacades = IoCModelUtil.addFacadeBeans(container, new HashSet<Node>(availableBeans));
+            Set<Node> facadeNodes = new HashSet<Node>();
+            IoCModelUtil.addFacadeBeans(container, facadeNodes);
+			/*availableBeans.addAll(beanNodes);*/
+			/*Set<Node> availableBeansAndFacades = IoCModelUtil.addFacadeBeans(container, new HashSet<Node>(availableBeans));*/
 			BeansElement beansElement = new BeansElement();
 			for (Node node : beanNodes) {
-				beansElement.appendChild(createBeanNode(node, availableBeans));
+				beansElement.appendChild(createBeanNode(node/*, availableBeans*/));
 			}
+            for(Node node : facadeNodes) {
+                beansElement.appendChild(createFacadeNode(node));
+            }
+            Iterator<ContainerNode> scopes = BasicModelUtil.getContainerNodes(container).iterator();
+            if(scopes.hasNext()) {
+                CustomScopeConfigurerElement customScopeConfigurer = new CustomScopeConfigurerElement();
+                do {
+                    customScopeConfigurer.declareScope(scopes.next().getId());
+                } while(scopes.hasNext());
+                beansElement.appendChild(customScopeConfigurer);
+            }
 			SpringConfigFile springConfigFile = new SpringConfigFile();
 			springConfigFile.setRootElement(beansElement);
 			EclipseUtil.createAndWriteFile(file, springConfigFile.toPrettyXML());
 		}
 		// Continue with children contexts
-		for(NodeContainer child : BasicModelUtil.getContainerNodes(container)) {
-			saveContext(child, new HashSet<Node>(availableBeans));
+        for(NodeContainer child : BasicModelUtil.getContainerNodes(container)) {
+			saveContext(child/*, new HashSet<Node>(availableBeans)*/);
 		}
 	}
 
-	private BeanElement createBeanNode(Node node, HashSet<Node> availableBeans) {
+    private BeanElement createFacadeNode(Node node) {
 		// Model Values
 		BeanElement beanElement = new BeanElement();
 		ClassNode classNode = node.getExtension(ClassNode.class);
@@ -95,6 +103,25 @@ public class SpringContextsWriter implements ModelBuilder {
 		beanElement.setId(node.getId());
         beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
+        beanElement.setScope(node.getNodeContainer().getId());
+        beanElement.appendChild(new ScopedProxyElement());
+
+		return beanElement;
+    }
+
+    private BeanElement createBeanNode(Node node/*, HashSet<Node> availableBeans*/) {
+		// Model Values
+		BeanElement beanElement = new BeanElement();
+		ClassNode classNode = node.getExtension(ClassNode.class);
+		BeanNode beanNode = node.getExtension(BeanNode.class);
+
+		// Set Node Data
+		beanElement.setId(node.getId());
+        beanElement.setName(beanNode.getName());
+		beanElement.setClazz(classNode.getType().getName());
+
+        addIoCAwareMethodsModifiers(beanElement, beanNode);
+
         beanElement.setAutowireByType();
 		
 		// Set Injections 
@@ -105,7 +132,16 @@ public class SpringContextsWriter implements ModelBuilder {
 		return beanElement;
 	}
 
-	private DependencyElement createDependencyElement(Dependency dependency) {
+    private void addIoCAwareMethodsModifiers(BeanElement beanElement, BeanNode beanNode) {
+        for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
+            if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_INIT) {
+                beanElement.setInitMethod(ioCAwareMethod.getTarget().getName());
+                break ; // Only one init-method is supported
+            }
+        }
+    }
+
+    private DependencyElement createDependencyElement(Dependency dependency) {
 		DependencyElement dependencyElement = new DependencyElement();
 		dependencyElement.setName(dependency.getName());
 		/*if(dependency.isResolved()) {

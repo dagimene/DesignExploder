@@ -13,6 +13,9 @@
           <element id="directory" name="lib">
             <element id="library" level="module" name="xom-1.2.7.jar" module-name="DesignExploder" />
           </element>
+          <element id="directory" name="java">
+            <element id="dir-copy" path="$PROJECT_DIR$/src/designexploder/resources/java" />
+          </element>
         </element>
       </root>
     </artifact>
@@ -52,6 +55,12 @@
             <files>
               <file url="file://$PROJECT_DIR$/bin/designexploder/resources/xml/emptyContainer.xml" />
               <file url="file://$PROJECT_DIR$/src/designexploder/resources/xml/emptyContainer.xml" />
+            </files>
+          </module>
+          <module name="OpenSVG">
+            <files>
+              <file url="file://$PROJECT_DIR$/../../../../runtime-EclipseApplication/OpenSVG/contexts/Editor.xml" />
+              <file url="file://$PROJECT_DIR$/../../../../runtime-EclipseApplication/OpenSVG/contexts/main.xml" />
             </files>
           </module>
         </modules>
@@ -206,7 +215,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DesignExploder.iml" filepath="$PROJECT_DIR$/DesignExploder.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eclipse-module-files/OpenSVG.iml" filepath="$PROJECT_DIR$/eclipse-module-files/OpenSVG.iml" />
     </modules>
   </component>
   <component name="ProjectResources">

@@ -78,7 +78,12 @@ public class ParameterizedClassTypeImpl implements ClassType {
 		return typeErasure.isBasic();
 	}
 
-	public boolean isEnum() {
+    @Override
+    public boolean isVoid() {
+        return typeErasure.isVoid();
+    }
+
+    public boolean isEnum() {
 		return typeErasure.isEnum();
 	}
 

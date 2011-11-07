@@ -1,0 +1,8 @@
+package dex;
+
+import org.springframework.beans.factory.BeanFactory;
+
+/**
+ * Marker interface for Dex context instances
+ */
+public interface DexContextInstance extends BeanFactory {}

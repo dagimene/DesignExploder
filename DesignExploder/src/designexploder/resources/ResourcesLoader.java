@@ -5,12 +5,12 @@ import java.io.InputStreamReader;
 
 public class ResourcesLoader {
 
-	public static InputStreamReader loadJava(String compulationUnitName) {
-		return new InputStreamReader(ResourcesLoader.class.getResourceAsStream("java/"+compulationUnitName+".template"));
+	public static InputStreamReader loadJava(String compilationUnitName) {
+		return new InputStreamReader(ResourcesLoader.class.getResourceAsStream("java/"+compilationUnitName+".template"));
 	}
 	
-    public static InputStream loadJavaFile(String compulationUnitName) {
-        return ResourcesLoader.class.getResourceAsStream("java/"+compulationUnitName+".template");
+    public static InputStream loadJavaFile(String compilationUnitName) {
+        return ResourcesLoader.class.getResourceAsStream("java/"+compilationUnitName+".template");
     }
 
 }

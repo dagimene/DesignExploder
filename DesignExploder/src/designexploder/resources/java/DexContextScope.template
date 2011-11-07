@@ -1,0 +1,44 @@
+package dex;
+
+import java.util.Collection;
+
+public interface DexContextScope {
+
+	/**
+	 * Creates a new context instance, and sets is as current instance in the scope.
+	 * @return A new and fresh context instance.
+	 */
+	DexContextInstance createNewContextInstance();
+
+	/**
+	 * Destroys a context instance, removing it from scope's available instances collection.
+	 * @param instance
+	 */
+	void destroyContextInstance(DexContextInstance instance);
+
+	/**
+	 * @return the context instance set as current
+	 */
+	DexContextInstance getCurrentContextInstance();
+
+	/**
+	 * Sets a context instance as current. The instance must have been retrieved from this scope,
+	 * through createNewContextInstance, getCurrentContextInstance, or getContextInstances methods,
+	 * and has not to be destroyed.
+	 * @param instance
+	 * @return The instance set as current before this method call.
+	 */
+	DexContextInstance setCurrentContextInstance(DexContextInstance instance);
+
+	/**
+	 * @return all the available instances in this scope.
+	 */
+	Collection<DexContextInstance> getContextsInstances();
+
+	/**
+	 * The scope name.
+	 * @return
+	 */
+	String getName();
+
+}

@@ -3,6 +3,7 @@ package designexploder.editor.actions;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkbenchPart;
@@ -51,20 +52,42 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		Method method = (Method) getModel();
 		Node node = getNode();
 		IoCAwareMethod iocAwareMethod = getIoCAwareMethod(method, node);
-		Command command;
+		Command command = null;
 		if(iocAwareMethod != null) {
 			command = new RemoveIoCAwareMethodCommand(node, iocAwareMethod);
 		} else {
+            Nature candidateNature = getCandidateNature(method, node);
+            if(candidateNature == IoCModelNatures.IOC_METHOD_INIT) {
+                command = removeOtherMethodsNature(IoCModelNatures.IOC_METHOD_INIT);
+            }
 			iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod();
 			iocAwareMethod.setTarget((Method) getModel());
-			iocAwareMethod.setNature(getCandidateNature(method, node));
-			command = new AddIoCAwareMethodCommand(node, iocAwareMethod); 
+            iocAwareMethod.setNature(candidateNature);
+            Command addCommand = new AddIoCAwareMethodCommand(node, iocAwareMethod);
+            if(command == null) {
+			    command = addCommand;
+            } else {
+                ((CompoundCommand)command).add(addCommand);
+            }
 		}
 		getCommandStack().execute(command);
 		((DexDiagramEditor)getWorkbenchPart()).forceUpdateSelectionActions();
 	}
-	
-	private Node getNode() {
+
+    private Command removeOtherMethodsNature(IoCModelNatures iocMethodNature) {
+        CompoundCommand command = null;
+        Node node = getNode();
+        Set<IoCAwareMethod> ioCAwareMethods = getIoCAwareMethods(node, iocMethodNature);
+        if(!ioCAwareMethods.isEmpty()) {
+            command = new CompoundCommand();
+            for(IoCAwareMethod method : ioCAwareMethods) {
+                command.add(new RemoveIoCAwareMethodCommand(node, method));
+            }
+        }
+        return command;
+    }
+
+    private Node getNode() {
 		return ((ClassItemEditPart) getEditPart()).getParentModel();
 	}
 	
@@ -127,7 +150,18 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		}
 		return nature;
 	}
-	
+
+    private static Set<IoCAwareMethod> getIoCAwareMethods(Node node, final Nature nature) {
+        BeanNode beanNode = node.getExtension(BeanNode.class);
+        return beanNode == null ? null :
+            ADTUtil.filterCollection(beanNode.getIoCAwareMethods(), new Condition<IoCAwareMethod>() {
+                @Override
+                public boolean check(IoCAwareMethod e) {
+                    return e.getNature() == nature;
+                }
+            });
+    }
+
 	private static IoCAwareMethod getIoCAwareMethod(final Method method, Node node) {
 		BeanNode beanNode = node.getExtension(BeanNode.class);
 		if(beanNode != null) {
@@ -150,11 +184,11 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 	}
 	
 	private static boolean isInitCandidate(Method method) {
-		return !method.isAbstract() && !method.isStatic();
+		return !method.isAbstract() && !method.isStatic() && method.getParameters().isEmpty() && method.getType().isVoid();
 	}
 	
 	private static boolean isInstantiate(Method method) {
 		return method.isAbstract() && !method.isStatic() && !method.isFinal() &&
-				method.getType().isBasic() && method.getType().getName() == "void";
+				method.getType().isBasic() && method.getType().isVoid();
 	}
 }

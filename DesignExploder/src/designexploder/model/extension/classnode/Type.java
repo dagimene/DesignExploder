@@ -8,15 +8,16 @@ public interface Type extends InmutableNamed {
 	String getLastname();
 
 	boolean isBasic();
-	
+
+    boolean isVoid();
+
 	boolean isArray();
 
 	boolean isClassType();
-	
+
 	boolean isTypeVariable();
 
 	ClassType asClassType();
-	
+
 	ArrayType asArrayType();
-	
 }

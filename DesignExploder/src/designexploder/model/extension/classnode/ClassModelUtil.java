@@ -99,7 +99,12 @@ public class ClassModelUtil {
 			return false;
 		}
 
-		@Override
+        @Override
+        public boolean isVoid() {
+            return false;
+        }
+
+        @Override
 		public boolean isClassType() {
 			return false;
 		}

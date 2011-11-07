@@ -62,7 +62,12 @@ public class ArrayTypeImpl implements ArrayType {
 		return false;
 	}
 
-	public boolean isClassType() {
+    @Override
+    public boolean isVoid() {
+        return false;
+    }
+
+    public boolean isClassType() {
 		return false;
 	}
 

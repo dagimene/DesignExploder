@@ -41,7 +41,7 @@ public class SpringConfigFile extends Document {
                         }
                     }
                 }
-            }).run();
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
         }

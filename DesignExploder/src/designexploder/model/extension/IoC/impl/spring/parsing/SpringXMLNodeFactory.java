@@ -32,6 +32,10 @@ public class SpringXMLNodeFactory extends NodeFactory {
 			case LIST:
 				result = new CollectionElement(true);
 				break;
+            case MAP:
+            case ENTRY:
+            case CONSTRUCTOR_ARG:
+                result = new Element(name, BEANS_NS);
 			}
 		}
 		if(result == null) { 

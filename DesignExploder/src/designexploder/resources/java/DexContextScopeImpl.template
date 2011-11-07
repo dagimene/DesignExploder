@@ -1,0 +1,188 @@
+package dex;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.config.Scope;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+public class DexContextScopeImpl implements Scope, DexContextScope {
+
+	private DexContextInstance parent;
+
+	private String name;
+
+	private Set<DexContextInstance> contexts = new HashSet<DexContextInstance>();
+
+	private Map<Thread, Set<String>> lookups = new HashMap<Thread, Set<String>>();
+
+	private DexContextInstance current;
+
+	private static final boolean AUTO_CREATE_CURRENT = true;
+
+	public DexContextScopeImpl(String name, DexContextInstance parent) {
+		if(!name.startsWith("ctx://")) {
+			throw new IllegalArgumentException("Given name has no no Dex context prefix");
+		}
+		this.name = name;
+		this.parent = parent;
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#createNewContextInstance()
+	 */
+	@Override
+	public DexContextInstance createNewContextInstance() {
+		CustomAutowireBeanFactory factory = instantiateContext(name, parent);
+		contexts.add(factory);
+		current = factory;
+		return factory;
+	}
+
+	static CustomAutowireBeanFactory instantiateContext(String name, DexContextInstance parent) {
+		CustomAutowireBeanFactory factory = new CustomAutowireBeanFactory(parent);
+		Resource resource = new ClassPathResource(name.substring("ctx:/".length()));
+		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(resource);
+		factory.refresh();
+		return factory;
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#destroyContextInstance(dex.DexRuntime.CustomAutowireBeanFactory)
+	 */
+	@Override
+	public void destroyContextInstance(DexContextInstance instance) {
+		checkInstance(instance);
+		if(instance == null) {
+			instance = current;
+		}
+		if(instance == current) {
+			current = null;
+		}
+		contexts.remove(instance);
+		((DefaultSingletonBeanRegistry) instance).destroySingletons();
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#getCurrentContextInstance()
+	 */
+	@Override
+	public DexContextInstance getCurrentContextInstance() {
+		return current;
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#setCurrentContextInstance(dex.DexRuntime.CustomAutowireBeanFactory)
+	 */
+	@Override
+	public DexContextInstance setCurrentContextInstance(DexContextInstance instance) {
+		checkInstance(instance);
+		DexContextInstance previous = current;
+		current = instance;
+		return previous;
+	}
+
+	private void checkInstance(DexContextInstance instance) {
+		if(!contexts.contains(instance)) {
+			throw new IllegalArgumentException("The provideded instance is not one of the available contexts instances");
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#getContextsInstances()
+	 */
+	@Override
+	public Collection<DexContextInstance> getContextsInstances() {
+		return Collections.unmodifiableSet(contexts);
+	}
+
+	@Override
+	public Object get(String beanName, ObjectFactory<?> objectFactory) {
+		if(AUTO_CREATE_CURRENT && current == null) {
+			createNewContextInstance();
+		}
+		if(current != null) {
+			addLookup(Thread.currentThread(), beanName);
+			String targetBeanName = beanName.startsWith("scopedTarget.") ?
+				beanName.substring("scopedTarget.".length()) : beanName;
+			Object bean = current.getBean(targetBeanName);
+			removeLookup(Thread.currentThread(), beanName);
+			return bean;
+		}
+		throw new IllegalStateException("There is no current context instance");
+	}
+
+	private void addLookup(Thread currentThread, String beanName) {
+		Set<String> looking = lookups.get(currentThread);
+		if(looking == null) {
+			looking = new HashSet<String>();
+			lookups.put(currentThread, looking);
+		} else if(looking.contains(beanName)) {
+			throw new IllegalStateException("Recursive search for bean "+beanName+" at scope "+name);
+		}
+		looking.add(beanName);
+	}
+
+	private void removeLookup(Thread currentThread, String beanName) {
+		Set<String> looking = lookups.get(currentThread);
+		boolean contained = false;
+		if(looking != null) {
+			contained = looking.remove(beanName);
+			if(looking.isEmpty()) {
+				lookups.remove(currentThread);
+			}
+		}
+		if(!contained) {
+			throw new IllegalStateException("Cannot remove bean "+beanName+" from lookups at scope "+name+": The bean was never added to lookups.");
+		}
+	}
+
+	@Override
+	public Object remove(String name) {
+		if(current != null) {
+			Object bean = current.getBean(name);
+			if(bean != null) {
+				((DefaultSingletonBeanRegistry) current).destroySingleton(name);
+			}
+			return bean;
+		}
+		throw new IllegalStateException("There is no current context instance");
+	}
+
+	@Override
+	public void registerDestructionCallback(String name, Runnable callback) {
+		// Do nothing.
+	}
+
+	@Override
+	public Object resolveContextualObject(String key) {
+		// No contextual objects
+		return null;
+	}
+
+	@Override
+	public String getConversationId() {
+		return name;
+	}
+
+	public DexContextInstance getParent() {
+		return parent;
+	}
+
+	/* (non-Javadoc)
+	 * @see dex.DexContext#getName()
+	 */
+	@Override
+	public String getName() {
+		return name;
+	}
+
+}
