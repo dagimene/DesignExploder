@@ -103,17 +103,23 @@ public enum Style {
 
 	IOC_METHOD_INSTANTIATE(MEMBER,
 			ICON, IconResource.BEAN_METHOD_INSTANTIATE_ICON),
-			
+
+    IOC_METHOD_ACTIVATE(MEMBER,
+            ICON, IconResource.BEAN_METHOD_ACTIVATE_ICON),
+
+    IOC_METHOD_DESTROY(MEMBER,
+            ICON, IconResource.BEAN_METHOD_DESTROY_ICON),
+
 	// Connection styles
 			
 	BASE_CONNECTION_STYLE(null,
 			LINE_COLOR, ColorConstants.black,
 			LINE_DASH, SWT.LINE_SOLID,
-			LINE_WIDTH, Integer.valueOf(2)),			
+			LINE_WIDTH, 2),
 
 	INDIFFERENT_CONNECTION(BASE_CONNECTION_STYLE,
 			LINE_COLOR, ColorConstants.lightGray,
-			LINE_WIDTH, Integer.valueOf(1)),
+			LINE_WIDTH, 1),
 			
 	HIERARCHY(BASE_CONNECTION_STYLE,
 			TARGET_DECORATION, EndpointDecorationsFactory.CLOSED_ARROW),			
@@ -134,7 +140,7 @@ public enum Style {
 	BASE_INJECTION(MEMBER,
 			LINE_COLOR, ColorConstants.blue,
 			LINE_DASH, SWT.LINE_SOLID,
-			LINE_WIDTH, Integer.valueOf(1),
+			LINE_WIDTH, 1,
 			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
 
 	UNRESOLVED_DEPENDENCY(BASE_INJECTION,
@@ -158,7 +164,7 @@ public enum Style {
 	INJECTION_PROXY(BASE_INJECTION,
 			ICON, IconResource.BEAN_FIELD_PROXY_ICON,
 			LINE_ICON, IconResource.BEAN_FIELD_PROXY_ICON);
-	
+
 	// -----------------------------------------------------------
 			
 	private Map<Style.Constant, Object> properties;

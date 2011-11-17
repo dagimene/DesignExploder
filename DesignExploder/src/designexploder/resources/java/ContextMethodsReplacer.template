@@ -1,0 +1,45 @@
+package dex;
+
+import java.lang.reflect.Method;
+
+import org.springframework.beans.factory.support.MethodReplacer;
+
+public class ContextMethodsReplacer implements MethodReplacer {
+
+	private final DexContextInstance contextInstance;
+
+	public ContextMethodsReplacer(DexContextInstance contextInstance) {
+		this.contextInstance = contextInstance;
+	}
+
+	@Override
+	public Object reimplement(Object obj, Method method, Object[] args) throws Throwable {
+		String name = method.getName();
+		if(isInstantiate(name)) {
+			String contextName = name.substring("create".length()).toLowerCase();
+	        DexContextScope targetScope = contextInstance.getBean(":::" + contextName, DexContextScope.class);
+			targetScope.createNewContextInstance();
+        } else {
+	        DexContextScope targetScope = contextInstance.getBean("::scope", DexContextScope.class);
+        	if(isActivate(name)) {
+        		targetScope.setCurrentContextInstance(contextInstance);
+        	} else if(isDestroy(name)) {
+        		targetScope.destroyContextInstance(contextInstance);
+        	}
+		}
+		return null;
+	}
+
+    private static boolean isDestroy(String name) {
+        return name.equals("destroyContext");
+    }
+
+    private static boolean isInstantiate(String name) {
+        return name.startsWith("create") && name.length() > "create".length();
+    }
+
+    private static boolean isActivate(String name) {
+        return name.equals("activateContext");
+    }
+
+}

@@ -89,15 +89,22 @@ public class BeanElement extends Element {
     private void buildName() {
         if(id != null) {
             if(name == null || id.equals(name)) {
-                addAttribute(new Attribute(NAME, id));
+                addNameAttribute(id);
             } else {
-                addAttribute(new Attribute(NAME, id + " " + name));
+                addNameAttribute(id + " " + name);
             }
         }
+    }
+
+    protected void addNameAttribute(String name) {
+        addAttribute(new Attribute(NAME, name));
     }
 
     public Iterator<DependencyElement> getDependencies() {
         return new ElementIterator<DependencyElement>(this.getChildElements(), DependencyElement.class);
     }
 
+    public Iterator<ReplaceMethodElement> getReplaceMethods() {
+        return new ElementIterator<ReplaceMethodElement>(this.getChildElements(), ReplaceMethodElement.class);
+    }
 }

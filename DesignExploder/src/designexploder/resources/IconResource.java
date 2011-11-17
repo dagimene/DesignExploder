@@ -60,7 +60,9 @@ public enum IconResource {
 	BEAN_METHOD_FACTORY_ICON("images/IoC/bean_method_factory.gif"),  
 	BEAN_METHOD_INIT_ICON("images/IoC/bean_method_init.gif"),  
 	BEAN_METHOD_INSTANTIATE_ICON("images/IoC/bean_method_instantiate.gif"),  
-	
+    BEAN_METHOD_ACTIVATE_ICON("images/IoC/bean_method_activate.gif"),
+    BEAN_METHOD_DESTROY_ICON("images/IoC/bean_method_destroy.gif"),
+
 	// Injection
 
 	INJECTION_METHOD_PUBLIC_ICON("images/IoC/injection_method_public.gif"),  
@@ -104,5 +106,4 @@ public enum IconResource {
 	public String getPath() {
 		return path;
 	}
-	
 }

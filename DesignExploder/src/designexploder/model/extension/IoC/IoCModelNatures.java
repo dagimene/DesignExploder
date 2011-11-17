@@ -21,14 +21,16 @@ public enum IoCModelNatures implements Nature {
 	// IoCAwareMethod natures
 	IOC_METHOD_FACTORY("Factory Method"),
 	IOC_METHOD_INIT("Init Method"),
-	IOC_METHOD_INSTANTIATE("Context Instantiate Method"),
-	
+	IOC_METHOD_INSTANTIATE("Instantiate Context Method"),
+    IOC_METHOD_DESTROY("Destroy Context Method"),
+    IOC_METHOD_ACTIVATE("Activate Context Method"),
+
 	// Misc
 	INDIFFERENT_CONNECTION("Indifferent Connection");
 
 	private String name;
-	
-	IoCModelNatures(String name) {
+
+    IoCModelNatures(String name) {
 		this.name = name;
 	}
 

@@ -63,13 +63,22 @@ public class ParsingConstants {
 
     public static final String CONTEXT_SCOPE_IMPL_CLASS = "dex.DexContextScopeImpl";
 
-    public static final String DEX_CONTEXT_INSTANCE_CLASS = "dex.DexContextInstance";
+    public static final String CONTEXT_METHODS_REPLACER_CLASS = "dex.ContextMethodsReplacer";
 
-    public static final String CONTEXT = "::context";
+    public static final String DEX_CONTEXT_INSTANCE_CLASS = "dex.DexContextInstance";
 
     public static final String STRING_CLASS = "java.lang.String";
 
+    public static final String CONTEXT_ID = "::context";
+
+    public static final String REPLACER_ID = "::replacer";
+
+    public static final String REPLACER = "replacer";
+
     public static final String SCOPED_PROXY = "scoped-proxy";
+
+    public static final String REPLACED_METHOD = "replaced-method";
+
 
 	private static Map<String, ParsingElement> elements = new HashMap<String, ParsingElement>();
 	
@@ -77,15 +86,15 @@ public class ParsingConstants {
 		elements.put(BEANS, ParsingElement.BEANS);
 		elements.put(BEAN, ParsingElement.BEAN);
 		elements.put(PROPERTY, ParsingElement.PROPERTY);
-		
-		elements.put(REF, ParsingElement.REF);
-		elements.put(LIST, ParsingElement.LIST);
-		elements.put(SET, ParsingElement.SET);
 
+        elements.put(LIST, ParsingElement.LIST);
+		elements.put(SET, ParsingElement.SET);
+        elements.put(REF, ParsingElement.REF);
         elements.put(MAP, ParsingElement.MAP);
         elements.put(ENTRY, ParsingElement.ENTRY);
-        elements.put(CONSTRUCTOR_ARG, ParsingElement.CONSTRUCTOR_ARG);
 
+        elements.put(CONSTRUCTOR_ARG, ParsingElement.CONSTRUCTOR_ARG);
+        elements.put(REPLACED_METHOD, ParsingElement.REPLACED_METHOD);
 	}
 	
 	public static ParsingElement valueOf(String name) {
@@ -93,7 +102,9 @@ public class ParsingConstants {
 	}
 	
 	public static enum ParsingElement {
-		BEANS, BEAN, PROPERTY, LIST, SET, REF, MAP, ENTRY, CONSTRUCTOR_ARG
+		BEANS, BEAN, PROPERTY,
+        LIST, SET, REF, MAP, ENTRY,
+        CONSTRUCTOR_ARG, REPLACED_METHOD;
 	}
 
 }

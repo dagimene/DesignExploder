@@ -1,5 +1,7 @@
 package designexploder.editor.actions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
@@ -38,10 +40,22 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 
 	private static final String BECOME_INIT = "Become an init method";
 	private static final String BECOME_INSTANTIATE = "Become a context instantiator method";
-	private static final String BECOME_FACTORY = "Become a bean factory method";
-	private static final String REMOVE_IOC_AWARENESS = "Remove IoC awarness";
+    private static final String BECOME_ACTIVATE = "Become a context activator method";
+    private static final String BECOME_DESTROY = "Become a context destroyer method";
+    private static final String BECOME_FACTORY = "Become a bean factory method";
+    private static final String REMOVE_IOC_AWARENESS = "Remove IoC awareness";
 
-	public TransformToIoCAwareMethodAction(IWorkbenchPart part) {
+    private static final Map<Nature, String> labels = new HashMap<Nature, String>();
+
+    static {
+        labels.put(IoCModelNatures.IOC_METHOD_INIT, BECOME_INIT);
+        labels.put(IoCModelNatures.IOC_METHOD_INSTANTIATE, BECOME_INSTANTIATE);
+        labels.put(IoCModelNatures.IOC_METHOD_ACTIVATE, BECOME_ACTIVATE);
+        labels.put(IoCModelNatures.IOC_METHOD_DESTROY, BECOME_DESTROY);
+        labels.put(IoCModelNatures.IOC_METHOD_FACTORY, BECOME_FACTORY);
+    }
+
+    public TransformToIoCAwareMethodAction(IWorkbenchPart part) {
 		super(part);
 		setId(DexActionFactory.TRANSFORM_TO_IOC_AWARE_METHOD.name());
 		setTargetEditPartClass(ClassItemEditPart.class);
@@ -97,7 +111,7 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		if(item != null && item.isMethod() && getNode().getExtension(BeanNode.class) != null) {
 			Method method = (Method) getModel();
 			Node node = getNode();
-			return getIoCAwareMethod(method, node) != null || isFactoryCandidate(method, node) || isInitCandidate(method) || isInstantiate(method);
+			return getIoCAwareMethod(method, node) != null || getCandidateNature(method, node) != null;
 		}
 		return false;
 	}
@@ -116,13 +130,9 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 			Node node = getNode();
 			if(getIoCAwareMethod(method, node) != null) {
 				return REMOVE_IOC_AWARENESS;
-			} else if(isInstantiate(method)) {
-				return BECOME_INSTANTIATE;
-			} else if(isInitCandidate(method)) {
-				return BECOME_INIT;
-			} else if(isFactoryCandidate(method, node)) {
-				return BECOME_FACTORY;
-			}
+			} else {
+                return labels.get(getCandidateNature(method, getNode()));
+            }
 		}
 		return BECOME_FACTORY;
 	}
@@ -140,16 +150,28 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 	}
 	
 	private static Nature getCandidateNature(Method method, Node node) {
-		Nature nature = null;
-		if(isInstantiate(method)) {
-			nature = IoCModelNatures.IOC_METHOD_INSTANTIATE;
-		} else if(isInitCandidate(method)) {
-			nature = IoCModelNatures.IOC_METHOD_INIT;
-		} else if(isFactoryCandidate(method, node)){
-			nature = IoCModelNatures.IOC_METHOD_FACTORY; 
-		}
+		Nature nature = getReplaceableMethodNatureIfAny(method);
+        if(nature == null) {
+            if(isInitCandidate(method)) {
+                nature = IoCModelNatures.IOC_METHOD_INIT;
+            } else if(isFactoryCandidate(method, node)){
+                nature = IoCModelNatures.IOC_METHOD_FACTORY;
+            }
+        }
 		return nature;
 	}
+
+    public static IoCModelNatures getReplaceableMethodNatureIfAny(Method method) {
+        IoCModelNatures nature = null;
+        if(isInstantiate(method)) {
+			nature = IoCModelNatures.IOC_METHOD_INSTANTIATE;
+        } else if(isActivate(method)) {
+            nature = IoCModelNatures.IOC_METHOD_ACTIVATE;
+        } else if(isDestroy(method)) {
+            nature = IoCModelNatures.IOC_METHOD_DESTROY;
+		}
+        return nature;
+    }
 
     private static Set<IoCAwareMethod> getIoCAwareMethods(Node node, final Nature nature) {
         BeanNode beanNode = node.getExtension(BeanNode.class);
@@ -188,7 +210,30 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 	}
 	
 	private static boolean isInstantiate(Method method) {
-		return method.isAbstract() && !method.isStatic() && !method.isFinal() &&
-				method.getType().isBasic() && method.getType().isVoid();
+		return isReplaceableMethod(method) && isCreate(method.getName());
 	}
+
+    private static boolean isDestroy(Method method) {
+        return isReplaceableMethod(method) && isDestroy(method.getName());
+    }
+
+    private static boolean isActivate(Method method) {
+        return isReplaceableMethod(method) && isActivate(method.getName());
+    }
+
+    private static boolean isReplaceableMethod(Method method) {
+        return method.isAbstract() && !method.isStatic() && !method.isFinal() && method.getType().isVoid() && method.getParameters().isEmpty();
+    }
+
+    private static boolean isDestroy(String name) {
+        return name.equals("destroyContext");
+    }
+
+    private static boolean isCreate(String name) {
+        return name.startsWith("create") && name.length() > "create".length();
+    }
+
+    private static boolean isActivate(String name) {
+        return name.equals("activateContext");
+    }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset1" name="Contexts" removed="false">
+          <file>file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/contexts/Document.xml</file>
+          <file>file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/contexts/main.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/beans" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/contexts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../runtime-EclipseApplication/OpenSVG/generated" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

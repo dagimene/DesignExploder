@@ -8,6 +8,7 @@ import java.util.Set;
 import designexploder.model.ContainerNode;
 import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.impl.spring.parsing.*;
+import designexploder.model.extension.common.Nature;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -28,6 +29,7 @@ public class SpringContextsWriter implements ModelBuilder {
 	private static final String AUTOWIRE = "autowire";
 	private final IPackageFragmentRoot contextsFragmentRoot;
 	private final IJavaProject project;
+    private boolean hasReplaceMethods;
 
 	public static ModelBuilder create(IPackageFragmentRoot packageFragmentRoot) {
 		return new SpringContextsWriter(packageFragmentRoot.getJavaProject(), packageFragmentRoot);
@@ -79,10 +81,17 @@ public class SpringContextsWriter implements ModelBuilder {
             if(scopes.hasNext()) {
                 CustomScopeConfigurerElement customScopeConfigurer = new CustomScopeConfigurerElement();
                 do {
-                    customScopeConfigurer.declareScope(scopes.next().getId());
+                    String key = scopes.next().getId();
+                    String name = extractScopeName(key);
+                    customScopeConfigurer.declareScope(name, key);
+                    beansElement.appendChild(new DexContextScopeImplElement(name, key));
                 } while(scopes.hasNext());
                 beansElement.appendChild(customScopeConfigurer);
             }
+            if(hasReplaceMethods) {
+                beansElement.appendChild(new ContextMethodsReplacerElement());
+            }
+            hasReplaceMethods = false;
 			SpringConfigFile springConfigFile = new SpringConfigFile();
 			springConfigFile.setRootElement(beansElement);
 			EclipseUtil.createAndWriteFile(file, springConfigFile.toPrettyXML());
@@ -92,6 +101,10 @@ public class SpringContextsWriter implements ModelBuilder {
 			saveContext(child/*, new HashSet<Node>(availableBeans)*/);
 		}
 	}
+
+    private String extractScopeName(String key) {
+        return ":::" + key.substring("ctx://".length(), key.length() - ".xml".length()).toLowerCase();
+    }
 
     private BeanElement createFacadeNode(Node node) {
 		// Model Values
@@ -120,10 +133,12 @@ public class SpringContextsWriter implements ModelBuilder {
         beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
 
-        addIoCAwareMethodsModifiers(beanElement, beanNode);
+        addIoCInitMethods(beanElement, beanNode);
+
+        hasReplaceMethods = hasReplaceMethods || addIoCReplaceMethods(beanElement, beanNode);
 
         beanElement.setAutowireByType();
-		
+
 		// Set Injections 
 		for (Dependency dependency : beanNode.getDependencies()) {
 			beanElement.appendChild(createDependencyElement(dependency));
@@ -132,7 +147,22 @@ public class SpringContextsWriter implements ModelBuilder {
 		return beanElement;
 	}
 
-    private void addIoCAwareMethodsModifiers(BeanElement beanElement, BeanNode beanNode) {
+    private boolean addIoCReplaceMethods(BeanElement beanElement, BeanNode beanNode) {
+        boolean hasReplaceMethods = false;
+        for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
+            IoCModelNatures nature = (IoCModelNatures)ioCAwareMethod.getNature();
+            switch (nature) {
+                case IOC_METHOD_INSTANTIATE:
+                case IOC_METHOD_ACTIVATE:
+                case IOC_METHOD_DESTROY:
+                    beanElement.appendChild(ReplaceMethodElement.create(ioCAwareMethod.getTarget().getName()));
+                    hasReplaceMethods = true;
+            }
+        }
+        return hasReplaceMethods;
+    }
+
+    private void addIoCInitMethods(BeanElement beanElement, BeanNode beanNode) {
         for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
             if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_INIT) {
                 beanElement.setInitMethod(ioCAwareMethod.getTarget().getName());

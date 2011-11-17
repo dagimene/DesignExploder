@@ -17,40 +17,13 @@ public class CustomScopeConfigurerElement extends BeanElement {
         appendChild(propertyElement);
     }
 
-    public void declareScope(String name) {
+    public void declareScope(String bean, String key) {
         Element entry = new Element(ENTRY, BEANS_NS);
-        entry.addAttribute(new Attribute(KEY, name));
-        BeanElement bean = new BeanElement();
-        bean.setClazz(CONTEXT_SCOPE_IMPL_CLASS);
-        ConstructorArg constructorArg = new ConstructorArg();
-        constructorArg.setType(STRING_CLASS);
-        constructorArg.setValue(name);
-        bean.appendChild(constructorArg);
-        constructorArg = new ConstructorArg();
-        constructorArg.setType(DEX_CONTEXT_INSTANCE_CLASS);
-        constructorArg.setRef(CONTEXT);
-        bean.appendChild(constructorArg);
-        entry.appendChild(bean);
+        entry.addAttribute(new Attribute(KEY, key));
+        RefElement ref = new RefElement();
+        ref.setBean(bean);
+        entry.appendChild(ref);
         map.appendChild(entry);
-    }
-
-    static class ConstructorArg extends Element {
-
-        public ConstructorArg() {
-            super(CONSTRUCTOR_ARG, BEANS_NS);
-        }
-
-        public void setType(String type) {
-            addAttribute(new Attribute(TYPE, type));
-        }
-
-        public void setValue(String value) {
-            addAttribute(new Attribute(VALUE, value));
-        }
-
-        public void setRef(String ref) {
-            addAttribute(new Attribute(REF, ref));
-        }
     }
 
 }

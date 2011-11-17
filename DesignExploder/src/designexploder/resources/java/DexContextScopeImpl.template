@@ -11,6 +11,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -26,8 +27,6 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 
 	private DexContextInstance current;
 
-	private static final boolean AUTO_CREATE_CURRENT = true;
-
 	public DexContextScopeImpl(String name, DexContextInstance parent) {
 		if(!name.startsWith("ctx://")) {
 			throw new IllegalArgumentException("Given name has no no Dex context prefix");
@@ -41,14 +40,14 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 	 */
 	@Override
 	public DexContextInstance createNewContextInstance() {
-		CustomAutowireBeanFactory factory = instantiateContext(name, parent);
+		CustomAutowireBeanFactory factory = instantiateContext(name, parent, this);
 		contexts.add(factory);
 		current = factory;
 		return factory;
 	}
 
-	static CustomAutowireBeanFactory instantiateContext(String name, DexContextInstance parent) {
-		CustomAutowireBeanFactory factory = new CustomAutowireBeanFactory(parent);
+	static CustomAutowireBeanFactory instantiateContext(String name, DexContextInstance parent, DexContextScope scope) {
+		CustomAutowireBeanFactory factory = new CustomAutowireBeanFactory(parent, scope);
 		Resource resource = new ClassPathResource(name.substring("ctx:/".length()));
 		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(resource);
 		factory.refresh();
@@ -68,7 +67,7 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 			current = null;
 		}
 		contexts.remove(instance);
-		((DefaultSingletonBeanRegistry) instance).destroySingletons();
+		((AbstractApplicationContext) instance).destroy();
 	}
 
 	/* (non-Javadoc)
@@ -106,9 +105,6 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 
 	@Override
 	public Object get(String beanName, ObjectFactory<?> objectFactory) {
-		if(AUTO_CREATE_CURRENT && current == null) {
-			createNewContextInstance();
-		}
 		if(current != null) {
 			addLookup(Thread.currentThread(), beanName);
 			String targetBeanName = beanName.startsWith("scopedTarget.") ?

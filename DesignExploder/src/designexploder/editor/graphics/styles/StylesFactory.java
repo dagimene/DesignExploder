@@ -59,7 +59,9 @@ public class StylesFactory {
 		styles.put(IOC_METHOD_FACTORY, Style.IOC_METHOD_FACTORY);
 		styles.put(IOC_METHOD_INIT, Style.IOC_METHOD_INIT);
 		styles.put(IOC_METHOD_INSTANTIATE, Style.IOC_METHOD_INSTANTIATE);
-		
+        styles.put(IOC_METHOD_ACTIVATE, Style.IOC_METHOD_ACTIVATE);
+        styles.put(IOC_METHOD_DESTROY, Style.IOC_METHOD_DESTROY);
+
 		// Misc
 		styles.put(INDIFFERENT_CONNECTION, Style.INDIFFERENT_CONNECTION);
 		styles.put(ERROR, Style.ERROR);

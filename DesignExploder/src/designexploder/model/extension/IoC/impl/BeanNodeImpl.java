@@ -20,6 +20,7 @@ class BeanNodeImpl extends NamedNaturalizedImpl implements BeanNode {
 	private Set<IoCAwareMethod> IoCAwareMethods = new HashSet<IoCAwareMethod>();
 	private Set<Dependency> dependencies = new HashSet<Dependency>();
 	private Node node;
+
 	public BeanNodeImpl() {
 		addListener(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED, abstractAutoimplementationListener);
 		addListener(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED, abstractAutoimplementationListener);
@@ -79,10 +80,12 @@ class BeanNodeImpl extends NamedNaturalizedImpl implements BeanNode {
 		@Override
 		public void processModelEvent(ModelEvent e) {
 			if(getNature() != IoCModelNatures.BEAN_FACADE) {
-				IoCModelNatures newNature = IoCModelUtil.getBeanNatureFor(getNode().getExtension(ClassNode.class), BeanNodeImpl.this);
-				if(getNature() !=  newNature) {
-					setNature(newNature);
-				}
+                if(node != null) {
+                    IoCModelNatures newNature = IoCModelUtil.getBeanNatureFor(node.getExtension(ClassNode.class), BeanNodeImpl.this);
+                    if(getNature() !=  newNature) {
+                        setNature(newNature);
+                    }
+                }
 			}
 		}
 	};

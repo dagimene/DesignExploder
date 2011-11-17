@@ -7,6 +7,6 @@ public class DexRuntime {
 	}
 
 	private DexContextInstance start() {
-		return DexContextScopeImpl.instantiateContext("ctx://main.xml", null);
+		return DexContextScopeImpl.instantiateContext("ctx://main.xml", null, null);
 	}
 }

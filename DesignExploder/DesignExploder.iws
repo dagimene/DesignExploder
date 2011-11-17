@@ -62,16 +62,16 @@
       <file leaf-file-name="SpringContextsWriter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="36" selection-start="4890" selection-end="4890" vertical-scroll-proportion="0.0">
+            <state line="149" column="20" selection-start="5828" selection-end="5828" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpringBeansModelFactory.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SpringBeansModelFactory.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="109" selection-start="2187" selection-end="2187" vertical-scroll-proportion="0.4558011">
+            <state line="84" column="0" selection-start="3479" selection-end="3479" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,10 +79,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="BeanNode.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/BeanNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BeanNodeImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/BeanNodeImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="0" selection-start="2591" selection-end="2591" vertical-scroll-proportion="0.0">
+            <state line="83" column="0" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -91,7 +100,7 @@
       <file leaf-file-name="ExtendedModelEventTrigger.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/impl/ExtendedModelEventTrigger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0">
+            <state line="15" column="11" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,7 +109,25 @@
       <file leaf-file-name="ModelEventTriggerImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/impl/ModelEventTriggerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.0">
+            <state line="36" column="117" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BeanElement.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="107" column="102" selection-start="2597" selection-end="2617" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpringXMLNodeFactory.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringXMLNodeFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="33" selection-start="1068" selection-end="1069" vertical-scroll-proportion="0.48066297">
               <folding />
             </state>
           </provider>
@@ -109,36 +136,7 @@
       <file leaf-file-name="ParsingConstants.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransformToIoCAwareMethodAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2578" selection-end="2757" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddIoCAwareMethodCommand.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/commands/IoC/AddIoCAwareMethodCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="48" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TypeImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypeImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="15" selection-start="1766" selection-end="1766" vertical-scroll-proportion="0.0">
+            <state line="96" column="36" selection-start="3155" selection-end="3170" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -158,43 +156,77 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../../../../runtime-EclipseApplication/OpenSVG/contexts/main.xml" />
-        <option value="$PROJECT_DIR$/src/designexploder/util/adt/IdUtil.java" />
-        <option value="$PROJECT_DIR$/src/dex/DexRuntime.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ScopedProxy.java" />
-        <option value="/usr/lib/jvm/jdk1.6.0_27/src.zip!/com/sun/org/apache/xerces/internal/impl/XMLNamespaceBinder.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeansElement.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ScopedProxyElement.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/util/EclipseUtil.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/resources/java/ContextScope.template" />
-        <option value="$PROJECT_DIR$/src/designexploder/resources/ResourcesLoader.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/resources/java/CustomAutowireBeanFactory.template" />
         <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexContextInstance.template" />
         <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexContextScope.template" />
         <option value="$PROJECT_DIR$/src/designexploder/resources/java/ContextScopeImpl.template" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringCodeGenerator.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringXMLNodeFactory.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringConfigFile.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/CustomScopeConfigurerElement.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template" />
-        <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexRuntime.template" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/Type.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/MethodImpl.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ArrayTypeImpl.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ParameterizedClassTypeImpl.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelUtil.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypeImpl.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/StylesFactory.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/resources/IconResource.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/Style.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/CustomScopeConfigurerElement.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ReplaceMethodElement.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/resources/java/CustomAutowireBeanFactory.template" />
+        <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexRuntime.template" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexContextScopeImplElement.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/resources/java/ContextMethodsReplacer.template" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/BeanNodeImpl.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringXMLNodeFactory.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template" />
       </list>
     </option>
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+          <State>
+            <id>JavaBeans issues</id>
+          </State>
+          <State>
+            <id>Javadoc issues</id>
+          </State>
+          <State>
+            <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>Spring Model</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>JavadocReference</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -222,6 +254,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Favorites" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -455,6 +489,48 @@
               <option name="myItemId" value="extension" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IoC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parsing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignExploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignExploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="designexploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="extension" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -506,8 +582,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Favorites" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -531,7 +605,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="preferences.keymap" />
+    <property name="options.lastSelected" value="Errors" />
     <property name="project.structure.side.proportion" value="0.2349537" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -723,7 +797,6 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258786" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31629393" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -732,11 +805,12 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29233107" sideWeight="0.27795526" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29233107" sideWeight="0.68370605" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30599847" sideWeight="0.68370605" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6773163" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258786" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981017" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -788,165 +862,110 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/designexploder/util/adt/IterableIterator.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/common/Nature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="11" selection-start="161" selection-end="161" vertical-scroll-proportion="0.31496063">
-          <folding />
-        </state>
+        <state line="4" column="17" selection-start="130" selection-end="130" vertical-scroll-proportion="0.103626944" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/BasicModelUtil.java">
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.ui.ide.application_1.0.300.I20110306-2000.jar!/org/eclipse/ui/internal/ide/application/IDEApplication.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="28" selection-start="5832" selection-end="5832" vertical-scroll-proportion="0.3722826">
-          <folding />
-        </state>
+        <state line="36" column="40" selection-start="2228" selection-end="2228" vertical-scroll-proportion="0.70679015" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/commands/IoC/AddIoCAwareMethodCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="187" column="1" selection-start="5293" selection-end="5293" vertical-scroll-proportion="0.9538044">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexRuntime.template">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="1" selection-start="244" selection-end="244" vertical-scroll-proportion="0.2849741">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringCodeGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="991" selection-end="991" vertical-scroll-proportion="0.4770318">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringConfigFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="89" selection-start="1403" selection-end="1403" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/commands/extension/AddExtensionCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="213" selection-end="213" vertical-scroll-proportion="0.103626944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ClassNodeImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="16" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.33215547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/Typed.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="0.15544042">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/Method.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/MethodImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="31" selection-start="1524" selection-end="1524" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTClassType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="557" selection-end="557" vertical-scroll-proportion="0.10714286">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="18" selection-start="93" selection-end="93" vertical-scroll-proportion="0.10600707">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ParameterizedClassTypeImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="35" selection-start="2184" selection-end="2184" vertical-scroll-proportion="1.9689119">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/ArrayType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="17" selection-start="68" selection-end="68" vertical-scroll-proportion="0.051813472">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ArrayTypeImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="43" selection-start="346" selection-end="346" vertical-scroll-proportion="-0.98445594">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/UnresolvedClassTypeImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="351" selection-end="351" vertical-scroll-proportion="0.103626944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="25" selection-start="2664" selection-end="2664" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="18" column="48" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypeImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="15" selection-start="1766" selection-end="1766" vertical-scroll-proportion="0.0">
+        <state line="69" column="15" selection-start="1766" selection-end="1766" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="12" selection-start="111" selection-end="111" vertical-scroll-proportion="0.103626944" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/RefElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="11" selection-start="254" selection-end="254" vertical-scroll-proportion="0.15544042" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="5" selection-start="755" selection-end="755" vertical-scroll-proportion="0.4818653" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/CustomAutowireBeanFactory.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="8" selection-start="1618" selection-end="1618" vertical-scroll-proportion="0.5595855" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexContextInstance.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexRuntime.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="62" selection-start="250" selection-end="250" vertical-scroll-proportion="0.2849741" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexContextScope.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="47" selection-start="604" selection-end="604" vertical-scroll-proportion="0.6217617" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="54" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexContextScopeImplElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/styles/StylesFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="58" selection-start="2164" selection-end="2164" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/styles/Style.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="4" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/IconResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="47" selection-start="2207" selection-end="2207" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/ContextMethodsReplacer.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="38" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/common/Nature.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/CustomScopeConfigurerElement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="130" selection-end="130" vertical-scroll-proportion="0.103626944">
+        <state line="7" column="13" selection-start="217" selection-end="217" vertical-scroll-proportion="0.10714286">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ReplaceMethodElement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="750" selection-end="750" vertical-scroll-proportion="0.4642857">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="14" column="18" selection-start="408" selection-end="408" vertical-scroll-proportion="0.29464287">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0">
+        <state line="164" column="23" selection-start="6471" selection-end="6471" vertical-scroll-proportion="0.59717315">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -955,59 +974,80 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="36" selection-start="4890" selection-end="4890" vertical-scroll-proportion="0.0">
+        <state line="149" column="20" selection-start="5828" selection-end="5828" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/commands/IoC/AddIoCAwareMethodCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/BeanNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="48" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2578" selection-end="2757" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/impl/ExtendedModelEventTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0">
+        <state line="15" column="11" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/impl/ModelEventTriggerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.0">
+        <state line="36" column="117" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/BeanNodeImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="2591" selection-end="2591" vertical-scroll-proportion="0.0">
+        <state line="83" column="0" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.ui.ide.application_1.0.300.I20110306-2000.jar!/org/eclipse/ui/internal/ide/application/IDEApplication.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ElementIterator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="40" selection-start="2228" selection-end="2228" vertical-scroll-proportion="0.70679015">
+        <state line="14" column="11" selection-start="315" selection-end="315" vertical-scroll-proportion="0.069970846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="107" column="102" selection-start="2597" selection-end="2617" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="36" selection-start="3155" selection-end="3170" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="109" selection-start="2187" selection-end="2187" vertical-scroll-proportion="0.4558011">
+        <state line="84" column="0" selection-start="3479" selection-end="3479" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="53" selection-start="554" selection-end="554" vertical-scroll-proportion="0.72206306">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/SpringXMLNodeFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="33" selection-start="1068" selection-end="1069" vertical-scroll-proportion="0.48066297">
+          <folding />
         </state>
       </provider>
     </entry>

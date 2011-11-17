@@ -15,7 +15,7 @@ import org.springframework.context.support.GenericApplicationContext;
 
 public class CustomAutowireBeanFactory extends GenericApplicationContext implements DexContextInstance {
 
-	public CustomAutowireBeanFactory(BeanFactory parentBeanFactory) {
+	public CustomAutowireBeanFactory(BeanFactory parentBeanFactory, DexContextScope scope) {
 		super(new DefaultListableBeanFactory(parentBeanFactory) {
 			/**
 			 * Overrided to autowire only 'autowire' declared properties.
@@ -40,6 +40,9 @@ public class CustomAutowireBeanFactory extends GenericApplicationContext impleme
 		});
 
 		getBeanFactory().registerSingleton("::context", this);
+		if(scope != null) {
+			getBeanFactory().registerSingleton("::scope", scope);
+		}
 	}
 
 }
