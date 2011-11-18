@@ -1,0 +1,26 @@
+package dex;
+
+import java.util.AbstractList;
+import java.util.Set;
+
+public class DexScopedBeansList<E> extends AbstractList<E> implements Set<E> {
+
+	private Class<E> targetType;
+	private final DexContextScope targetScope;
+	
+	public DexScopedBeansList(DexContextScope targetScope, String targetType) throws ClassNotFoundException {
+		this.targetScope = targetScope;
+		this.targetType = (Class<E>) Class.forName(targetType);
+	}
+	
+	@Override
+	public E get(int index) {
+		return targetScope.getContextsInstances().get(index).getBean(targetType);
+	}
+
+	@Override
+	public int size() {
+		return targetScope.getContextsInstances().size();
+	}
+
+}

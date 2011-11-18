@@ -63,9 +63,13 @@ public class ParsingConstants {
 
     public static final String CONTEXT_SCOPE_IMPL_CLASS = "dex.DexContextScopeImpl";
 
+    public static final String CONTEXT_SCOPE_CLASS = "dex.DexContextScope";
+
     public static final String CONTEXT_METHODS_REPLACER_CLASS = "dex.ContextMethodsReplacer";
 
     public static final String DEX_CONTEXT_INSTANCE_CLASS = "dex.DexContextInstance";
+
+    public static final String DEX_SCOPED_BEANS_LIST_CLASS = "dex.DexScopedBeansList";
 
     public static final String STRING_CLASS = "java.lang.String";
 

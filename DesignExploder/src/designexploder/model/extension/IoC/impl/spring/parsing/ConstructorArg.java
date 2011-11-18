@@ -43,4 +43,11 @@ class ConstructorArg extends Element {
         constructorArg.setRef(CONTEXT_ID);
         return constructorArg;
     }
+
+    public static ConstructorArg dexContextScope(String name) {
+        ConstructorArg constructorArg = new ConstructorArg();
+        constructorArg.setType(CONTEXT_SCOPE_CLASS);
+        constructorArg.setRef(name);
+        return constructorArg;
+    }
 }

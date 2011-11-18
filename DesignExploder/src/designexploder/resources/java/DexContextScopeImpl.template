@@ -1,9 +1,10 @@
 package dex;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 
 	private String name;
 
-	private Set<DexContextInstance> contexts = new HashSet<DexContextInstance>();
+	private List<DexContextInstance> contexts = new LinkedList<DexContextInstance>();
 
 	private Map<Thread, Set<String>> lookups = new HashMap<Thread, Set<String>>();
 
@@ -29,7 +30,7 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 
 	public DexContextScopeImpl(String name, DexContextInstance parent) {
 		if(!name.startsWith("ctx://")) {
-			throw new IllegalArgumentException("Given name has no no Dex context prefix");
+			throw new IllegalArgumentException("Given name has no Dex context prefix");
 		}
 		this.name = name;
 		this.parent = parent;
@@ -67,7 +68,7 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 			current = null;
 		}
 		contexts.remove(instance);
-		((AbstractApplicationContext) instance).destroy();
+		((AbstractApplicationContext) instance).close();
 	}
 
 	/* (non-Javadoc)
@@ -95,12 +96,9 @@ public class DexContextScopeImpl implements Scope, DexContextScope {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see dex.DexContext#getContextsInstances()
-	 */
 	@Override
-	public Collection<DexContextInstance> getContextsInstances() {
-		return Collections.unmodifiableSet(contexts);
+	public List<DexContextInstance> getContextsInstances() {
+		return Collections.unmodifiableList(contexts);
 	}
 
 	@Override

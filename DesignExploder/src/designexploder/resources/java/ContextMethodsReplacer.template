@@ -11,7 +11,7 @@ public class ContextMethodsReplacer implements MethodReplacer {
 	public ContextMethodsReplacer(DexContextInstance contextInstance) {
 		this.contextInstance = contextInstance;
 	}
-
+	
 	@Override
 	public Object reimplement(Object obj, Method method, Object[] args) throws Throwable {
 		String name = method.getName();
@@ -29,7 +29,7 @@ public class ContextMethodsReplacer implements MethodReplacer {
 		}
 		return null;
 	}
-
+        
     private static boolean isDestroy(String name) {
         return name.equals("destroyContext");
     }
@@ -41,5 +41,5 @@ public class ContextMethodsReplacer implements MethodReplacer {
     private static boolean isActivate(String name) {
         return name.equals("activateContext");
     }
-
+	
 }

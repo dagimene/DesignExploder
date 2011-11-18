@@ -1,11 +1,6 @@
 package designexploder.model.extension.classnode;
 
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ClassModelUtil {
 
@@ -23,10 +18,14 @@ public class ClassModelUtil {
 		return getInstance(type).isCollection0(type);
 	}
 
-	public static boolean isList(ClassType type) {
-		return getInstance(type).isList0(type);
+	public static boolean isAssignableFromList(ClassType type) {
+		return getInstance(type).isAssignableFromList0(type);
 	}
 	
+    public static boolean isAssignableFromSet(ClassType type) {
+        return getInstance(type).isAssignableFromSet0(type);
+    }
+
 	public static boolean isSubclass(ClassType type, ClassType supertype) {
 		return getInstance(type).isSubclass0(type, supertype);
 	}
@@ -44,9 +43,13 @@ public class ClassModelUtil {
 		return isSubclass0(type, getKnownType(Collection.class));
 	}
 
-	private boolean isList0(ClassType type) {
-		return isSubclass0(type, getKnownType(List.class));
+	private boolean isAssignableFromList0(ClassType type) {
+		return isSubclass0(getKnownType(List.class), type.getTypeErasure());
 	}
+
+    private boolean isAssignableFromSet0(ClassType type) {
+        return isSubclass0(getKnownType(Set.class), type.getTypeErasure());
+    }
 
 	private boolean isSubclass0(ClassType type, ClassType supertype) {
 		Deque<ClassType> hierarchy = new ArrayDeque<ClassType>();

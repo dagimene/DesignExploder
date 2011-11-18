@@ -15,6 +15,8 @@ import org.springframework.context.support.GenericApplicationContext;
 
 public class CustomAutowireBeanFactory extends GenericApplicationContext implements DexContextInstance {
 
+	private boolean stopping;
+	
 	public CustomAutowireBeanFactory(BeanFactory parentBeanFactory, DexContextScope scope) {
 		super(new DefaultListableBeanFactory(parentBeanFactory) {
 			/**
@@ -45,4 +47,14 @@ public class CustomAutowireBeanFactory extends GenericApplicationContext impleme
 		}
 	}
 
+	@Override
+	/** Overriden because CustomAutowireBeanFactory is registered itself as a bean */
+	public void stop() {
+		if(!stopping) {
+			stopping = true;
+			super.stop();
+		} else {
+			System.out.println("Already Closing");
+		}
+	}
 }

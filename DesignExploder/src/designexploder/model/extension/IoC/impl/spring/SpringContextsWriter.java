@@ -1,14 +1,14 @@
 package designexploder.model.extension.IoC.impl.spring;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
-import designexploder.model.ContainerNode;
+import designexploder.model.*;
 import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.impl.spring.parsing.*;
-import designexploder.model.extension.common.Nature;
+import designexploder.model.extension.classnode.ClassModelUtil;
+import designexploder.model.extension.classnode.ClassType;
+import designexploder.model.extension.classnode.Type;
+import designexploder.model.extension.classnode.impl.ParameterizedClassTypeImpl;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -16,9 +16,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
-import designexploder.model.BasicModelUtil;
-import designexploder.model.Node;
-import designexploder.model.NodeContainer;
 import designexploder.model.build.ModelBuilder;
 import designexploder.model.extension.classnode.ClassNode;
 import designexploder.util.EclipseUtil;
@@ -114,7 +111,7 @@ public class SpringContextsWriter implements ModelBuilder {
 
 		// Set Node Data
 		beanElement.setId(node.getId());
-        beanElement.setName(beanNode.getName());
+        //beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
         beanElement.setScope(node.getNodeContainer().getId());
         beanElement.appendChild(new ScopedProxyElement());
@@ -130,12 +127,12 @@ public class SpringContextsWriter implements ModelBuilder {
 
 		// Set Node Data
 		beanElement.setId(node.getId());
-        beanElement.setName(beanNode.getName());
+        //beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
 
         addIoCInitMethods(beanElement, beanNode);
 
-        hasReplaceMethods = hasReplaceMethods || addIoCReplaceMethods(beanElement, beanNode);
+        hasReplaceMethods = addIoCReplaceMethods(beanElement, beanNode) || hasReplaceMethods;
 
         beanElement.setAutowireByType();
 
@@ -174,10 +171,47 @@ public class SpringContextsWriter implements ModelBuilder {
     private DependencyElement createDependencyElement(Dependency dependency) {
 		DependencyElement dependencyElement = new DependencyElement();
 		dependencyElement.setName(dependency.getName());
-		/*if(dependency.isResolved()) {
-			if(dependency.getNature() == IoCModelNatures.INJECTION_COLLECTION) {
-				Type dependencyType = ClassModelUtil.getClassItemType(dependency.getTarget());
-				if(dependencyType.isClassType()) {
+
+        boolean resolved = false;
+        /* Unresolved collection injections will be autowired as usual. The expected result is to get
+         * the available instances (maybe a proxy) in the list, but not all the available instances
+         * taken from a children scope.
+         */
+        if(dependency.getNature() == IoCModelNatures.INJECTION_COLLECTION) {
+            resolved = tryInjectingDexScopedBeansList(dependency, dependencyElement);
+        }
+        if(!resolved) {
+		    dependencyElement.setValueProperty(AUTOWIRE);
+        }
+		return dependencyElement;
+	}
+
+    /**
+     * Tries satisfying a the dependency with a DexScopedBeansList.
+     * @param dependency
+     * @param dependencyElement
+     * @return if the dependency could be satisfied.
+     */
+    private boolean tryInjectingDexScopedBeansList(Dependency dependency, DependencyElement dependencyElement) {
+        if(dependency.isResolved() && dependency.getBeanInjections().size() == 1) {
+            Type dependencyType = ClassModelUtil.getClassItemType(dependency.getTarget());
+            if(dependencyType.isClassType()) {
+                ClassType classType = dependencyType.asClassType();
+                List<Type> typeParameters = classType.getTypeParameters();
+                if(typeParameters.size() == 1 && (ClassModelUtil.isAssignableFromList(classType) ||
+                        ClassModelUtil.isAssignableFromSet(classType))) {
+                    Type typeParameter = typeParameters.get(0);
+                    Connection targetConnection = dependency.getBeanInjections().iterator().next();
+                    NodeContainer targetNodeContainer = targetConnection.getTarget().getNodeContainer();
+                    String scopeName = extractScopeName(targetNodeContainer.getId());
+
+                    dependencyElement.appendChild(new DexScopedBeansListElement(scopeName, typeParameter.getName()));
+                    return true;
+                }
+            }
+        }
+        return false;
+		/*if() {
 					CollectionElement collection = new CollectionElement(ClassModelUtil.isList((ClassType) dependencyType));
 					Set<Connection> beanInjections = dependency.getBeanInjections();
 					for (Connection connection : beanInjections) {
@@ -192,8 +226,6 @@ public class SpringContextsWriter implements ModelBuilder {
 				dependencyElement.setRef(beanInjections.iterator().next().getTarget().getId());
 			}
 		}*/
-		dependencyElement.setValueProperty(AUTOWIRE);
-		return dependencyElement;
-	}
+    }
 
 }

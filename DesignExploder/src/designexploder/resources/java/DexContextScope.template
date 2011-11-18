@@ -1,6 +1,6 @@
 package dex;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface DexContextScope {
 
@@ -31,9 +31,9 @@ public interface DexContextScope {
 	DexContextInstance setCurrentContextInstance(DexContextInstance instance);
 
 	/**
-	 * @return all the available instances in this scope.
+	 * @return all the available instances in this scope, in the order the were created
 	 */
-	Collection<DexContextInstance> getContextsInstances();
+	List<DexContextInstance> getContextsInstances();
 
 	/**
 	 * The scope name.

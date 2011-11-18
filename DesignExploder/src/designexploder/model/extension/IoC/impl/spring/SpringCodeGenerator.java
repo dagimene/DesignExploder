@@ -27,7 +27,14 @@ public class SpringCodeGenerator implements ModelBuilder {
 		this.generatedFragmentRoot = generatedFragmentRoot;
 	}
 
-    private static final String[] CLASSES = new String[]{"DexRuntime", "DexContextScopeImpl", "DexContextScope", "CustomAutowireBeanFactory", "DexContextInstance"};
+    private static final String[] CLASSES = new String[]{
+            "ContextMethodsReplacer",
+            "DexRuntime",
+            "DexContextScopeImpl",
+            "DexContextScope",
+            "CustomAutowireBeanFactory",
+            "DexContextInstance",
+            "DexScopedBeansList"};
 
 	@Override
 	public NodeContainer build(NodeContainer diagram) {
