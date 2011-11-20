@@ -75,7 +75,7 @@ public class ClassNodeEditPart extends NodeEditPart {
 	@Override
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		IFigure figure = ((GraphicalEditPart) childEditPart).getFigure();
-		if(((ClassItem)((ClassItemEditPart)childEditPart).getModel()).isAttribute()) {
+		if(((ClassItemEditPart)childEditPart).getModel().isAttribute()) {
 			getFigure().getAttributesCompartment().add(figure, index);
 		} else {
 			getFigure().getMethodsCompartment().add(figure, index - getFigure().getAttributesCompartment().getChildren().size());

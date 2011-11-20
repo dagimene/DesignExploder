@@ -28,13 +28,15 @@ public class SpringCodeGenerator implements ModelBuilder {
 	}
 
     private static final String[] CLASSES = new String[]{
+            "AutowireValueAwareDefaultListableBeanFactory",
             "ContextMethodsReplacer",
-            "DexRuntime",
-            "DexContextScopeImpl",
-            "DexContextScope",
             "CustomAutowireBeanFactory",
             "DexContextInstance",
-            "DexScopedBeansList"};
+            "DexContextScope",
+            "DexContextScopeImpl",
+            "DexRuntime",
+            "DexScopedBeansList",
+            "ScopedBeanFilterParentBeanFactory"};
 
 	@Override
 	public NodeContainer build(NodeContainer diagram) {

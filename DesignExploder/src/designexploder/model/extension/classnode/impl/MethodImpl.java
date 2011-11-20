@@ -12,6 +12,7 @@ class MethodImpl extends ParameterizedImpl implements Method {
 	private Boolean hasProperty;
 	private boolean getter;
 	private String property;
+    private boolean inherited;
 
 	public MethodImpl(String name, Type type) {
 		super(type);
@@ -93,4 +94,32 @@ class MethodImpl extends ParameterizedImpl implements Method {
 	public boolean isAttribute() {
 		return false;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        MethodImpl method = (MethodImpl) o;
+
+        if (name != null ? !name.equals(method.name) : method.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    public boolean isInherited() {
+        return inherited;
+    }
+
+    public void setInherited(boolean inherited) {
+        this.inherited = inherited;
+    }
 }

@@ -9,4 +9,8 @@ public interface ClassItem extends Modifiable, Named, InmutableNaturalized {
 	
 	boolean isAttribute();
 
+    boolean isInherited();
+
+    void setInherited(boolean inherited);
+
 }

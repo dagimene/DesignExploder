@@ -8,7 +8,6 @@ import designexploder.model.extension.IoC.impl.spring.parsing.*;
 import designexploder.model.extension.classnode.ClassModelUtil;
 import designexploder.model.extension.classnode.ClassType;
 import designexploder.model.extension.classnode.Type;
-import designexploder.model.extension.classnode.impl.ParameterizedClassTypeImpl;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -26,7 +25,7 @@ public class SpringContextsWriter implements ModelBuilder {
 	private static final String AUTOWIRE = "autowire";
 	private final IPackageFragmentRoot contextsFragmentRoot;
 	private final IJavaProject project;
-    private boolean hasReplaceMethods;
+    private Set<IoCModelNatures> replaceMethods = new HashSet<IoCModelNatures>();
 
 	public static ModelBuilder create(IPackageFragmentRoot packageFragmentRoot) {
 		return new SpringContextsWriter(packageFragmentRoot.getJavaProject(), packageFragmentRoot);
@@ -85,10 +84,10 @@ public class SpringContextsWriter implements ModelBuilder {
                 } while(scopes.hasNext());
                 beansElement.appendChild(customScopeConfigurer);
             }
-            if(hasReplaceMethods) {
-                beansElement.appendChild(new ContextMethodsReplacerElement());
+            for(IoCModelNatures nature : replaceMethods) {
+                beansElement.appendChild(new ContextMethodsReplacerElement("::" + nature.name()));
             }
-            hasReplaceMethods = false;
+            replaceMethods.clear();
 			SpringConfigFile springConfigFile = new SpringConfigFile();
 			springConfigFile.setRootElement(beansElement);
 			EclipseUtil.createAndWriteFile(file, springConfigFile.toPrettyXML());
@@ -130,9 +129,10 @@ public class SpringContextsWriter implements ModelBuilder {
         //beanElement.setName(beanNode.getName());
 		beanElement.setClazz(classNode.getType().getName());
 
-        addIoCInitMethods(beanElement, beanNode);
+        addIoCInitMethod(beanElement, beanNode);
+        addIoCFinalizeMethods(beanElement, beanNode);
 
-        hasReplaceMethods = addIoCReplaceMethods(beanElement, beanNode) || hasReplaceMethods;
+        addIoCReplaceMethods(beanElement, node, beanNode);
 
         beanElement.setAutowireByType();
 
@@ -144,26 +144,40 @@ public class SpringContextsWriter implements ModelBuilder {
 		return beanElement;
 	}
 
-    private boolean addIoCReplaceMethods(BeanElement beanElement, BeanNode beanNode) {
-        boolean hasReplaceMethods = false;
+    private void addIoCReplaceMethods(BeanElement beanElement, Node node, BeanNode beanNode) {
         for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
             IoCModelNatures nature = (IoCModelNatures)ioCAwareMethod.getNature();
             switch (nature) {
                 case IOC_METHOD_INSTANTIATE:
+                    Node facadeBean = IoCModelUtil.getUniqueScopedBean(ioCAwareMethod.getTarget().getType(), node.getNodeContainer());
+                    if(facadeBean != null) {
+                        beanElement.appendChild(ReplaceMethodElement.create(ioCAwareMethod.getTarget().getName(),
+                                extractScopeName(facadeBean.getNodeContainer().getId())));
+                    }
+                    break;
                 case IOC_METHOD_ACTIVATE:
                 case IOC_METHOD_DESTROY:
-                    beanElement.appendChild(ReplaceMethodElement.create(ioCAwareMethod.getTarget().getName()));
-                    hasReplaceMethods = true;
+                    beanElement.appendChild(ReplaceMethodElement.create(ioCAwareMethod.getTarget().getName(),
+                            nature));
+                    replaceMethods.add(nature);
             }
         }
-        return hasReplaceMethods;
     }
 
-    private void addIoCInitMethods(BeanElement beanElement, BeanNode beanNode) {
+    private void addIoCInitMethod(BeanElement beanElement, BeanNode beanNode) {
         for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
             if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_INIT) {
                 beanElement.setInitMethod(ioCAwareMethod.getTarget().getName());
                 break ; // Only one init-method is supported
+            }
+        }
+    }
+
+    private void addIoCFinalizeMethods(BeanElement beanElement, BeanNode beanNode) {
+        for(IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
+            if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_FINALIZE) {
+                beanElement.setFinalizeMethod(ioCAwareMethod.getTarget().getName());
+                break ; // Only one destroy-method is supported
             }
         }
     }
@@ -177,8 +191,11 @@ public class SpringContextsWriter implements ModelBuilder {
          * the available instances (maybe a proxy) in the list, but not all the available instances
          * taken from a children scope.
          */
-        if(dependency.getNature() == IoCModelNatures.INJECTION_COLLECTION) {
+        if(dependency.getNature() == IoCModelNatures.INJECTION_PROXIES_COLLECTION) {
             resolved = tryInjectingDexScopedBeansList(dependency, dependencyElement);
+            /* If a INJECTION_PROXIES_COLLECTION natured dependency fails to be injected, AUTOWIRE property will
+             * be used. This configuration will possibly fail at runtime, but will be preserved at the xml.
+             */
         }
         if(!resolved) {
 		    dependencyElement.setValueProperty(AUTOWIRE);
@@ -198,8 +215,7 @@ public class SpringContextsWriter implements ModelBuilder {
             if(dependencyType.isClassType()) {
                 ClassType classType = dependencyType.asClassType();
                 List<Type> typeParameters = classType.getTypeParameters();
-                if(typeParameters.size() == 1 && (ClassModelUtil.isAssignableFromList(classType) ||
-                        ClassModelUtil.isAssignableFromSet(classType))) {
+                if(typeParameters.size() == 1 && ClassModelUtil.isAssignableFromWellKnownCollection(classType)) {
                     Type typeParameter = typeParameters.get(0);
                     Connection targetConnection = dependency.getBeanInjections().iterator().next();
                     NodeContainer targetNodeContainer = targetConnection.getTarget().getNodeContainer();
@@ -211,21 +227,6 @@ public class SpringContextsWriter implements ModelBuilder {
             }
         }
         return false;
-		/*if() {
-					CollectionElement collection = new CollectionElement(ClassModelUtil.isList((ClassType) dependencyType));
-					Set<Connection> beanInjections = dependency.getBeanInjections();
-					for (Connection connection : beanInjections) {
-						RefElement ref = new RefElement();
-						ref.setBean(connection.getTarget().getId());
-						collection.appendChild(ref);
-					}
-					dependencyElement.appendChild(collection);
-				}
-			} else { // BEAN, PROXY or TREE
-				Set<Connection> beanInjections = dependency.getBeanInjections();
-				dependencyElement.setRef(beanInjections.iterator().next().getTarget().getId());
-			}
-		}*/
     }
 
 }

@@ -8,6 +8,7 @@ public class DexScopedBeansList<E> extends AbstractList<E> implements Set<E> {
 	private Class<E> targetType;
 	private final DexContextScope targetScope;
 	
+	@SuppressWarnings("unchecked")
 	public DexScopedBeansList(DexContextScope targetScope, String targetType) throws ClassNotFoundException {
 		this.targetScope = targetScope;
 		this.targetType = (Class<E>) Class.forName(targetType);

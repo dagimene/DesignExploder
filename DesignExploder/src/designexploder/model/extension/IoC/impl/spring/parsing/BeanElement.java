@@ -34,7 +34,7 @@ public class BeanElement extends Element {
 		this.name = name;
         buildName();
 	}
-	
+
 	public void setId(String id) {
         this.id = id;
         buildName();
@@ -46,6 +46,14 @@ public class BeanElement extends Element {
 
     public void setInitMethod(String initMethod) {
         addAttribute(new Attribute(INIT_METHOD, initMethod));
+    }
+
+    public String getFinalizeMethod() {
+        return getAttributeValue(FINALIZE_METHOD);
+    }
+
+    public void setFinalizeMethod(String finalizeMethod) {
+        addAttribute(new Attribute(FINALIZE_METHOD, finalizeMethod));
     }
 
     public void setClazz(String clazz) {

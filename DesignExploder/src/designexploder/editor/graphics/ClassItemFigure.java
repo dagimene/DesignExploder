@@ -2,25 +2,25 @@ package designexploder.editor.graphics;
 
 import java.util.List;
 
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.ImageFigure;
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.ToolbarLayout;
+import org.eclipse.draw2d.*;
 
 import designexploder.editor.graphics.styles.Style;
 import designexploder.editor.graphics.styles.StylesFactory;
 import designexploder.editor.graphics.styles.Style.Constant;
 import designexploder.model.extension.common.Nature;
 import designexploder.resources.IconResource;
+import org.eclipse.swt.graphics.Color;
 
 public class ClassItemFigure extends Figure {
 
 	private Label label;
 	private Style style;
 	private boolean selected;
+    private boolean rendered = true;
+    private ToolbarLayout layout = new ToolbarLayout(true);
+    private XYLayout hiddenLayout = new XYLayout();
 
 	public ClassItemFigure() {
-		ToolbarLayout layout = new ToolbarLayout(true);
 		layout.setSpacing(2);
 		setLayoutManager(layout);
 		label = new Label();
@@ -30,7 +30,19 @@ public class ClassItemFigure extends Figure {
 	public void setContent(String text, Nature nature, List<IconResource> icons) {
 	}
 
-	public void setLabel(String label) {
+    public boolean isRendered() {
+        return rendered;
+    }
+
+    public void setRendered(boolean rendered) {
+        setVisible(rendered);
+        if(rendered != this.rendered) {
+            setLayoutManager(rendered ? layout : hiddenLayout);
+        }
+        this.rendered = rendered;
+    }
+
+    public void setLabel(String label) {
 		this.label.setText(label);
 	}
 

@@ -12,7 +12,6 @@ import designexploder.model.extension.IoC.ApplicationContext;
 import designexploder.model.extension.IoC.BeanInjection;
 import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelNatures;
 import designexploder.model.extension.IoC.IoCModelUtil;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
 import designexploder.model.extension.classnode.Attribute;
@@ -28,6 +27,8 @@ import designexploder.model.extension.common.Nature;
 import designexploder.model.impl.BasicModelFactory;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.Condition;
+
+import static designexploder.model.extension.IoC.IoCModelNatures.*;
 
 public class IoCModelDependenciesProcessor {
 
@@ -57,7 +58,6 @@ public class IoCModelDependenciesProcessor {
 	private void resolveDependency(Set<Node> availableBeans, Node node,
 			Dependency dependency) {
 		// TODO: Check tree flavor
-		// TODO: Check for collection flavor
 		final ClassItem classItem = dependency.getTarget();
 		Type type;
 		if(classItem.isMethod()) {
@@ -69,16 +69,16 @@ public class IoCModelDependenciesProcessor {
 			type = attribute.getType();
 		}
 		boolean collection = false;
-		if(type.isBasic()) {
-			// Won't inject basic types or arrays (except for collection flavor)
-			type = null;
-		} else if(type.isArray()) {
+        if(type.isArray()) {
 			type = type.asArrayType().getInnerType();
 			collection = true;
 		} else if(type.isClassType() && ClassModelUtil.isCollection(type.asClassType())) {
 			 List<Type> typeParameters = type.asClassType().getTypeParameters();
 			 type = typeParameters.size() == 1 ? typeParameters.get(0) : null;
 			 collection = true;
+		}
+        if(type != null && type.isBasic()) { // Won't inject basic types
+			type = null;
 		}
 		if(type != null) {
 			// TODO: Super method should be added to this class, possibly in the bean factory.
@@ -92,8 +92,8 @@ public class IoCModelDependenciesProcessor {
 			});
 			if((candidates.size() == 1 && !collection) || (candidates.size() > 0 && collection && !candidates.contains(node))) { 
 				// Resolved dependency!
-				dependency.setNature(collection ? IoCModelNatures.INJECTION_COLLECTION :
-					getDependencyNature(node, candidates.iterator().next())); 
+				dependency.setNature(collection ? IoCModelUtil.getCollectionDependencyNature(node, candidates) :
+					IoCModelUtil.getDependencyNature(node, candidates.iterator().next()));
 				for (Node candidate : candidates) {
 					createInjection(node, candidate, dependency);
 				}
@@ -102,13 +102,6 @@ public class IoCModelDependenciesProcessor {
 				createUnresolvedInjections(node, dependency, candidates);
 			}
 		}
-	}
-
-	private Nature getDependencyNature(Node node, Node candidate) {
-		if(node == candidate) return IoCModelNatures.INJECTION_TREE;
-		NodeContainer candidateContext = candidate.getNodeContainer();
-		return  candidateContext instanceof Node && ((Node) candidateContext).getNodeContainer() == node.getNodeContainer() ?
-					IoCModelNatures.INJECTION_PROXY : IoCModelNatures.INJECTION_BEAN;
 	}
 
 	public void createUnresolvedInjections(Node node, Dependency dependency, Set<Node> candidates) {

@@ -1,60 +1,27 @@
 package dex;
 
-import java.beans.PropertyDescriptor;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.MutablePropertyValues;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.TypedStringValue;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.GenericApplicationContext;
 
 public class CustomAutowireBeanFactory extends GenericApplicationContext implements DexContextInstance {
 
 	private boolean stopping;
 	
-	public CustomAutowireBeanFactory(BeanFactory parentBeanFactory, DexContextScope scope) {
-		super(new DefaultListableBeanFactory(parentBeanFactory) {
-			/**
-			 * Overrided to autowire only 'autowire' declared properties.
-			 */
-			protected String[] unsatisfiedNonSimpleProperties(AbstractBeanDefinition mbd, BeanWrapper bw) {
-				Set<String> result = new TreeSet<String>();
-				MutablePropertyValues pvs = mbd.getPropertyValues();
-				PropertyDescriptor[] pds = bw.getPropertyDescriptors();
-				for (PropertyDescriptor pd : pds) {
-					if (pd.getWriteMethod() != null && !isExcludedFromDependencyCheck(pd)
-							&& pvs.contains(pd.getName()) && !BeanUtils.isSimpleProperty(pd.getPropertyType())) {
-						Object propertyValueValue = pvs.getPropertyValue(pd.getName()).getValue();
-						if((propertyValueValue instanceof TypedStringValue) &&
-							"autowire".equals(((TypedStringValue)propertyValueValue).getValue())) {
-							result.add(pd.getName());
-							pvs.removePropertyValue(pd.getName());
-						}
-					}
-				}
-				return result.toArray(new String[result.size()]);
-			}
-		});
+	public CustomAutowireBeanFactory(DexContextInstance parentBeanFactory, DexContextScope scope) {
+		super(new AutowireValueAwareDefaultListableBeanFactory(parentBeanFactory != null ? new ScopedBeanFilterParentBeanFactory(parentBeanFactory) : null));
 
 		getBeanFactory().registerSingleton("::context", this);
 		if(scope != null) {
 			getBeanFactory().registerSingleton("::scope", scope);
 		}
 	}
-
+	
 	@Override
 	/** Overriden because CustomAutowireBeanFactory is registered itself as a bean */
 	public void stop() {
 		if(!stopping) {
 			stopping = true;
 			super.stop();
-		} else {
-			System.out.println("Already Closing");
 		}
 	}
+
 }

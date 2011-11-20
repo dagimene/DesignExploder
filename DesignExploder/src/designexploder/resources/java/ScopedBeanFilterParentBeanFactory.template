@@ -1,0 +1,129 @@
+package dex;
+
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+
+class ScopedBeanFilterParentBeanFactory implements DexContextInstance {
+	
+	private DexContextInstance wrappedFactory;
+	
+	ScopedBeanFilterParentBeanFactory(DexContextInstance wrappedFactory) {
+		this.wrappedFactory = wrappedFactory;
+	}
+
+	public String[] getBeanNamesForType(@SuppressWarnings("rawtypes") Class type) {
+		return wrappedFactory.getBeanNamesForType(type);
+	}
+	
+	public boolean containsBeanDefinition(String beanName) {
+		return wrappedFactory.containsBeanDefinition(beanName);
+	}
+	
+	public int getBeanDefinitionCount() {
+		return wrappedFactory.getBeanDefinitionCount();
+	}
+	
+	public String[] getBeanDefinitionNames() {
+		return wrappedFactory.getBeanDefinitionNames();
+	}
+	
+	public String[] getBeanNamesForType(@SuppressWarnings("rawtypes") Class type,
+			boolean includeNonSingletons, boolean allowEagerInit) {
+		String[] allBeanNamesForType = wrappedFactory.getBeanNamesForType(type,
+				includeNonSingletons, allowEagerInit);
+		List<String> beanNamesForType = new LinkedList<String>();
+		for (String beanName : allBeanNamesForType) {
+			// Remove facade proxies in parent bean factories
+			if(!beanName.startsWith("scopedTarget.facade://")) {
+				beanNamesForType.add(beanName);
+			}
+		}
+		return beanNamesForType.toArray(new String[beanNamesForType.size()]);
+	}
+	
+	public Object getBean(String name) throws BeansException {
+		return wrappedFactory.getBean(name);
+	}
+	
+	public <T> T getBean(String name, Class<T> requiredType)
+			throws BeansException {
+		return wrappedFactory.getBean(name, requiredType);
+	}
+	
+	public <T> Map<String, T> getBeansOfType(Class<T> type)
+			throws BeansException {
+		return wrappedFactory.getBeansOfType(type);
+	}
+	
+	public <T> T getBean(Class<T> requiredType) throws BeansException {
+		return wrappedFactory.getBean(requiredType);
+	}
+	
+	public Object getBean(String name, Object... args)
+			throws BeansException {
+		return wrappedFactory.getBean(name, args);
+	}
+	
+	public <T> Map<String, T> getBeansOfType(Class<T> type,
+			boolean includeNonSingletons, boolean allowEagerInit)
+			throws BeansException {
+		return wrappedFactory.getBeansOfType(type, includeNonSingletons,
+				allowEagerInit);
+	}
+	
+	public boolean containsBean(String name) {
+		return wrappedFactory.containsBean(name);
+	}
+	
+	public boolean isSingleton(String name)
+			throws NoSuchBeanDefinitionException {
+		return wrappedFactory.isSingleton(name);
+	}
+	
+	public boolean isPrototype(String name)
+			throws NoSuchBeanDefinitionException {
+		return wrappedFactory.isPrototype(name);
+	}
+	
+	public Map<String, Object> getBeansWithAnnotation(
+			Class<? extends Annotation> annotationType)
+			throws BeansException {
+		return wrappedFactory.getBeansWithAnnotation(annotationType);
+	}
+	
+	public boolean isTypeMatch(String name, @SuppressWarnings("rawtypes") Class targetType)
+			throws NoSuchBeanDefinitionException {
+		return wrappedFactory.isTypeMatch(name, targetType);
+	}
+	
+	public <A extends Annotation> A findAnnotationOnBean(String beanName,
+			Class<A> annotationType) {
+		return wrappedFactory
+				.findAnnotationOnBean(beanName, annotationType);
+	}
+	
+	public Class<?> getType(String name)
+			throws NoSuchBeanDefinitionException {
+		return wrappedFactory.getType(name);
+	}
+
+	public String[] getAliases(String name) {
+		return wrappedFactory.getAliases(name);
+	}
+
+	@Override
+	public BeanFactory getParentBeanFactory() {
+		return wrappedFactory.getParentBeanFactory();
+	}
+
+	@Override
+	public boolean containsLocalBean(String name) {
+		return wrappedFactory.containsLocalBean(name);
+	}
+}

@@ -2,7 +2,6 @@ package designexploder.model.extension.IoC.impl.spring;
 
 import java.util.Iterator;
 
-import designexploder.editor.actions.TransformToIoCAwareMethodAction;
 import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.impl.spring.parsing.ReplaceMethodElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -51,7 +50,7 @@ public class SpringBeansModelFactory {
 						Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
 						if(classNode != null) {
 							Node node = BasicModelFactory.getInstance().createModelCopy(classNode, id.toString(), true);
-							BeanNode beanNode = createBeanNode(element, node.getExtension(ClassNode.class), id);
+							BeanNode beanNode = createBeanNode(node, element, node.getExtension(ClassNode.class), id);
 							beanNode.setNode(node);
 							node.addExtension(beanNode);
 							result = node;
@@ -63,7 +62,7 @@ public class SpringBeansModelFactory {
 		});
 	}
 
-    private BeanNode createBeanNode(BeanElement element, ClassNode clazz, ID id) {
+    private BeanNode createBeanNode(Node node, BeanElement element, ClassNode clazz, ID id) {
         BeanNode bean = IoCModelFactory.getInstance().createBeanNode();
         String name = element.getName();
         bean.setName(name != null ? name : element.getId());
@@ -75,33 +74,85 @@ public class SpringBeansModelFactory {
         }
         bean.setNature(IoCModelUtil.getBeanNatureFor(clazz, bean, id));
         createInitMethod(element, clazz, bean);
-        createIoCAwareMethods(element, clazz, bean);
+        createFinalizeMethod(element, clazz, bean);
+        createIoCAwareMethods(node, element, clazz, bean);
         return bean;
     }
 
-    private void createIoCAwareMethods(BeanElement element, ClassNode clazz, BeanNode bean) {
+    private void createIoCAwareMethods(Node node, BeanElement element, ClassNode clazz, BeanNode bean) {
         Iterator<ReplaceMethodElement> replaceMethods = element.getReplaceMethods();
         while(replaceMethods.hasNext()) {
-            Method ioCAwareMethod = findIoCAwareMethod(clazz, replaceMethods.next().getName());
-            IoCModelNatures nature = TransformToIoCAwareMethodAction.getReplaceableMethodNatureIfAny(ioCAwareMethod);
-            addIoCAwareMethod(bean, ioCAwareMethod, nature);
+            ReplaceMethodElement replaceMethod = replaceMethods.next();
+            String replacer = replaceMethod.getReplacer();
+            if(replacer != null) {
+                IoCModelNatures ioCAwareMethodNature = null;
+                Method ioCAwareMethod = null;
+                if (replacer.startsWith(":::")) {
+                    ioCAwareMethodNature = IoCModelNatures.IOC_METHOD_INSTANTIATE;
+                    ioCAwareMethod = findContextInstantiateMethod(clazz, node.getNodeContainer(), replaceMethod.getName());
+                } else {
+                    if (replacer.equals("::" + IoCModelNatures.IOC_METHOD_ACTIVATE.name())) {
+                        ioCAwareMethodNature = IoCModelNatures.IOC_METHOD_ACTIVATE;
+                    } else if (replacer.equals("::" + IoCModelNatures.IOC_METHOD_DESTROY.name())) {
+                        ioCAwareMethodNature = IoCModelNatures.IOC_METHOD_DESTROY;
+                    }
+                    if (ioCAwareMethodNature != null) {
+                        ioCAwareMethod = findReplaceableMethod(clazz, replaceMethod.getName());
+                    }
+                }
+                if (ioCAwareMethod != null) {
+                    addIoCAwareMethod(bean, ioCAwareMethod, ioCAwareMethodNature);
+                }
+            }
         }
     }
 
     private void createInitMethod(BeanElement element, ClassNode clazz, BeanNode bean) {
         String initMethod = element.getInitMethod();
         if(initMethod != null) {
-            Method ioCAwareMethod = findIoCAwareMethod(clazz, initMethod);
+            Method ioCAwareMethod = findBeanCycleMethod(clazz, initMethod);
             if(ioCAwareMethod != null) {
                 addIoCAwareMethod(bean, ioCAwareMethod, IoCModelNatures.IOC_METHOD_INIT);
             }
         }
     }
 
-    private Method findIoCAwareMethod(ClassNode clazz, String methodName) {
+    private void createFinalizeMethod(BeanElement element, ClassNode clazz, BeanNode bean) {
+        String finalizeMethod = element.getFinalizeMethod();
+        if(finalizeMethod != null) {
+            Method ioCAwareMethod = findBeanCycleMethod(clazz, finalizeMethod);
+            if(ioCAwareMethod != null) {
+                addIoCAwareMethod(bean, ioCAwareMethod, IoCModelNatures.IOC_METHOD_FINALIZE);
+            }
+        }
+    }
+
+    private Method findContextInstantiateMethod(ClassNode clazz, NodeContainer nodeContainer, String methodName) {
         Method result = null;
         for(Method method : clazz.getMethods()) {
-            if(method.getName().equals(methodName) && method.getType().isVoid() && method.getParameters().isEmpty()) {
+            if(method.getName().equals(methodName) && IoCModelUtil.isContextInstantiateMethod(method, nodeContainer)) {
+                result = method;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private Method findBeanCycleMethod(ClassNode clazz, String methodName) {
+        Method result = null;
+        for(Method method : clazz.getMethods()) {
+            if(method.getName().equals(methodName) && IoCModelUtil.isBeanCycleMethod(method)) {
+                result = method;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private Method findReplaceableMethod(ClassNode clazz, String methodName) {
+        Method result = null;
+        for(Method method : clazz.getMethods()) {
+            if(method.getName().equals(methodName) && IoCModelUtil.isReplaceableMethod(method)) {
                 result = method;
                 break;
             }
@@ -120,12 +171,6 @@ public class SpringBeansModelFactory {
 		String property = element.getName();
 		if(property != null) {
 			property = property.intern();
-			/*
-			 * TODO: add recursive search in superclass methods.
-			 * Add class reference to method model, and method to superclass.
-			 * Same for attributes.
-			 */
-			// TODO: Handle collections at this point? Only if spring has a special handling...
 			// TODO: Analyze setter visibility requirements.
 			for (Method method : clazz.getMethods()) {
 				if(method.isSetter() && method.getProperty() == property) {

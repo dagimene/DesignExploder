@@ -2,6 +2,7 @@ package designexploder.model.extension.IoC.impl.spring.parsing;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
+import org.eclipse.swt.custom.ST;
 
 import static designexploder.model.extension.IoC.impl.spring.parsing.ParsingConstants.*;
 
@@ -35,6 +36,10 @@ class ConstructorArg extends Element {
         constructorArg.setType(type);
         constructorArg.setValue(value);
         return constructorArg;
+    }
+
+    public static ConstructorArg stringParameter(String value) {
+        return typeAndValue(STRING_CLASS, value);
     }
 
     public static ConstructorArg dexContextInstance() {

@@ -252,6 +252,7 @@
     <dictionary name="dagimene">
       <words>
         <w>autowire</w>
+        <w>instantiator</w>
         <w>replacer</w>
       </words>
     </dictionary>
@@ -268,7 +269,7 @@
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="libraryTable">

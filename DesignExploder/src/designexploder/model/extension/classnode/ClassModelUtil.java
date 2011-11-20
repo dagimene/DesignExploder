@@ -18,6 +18,10 @@ public class ClassModelUtil {
 		return getInstance(type).isCollection0(type);
 	}
 
+    public static boolean isAssignableFromWellKnownCollection(ClassType type) {
+        return isAssignableFromList(type) || isAssignableFromSet(type);
+    }
+
 	public static boolean isAssignableFromList(ClassType type) {
 		return getInstance(type).isAssignableFromList0(type);
 	}

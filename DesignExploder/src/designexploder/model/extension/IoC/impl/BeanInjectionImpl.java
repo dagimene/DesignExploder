@@ -1,11 +1,10 @@
 package designexploder.model.extension.IoC.impl;
 
+import designexploder.model.Connection;
 import designexploder.model.event.ModelEvent;
 import designexploder.model.event.ModelEventListener;
 import designexploder.model.event.ModelPropertyChangeEvent;
-import designexploder.model.extension.IoC.BeanInjection;
-import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelEventTypes;
+import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.common.CommonModelEventTypes;
 import designexploder.model.extension.common.Nature;
 import designexploder.model.impl.ExtendedModelEventTrigger;
@@ -35,7 +34,15 @@ class BeanInjectionImpl extends ExtendedModelEventTrigger implements BeanInjecti
 
 	@Override
 	public Nature getNature() {
-		return dependency.getNature();
+        Nature dependencyNature = dependency.getNature();
+        if(dependency.isResolved() && dependencyNature == IoCModelNatures.INJECTION_COLLECTION) {
+            for (Connection connection : dependency.getBeanInjections()) {
+                if(connection.getExtension(BeanInjection.class) == this) {
+                    return IoCModelUtil.getDependencyNature(connection.getSource(), connection.getTarget());
+                }
+            }
+        }
+		return dependencyNature;
 	}
 	
 	private final ModelEventListener selfListener = new ModelEventListener() {

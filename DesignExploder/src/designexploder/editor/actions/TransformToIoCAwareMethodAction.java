@@ -1,9 +1,13 @@
 package designexploder.editor.actions;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import designexploder.model.NodeContainer;
+import designexploder.model.extension.IoC.IoCModelUtil;
+import designexploder.model.extension.classnode.*;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -20,9 +24,6 @@ import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.IoCAwareMethod;
 import designexploder.model.extension.IoC.IoCModelNatures;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
-import designexploder.model.extension.classnode.ClassItem;
-import designexploder.model.extension.classnode.ClassNode;
-import designexploder.model.extension.classnode.Method;
 import designexploder.model.extension.common.Nature;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.Condition;
@@ -38,26 +39,35 @@ import designexploder.util.adt.Condition;
  */
 public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 
-	private static final String BECOME_INIT = "Become an init method";
+	private static final String BECOME_INIT = "Become a bean initialization method";
+    private static final String BECOME_FINALIZE = "Become a bean finalization method";
+    private static final String BECOME_FACTORY = "Become a bean factory method";
 	private static final String BECOME_INSTANTIATE = "Become a context instantiator method";
     private static final String BECOME_ACTIVATE = "Become a context activator method";
     private static final String BECOME_DESTROY = "Become a context destroyer method";
-    private static final String BECOME_FACTORY = "Become a bean factory method";
     private static final String REMOVE_IOC_AWARENESS = "Remove IoC awareness";
 
-    private static final Map<Nature, String> labels = new HashMap<Nature, String>();
+    private static final Map<IoCModelNatures, String> labels = new HashMap<IoCModelNatures, String>();
+
+    public static Set<IoCModelNatures> getSupportedNatures() {
+        return labels.keySet();
+    }
 
     static {
         labels.put(IoCModelNatures.IOC_METHOD_INIT, BECOME_INIT);
+        labels.put(IoCModelNatures.IOC_METHOD_FINALIZE, BECOME_FINALIZE);
+        labels.put(IoCModelNatures.IOC_METHOD_FACTORY, BECOME_FACTORY);
         labels.put(IoCModelNatures.IOC_METHOD_INSTANTIATE, BECOME_INSTANTIATE);
         labels.put(IoCModelNatures.IOC_METHOD_ACTIVATE, BECOME_ACTIVATE);
         labels.put(IoCModelNatures.IOC_METHOD_DESTROY, BECOME_DESTROY);
-        labels.put(IoCModelNatures.IOC_METHOD_FACTORY, BECOME_FACTORY);
     }
 
-    public TransformToIoCAwareMethodAction(IWorkbenchPart part) {
+    private final IoCModelNatures targetNature;
+
+    public TransformToIoCAwareMethodAction(IWorkbenchPart part, IoCModelNatures targetNature) {
 		super(part);
-		setId(DexActionFactory.TRANSFORM_TO_IOC_AWARE_METHOD.name());
+        this.targetNature = targetNature;
+        setId(targetNature.name());
 		setTargetEditPartClass(ClassItemEditPart.class);
 	}
 	
@@ -66,17 +76,14 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		Method method = (Method) getModel();
 		Node node = getNode();
 		IoCAwareMethod iocAwareMethod = getIoCAwareMethod(method, node);
-		Command command = null;
+		Command command;
 		if(iocAwareMethod != null) {
 			command = new RemoveIoCAwareMethodCommand(node, iocAwareMethod);
 		} else {
-            Nature candidateNature = getCandidateNature(method, node);
-            if(candidateNature == IoCModelNatures.IOC_METHOD_INIT) {
-                command = removeOtherMethodsNature(IoCModelNatures.IOC_METHOD_INIT);
-            }
+            command = removeOtherMethodsNature(targetNature);
 			iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod();
 			iocAwareMethod.setTarget((Method) getModel());
-            iocAwareMethod.setNature(candidateNature);
+            iocAwareMethod.setNature(targetNature);
             Command addCommand = new AddIoCAwareMethodCommand(node, iocAwareMethod);
             if(command == null) {
 			    command = addCommand;
@@ -111,12 +118,42 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		if(item != null && item.isMethod() && getNode().getExtension(BeanNode.class) != null) {
 			Method method = (Method) getModel();
 			Node node = getNode();
-			return getIoCAwareMethod(method, node) != null || getCandidateNature(method, node) != null;
+            IoCModelNatures currentNature = getIoCAwareMethodNature(method, node);
+            return currentNature == null ? isCompatible(method, node, targetNature)
+                    : currentNature == targetNature;
 		}
 		return false;
 	}
 
-	@Override
+    private IoCModelNatures getIoCAwareMethodNature(Method method, Node node) {
+        IoCAwareMethod ioCAwareMethod = getIoCAwareMethod(method, node);
+        return ioCAwareMethod != null ? (IoCModelNatures) ioCAwareMethod.getNature() : null;
+    }
+
+    private static boolean isCompatible(Method method, Node node, IoCModelNatures targetNature) {
+        boolean result;
+        switch (targetNature) {
+            case IOC_METHOD_INSTANTIATE:
+                result = IoCModelUtil.isContextInstantiateMethod(method, node.getNodeContainer());
+                break;
+            case IOC_METHOD_ACTIVATE:
+            case IOC_METHOD_DESTROY:
+                result = IoCModelUtil.isInsideContext(node) && IoCModelUtil.isReplaceableMethod(method);
+                break;
+            case IOC_METHOD_INIT:
+            case IOC_METHOD_FINALIZE:
+                result = IoCModelUtil.isBeanCycleMethod(method);
+                break;
+            case IOC_METHOD_FACTORY:
+                result = IoCModelUtil.isFactoryCandidate(method, node);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported Nature");
+        }
+        return result;
+    }
+
+    @Override
 	protected void refresh() {
 		super.refresh();
 		setText(calculateText());
@@ -125,54 +162,19 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 	
 	private String calculateText() {
 		ClassItem item = getModel() instanceof ClassItem ? (ClassItem)getModel() : null;
-		if(item != null && item.isMethod() && getNode().getExtension(BeanNode.class) != null) {
-			Method method = (Method) getModel();
-			Node node = getNode();
-			if(getIoCAwareMethod(method, node) != null) {
-				return REMOVE_IOC_AWARENESS;
-			} else {
-                return labels.get(getCandidateNature(method, getNode()));
-            }
-		}
-		return BECOME_FACTORY;
+		return (item != null && item.isMethod() && getNode().getExtension(BeanNode.class) != null &&
+                getIoCAwareMethod((Method) getModel(), getNode()) != null) ?
+                REMOVE_IOC_AWARENESS : labels.get(targetNature);
 	}
 	
 	private ImageDescriptor calculateImageDescriptor() {
-		ClassItem item = getModel() instanceof ClassItem ? (ClassItem)getModel() : null;
-		if(item != null && item.isMethod() && getNode().getExtension(BeanNode.class) != null) {
-			Nature nature = getCandidateNature((Method) getModel(), getNode());
-			if(nature != null) {
-				Image image = StylesFactory.getInstance().getIconFor(nature).getImage();
-				return ImageDescriptor.createFromImage(image);
-			}
-		}
-		return null;
+        if(isEnabled()) {
+            Image image = StylesFactory.getInstance().getIconFor(targetNature).getImage();
+            return ImageDescriptor.createFromImage(image);
+        }
+        return null;
 	}
 	
-	private static Nature getCandidateNature(Method method, Node node) {
-		Nature nature = getReplaceableMethodNatureIfAny(method);
-        if(nature == null) {
-            if(isInitCandidate(method)) {
-                nature = IoCModelNatures.IOC_METHOD_INIT;
-            } else if(isFactoryCandidate(method, node)){
-                nature = IoCModelNatures.IOC_METHOD_FACTORY;
-            }
-        }
-		return nature;
-	}
-
-    public static IoCModelNatures getReplaceableMethodNatureIfAny(Method method) {
-        IoCModelNatures nature = null;
-        if(isInstantiate(method)) {
-			nature = IoCModelNatures.IOC_METHOD_INSTANTIATE;
-        } else if(isActivate(method)) {
-            nature = IoCModelNatures.IOC_METHOD_ACTIVATE;
-        } else if(isDestroy(method)) {
-            nature = IoCModelNatures.IOC_METHOD_DESTROY;
-		}
-        return nature;
-    }
-
     private static Set<IoCAwareMethod> getIoCAwareMethods(Node node, final Nature nature) {
         BeanNode beanNode = node.getExtension(BeanNode.class);
         return beanNode == null ? null :
@@ -200,40 +202,6 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		return null;
 	}
 
-	private static boolean isFactoryCandidate(Method method, Node node) {
-		return !method.isAbstract() && method.isStatic() &&
-					method.getType() == node.getExtension(ClassNode.class).getType();
-	}
-	
-	private static boolean isInitCandidate(Method method) {
-		return !method.isAbstract() && !method.isStatic() && method.getParameters().isEmpty() && method.getType().isVoid();
-	}
-	
-	private static boolean isInstantiate(Method method) {
-		return isReplaceableMethod(method) && isCreate(method.getName());
-	}
 
-    private static boolean isDestroy(Method method) {
-        return isReplaceableMethod(method) && isDestroy(method.getName());
-    }
 
-    private static boolean isActivate(Method method) {
-        return isReplaceableMethod(method) && isActivate(method.getName());
-    }
-
-    private static boolean isReplaceableMethod(Method method) {
-        return method.isAbstract() && !method.isStatic() && !method.isFinal() && method.getType().isVoid() && method.getParameters().isEmpty();
-    }
-
-    private static boolean isDestroy(String name) {
-        return name.equals("destroyContext");
-    }
-
-    private static boolean isCreate(String name) {
-        return name.startsWith("create") && name.length() > "create".length();
-    }
-
-    private static boolean isActivate(String name) {
-        return name.equals("activateContext");
-    }
 }

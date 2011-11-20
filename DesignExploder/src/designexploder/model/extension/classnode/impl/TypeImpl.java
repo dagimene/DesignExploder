@@ -110,4 +110,26 @@ public class TypeImpl implements Type {
 	public boolean isTypeVariable() {
 		return false;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TypeImpl type = (TypeImpl) o;
+
+        if (basic != type.basic) return false;
+        if (firstname != null ? !firstname.equals(type.firstname) : type.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(type.lastname) : type.lastname != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (basic ? 1 : 0);
+        return result;
+    }
 }

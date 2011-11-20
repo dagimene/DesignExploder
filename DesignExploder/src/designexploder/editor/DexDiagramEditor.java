@@ -15,6 +15,8 @@ import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 
+import designexploder.editor.actions.*;
+import designexploder.model.extension.IoC.IoCModelNatures;
 import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -55,11 +57,6 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 
-import designexploder.editor.actions.CreateApplicationContextAction;
-import designexploder.editor.actions.InjectClassItemAction;
-import designexploder.editor.actions.TransformToBeanAction;
-import designexploder.editor.actions.TransformToFacadeAction;
-import designexploder.editor.actions.TransformToIoCAwareMethodAction;
 import designexploder.editor.controllers.IoCModelUpdateListener;
 import designexploder.editor.controllers.factory.DexDiagramPartsFactory;
 import designexploder.editor.tools.EditorToolManager;
@@ -217,7 +214,11 @@ public class DexDiagramEditor extends EditorPart implements
 		
 		action = new CreateApplicationContextAction(this);
 		registry.registerAction(action);
-		
+
+        action = new ShowInheritedMembersAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
+
 		action = new TransformToBeanAction(this);
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
@@ -225,10 +226,12 @@ public class DexDiagramEditor extends EditorPart implements
 		action = new TransformToFacadeAction(this);
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
-		
-		action = new TransformToIoCAwareMethodAction(this);
-		registry.registerAction(action);
-		getSelectionActions().add(action.getId());
+
+        for(IoCModelNatures nature : TransformToIoCAwareMethodAction.getSupportedNatures()) {
+            action = new TransformToIoCAwareMethodAction(this, nature);
+            registry.registerAction(action);
+            getSelectionActions().add(action.getId());
+        }
 
 		action = new InjectClassItemAction(this);
 		registry.registerAction(action);

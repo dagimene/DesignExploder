@@ -31,4 +31,23 @@ class ParameterizedImpl extends ModifiableImpl implements Parameterized {
 	public void removeParameter(Parameter parameter) {
 		parameters.remove(parameter);
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        ParameterizedImpl that = (ParameterizedImpl) o;
+
+        return !(parameters != null ? !parameters.equals(that.parameters) : that.parameters != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
+        return result;
+    }
 }

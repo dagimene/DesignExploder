@@ -45,7 +45,7 @@ public class BeanInjectionDecorator implements ConnectionRendererDecorator {
 		if(injection != null) {
 			if(injection.getNature() == IoCModelNatures.INJECTION_TREE) {
 				result = deduceEndpointsNature(injection);
-			} else if(injection.getNature() == IoCModelNatures.INJECTION_COLLECTION) {
+			} else if(injection.getNature() == IoCModelNatures.INJECTION_PROXIES_COLLECTION) {
 				result = ClassModelNatures.COMPOSITION;
 			} else {
 				result = ClassModelNatures.ASSOCIATION;

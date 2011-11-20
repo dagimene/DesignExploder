@@ -33,6 +33,8 @@ public class ParsingConstants {
 
     public static final String INIT_METHOD = "init-method";
 
+    public static final String FINALIZE_METHOD = "destroy-method";
+
     public static final String BY_TYPE = "byType";
 
 	public static final String PROPERTY = "property";

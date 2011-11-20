@@ -11,6 +11,8 @@ class AttributeImpl extends ParameterImpl implements Attribute {
 	
 	private Method getter;
 
+    private boolean inherited;
+
 	public AttributeImpl(String name, Type type) {
 		super(name.intern(), type);
 	}
@@ -29,7 +31,7 @@ class AttributeImpl extends ParameterImpl implements Attribute {
 		return true;
 	}
 
-	@Override
+    @Override
 	public Method getSetter() {
 		return setter;
 	}
@@ -70,6 +72,13 @@ class AttributeImpl extends ParameterImpl implements Attribute {
 	public boolean isFinal() {
 		return super.isFinal() || isEnumConstant();
 	}
-	
-	
-}	
+
+
+    public boolean isInherited() {
+        return inherited;
+    }
+
+    public void setInherited(boolean inherited) {
+        this.inherited = inherited;
+    }
+}

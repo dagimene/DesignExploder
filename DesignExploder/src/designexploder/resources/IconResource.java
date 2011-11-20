@@ -52,14 +52,16 @@ public enum IconResource {
 	// Bean fields
 
 	BEAN_FIELD_PROXY_ICON("images/IoC/bean_field_proxy.gif"),  
-	BEAN_FIELD_COLLECTION_ICON("images/IoC/bean_field_collection.gif"),  
+	BEAN_FIELD_COLLECTION_ICON("images/IoC/bean_field_collection.gif"),
+    BEAN_FIELD_PROXIES_COLLECTION_ICON("images/IoC/bean_field_proxies_collection.gif"),
 	BEAN_FIELD_TREE_ICON("images/IoC/bean_field_tree.gif"),
 	
 	// IoC aware method
 
 	BEAN_METHOD_FACTORY_ICON("images/IoC/bean_method_factory.gif"),  
 	BEAN_METHOD_INIT_ICON("images/IoC/bean_method_init.gif"),  
-	BEAN_METHOD_INSTANTIATE_ICON("images/IoC/bean_method_instantiate.gif"),  
+    BEAN_METHOD_FINALIZE_ICON("images/IoC/bean_method_finalize.gif"),
+	BEAN_METHOD_INSTANTIATE_ICON("images/IoC/bean_method_instantiate.gif"),
     BEAN_METHOD_ACTIVATE_ICON("images/IoC/bean_method_activate.gif"),
     BEAN_METHOD_DESTROY_ICON("images/IoC/bean_method_destroy.gif"),
 

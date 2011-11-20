@@ -7,39 +7,32 @@ import org.springframework.beans.factory.support.MethodReplacer;
 public class ContextMethodsReplacer implements MethodReplacer {
 
 	private final DexContextInstance contextInstance;
+	private final MethodNatures nature;
 
-	public ContextMethodsReplacer(DexContextInstance contextInstance) {
+	public ContextMethodsReplacer(DexContextInstance contextInstance, String nature) {
 		this.contextInstance = contextInstance;
+		try {
+			if(nature != null && nature.startsWith("::")) {
+				this.nature = MethodNatures.valueOf(nature.substring(2));
+				return;
+			}
+		} catch (IllegalArgumentException e) {}
+		throw new IllegalArgumentException("Nature "+nature+" is not a recognized Dex nature.");
 	}
 	
+	static enum MethodNatures {
+	    IOC_METHOD_DESTROY,
+	    IOC_METHOD_ACTIVATE;
+	}
+
 	@Override
 	public Object reimplement(Object obj, Method method, Object[] args) throws Throwable {
-		String name = method.getName();
-		if(isInstantiate(name)) {
-			String contextName = name.substring("create".length()).toLowerCase();
-	        DexContextScope targetScope = contextInstance.getBean(":::" + contextName, DexContextScope.class);
-			targetScope.createNewContextInstance();
-        } else {
-	        DexContextScope targetScope = contextInstance.getBean("::scope", DexContextScope.class);
-        	if(isActivate(name)) {
-        		targetScope.setCurrentContextInstance(contextInstance);
-        	} else if(isDestroy(name)) {
-        		targetScope.destroyContextInstance(contextInstance);
-        	}
-		}
+        DexContextScope targetScope = contextInstance.getBean("::scope", DexContextScope.class);
+        if(nature == MethodNatures.IOC_METHOD_ACTIVATE) {
+        	targetScope.setCurrentContextInstance(contextInstance);
+        } else { // nature == MethodNatures.IOC_METHOD_DESTROY
+        	targetScope.destroyContextInstance(contextInstance);
+        }
 		return null;
 	}
-        
-    private static boolean isDestroy(String name) {
-        return name.equals("destroyContext");
-    }
-
-    private static boolean isInstantiate(String name) {
-        return name.startsWith("create") && name.length() > "create".length();
-    }
-
-    private static boolean isActivate(String name) {
-        return name.equals("activateContext");
-    }
-	
 }

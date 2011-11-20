@@ -18,5 +18,5 @@ public interface ClassNode extends Naturalized, Modifiable, ModelExtension {
 	void addAttribute(Attribute attribute);
 
 	void removeAttribute(Attribute attribute);
-	
+
 }

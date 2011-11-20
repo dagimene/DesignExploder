@@ -7,7 +7,7 @@ public class DexScopedBeansListElement extends BeanElement {
     public DexScopedBeansListElement(String scope, String clazz) {
         setClazz(DEX_SCOPED_BEANS_LIST_CLASS);
         appendChild(ConstructorArg.dexContextScope(scope));
-        appendChild(ConstructorArg.typeAndValue(STRING_CLASS, clazz));
+        appendChild(ConstructorArg.stringParameter(clazz));
     }
 
 }

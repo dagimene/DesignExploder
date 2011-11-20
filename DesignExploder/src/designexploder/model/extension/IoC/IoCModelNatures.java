@@ -14,13 +14,15 @@ public enum IoCModelNatures implements Nature {
 	// Dependency Natures
 	UNRESOLVED_DEPENDENCY("Dependency"),
 	INJECTION_BEAN("Bean Dependency"),
-	INJECTION_COLLECTION("Collecion Dependency"),
+	INJECTION_COLLECTION("Collection Dependency"),
+    INJECTION_PROXIES_COLLECTION("Proxies Collection Dependency"),
 	INJECTION_TREE("Tree Dependency"),
 	INJECTION_PROXY("Proxy Dependency"),
 
 	// IoCAwareMethod natures
 	IOC_METHOD_FACTORY("Factory Method"),
 	IOC_METHOD_INIT("Init Method"),
+    IOC_METHOD_FINALIZE("Finalize Method"),
 	IOC_METHOD_INSTANTIATE("Instantiate Context Method"),
     IOC_METHOD_DESTROY("Destroy Context Method"),
     IOC_METHOD_ACTIVATE("Activate Context Method"),

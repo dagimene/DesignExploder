@@ -7,10 +7,11 @@ import static designexploder.model.extension.IoC.impl.spring.parsing.ParsingCons
 
 public class ContextMethodsReplacerElement extends BeanElement {
 
-    public ContextMethodsReplacerElement() {
+    public ContextMethodsReplacerElement(String name) {
         setClazz(CONTEXT_METHODS_REPLACER_CLASS);
-        addNameAttribute(REPLACER_ID);
+        addNameAttribute(name);
         appendChild(ConstructorArg.dexContextInstance());
+        appendChild(ConstructorArg.stringParameter(name));
     }
 
 }

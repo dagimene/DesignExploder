@@ -1,5 +1,6 @@
 package designexploder.model.extension.classnode.impl.eclipse.jdt;
 
+import designexploder.model.extension.classnode.*;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaProject;
@@ -9,13 +10,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 
 import designexploder.model.Node;
-import designexploder.model.extension.classnode.Attribute;
-import designexploder.model.extension.classnode.ClassNode;
-import designexploder.model.extension.classnode.ClassModelNatures;
-import designexploder.model.extension.classnode.Method;
-import designexploder.model.extension.classnode.Modifiable;
-import designexploder.model.extension.classnode.Parameter;
-import designexploder.model.extension.classnode.Type;
 import designexploder.model.extension.classnode.impl.ClassModelFactory;
 import designexploder.model.impl.BasicModelFactory;
 import designexploder.util.adt.IdUtil;
@@ -31,14 +25,27 @@ public class JDTModelFactory {
 	}
 
 	public Node createNode(IType type) {
-		JDTClassType jdtType = typesFactory.typeFor(type);
+        ClassType objectClass = null;
+        try {
+            objectClass = typesFactory.typeFor(Object.class);
+        } catch (JavaModelException e) {
+            // Ignore. Object methods will be listed.
+            e.printStackTrace();
+        }
+        JDTClassType jdtType = typesFactory.typeFor(type);
 		ClassNode classNode = ClassModelFactory.getInstance().createClassNode(jdtType);
 		Node result = BasicModelFactory.getInstance().createNode();
 		try {
 			classNode.setNature(jdtType.getNature());
-			setMofiers(classNode, type.getFlags());
-			buildMethods(result, classNode, type);
-			buildAttributes(result, classNode, type);
+			setModifiers(classNode, type.getFlags());
+            JDTClassType classType = jdtType;
+            boolean inherited = false;
+            do {
+                buildMethods(result, classNode, classType.getType(), inherited);
+                buildAttributes(result, classNode, classType.getType(), inherited);
+                classType = classType.getSuperclass() instanceof JDTClassType ? (JDTClassType) classType.getSuperclass() : null;
+                inherited = true;
+            } while(classType != null && classType != objectClass);
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
@@ -46,17 +53,18 @@ public class JDTModelFactory {
 		result.setId(IdUtil.createTypeId(jdtType).toString());
 		return result;
 	}
-	
-	private void buildAttributes(Node node, ClassNode classNode, IType type) throws JavaModelException {
+
+	private void buildAttributes(Node node, ClassNode classNode, IType type, boolean inherited) throws JavaModelException {
 		for(IField attribute : type.getFields()) {
 			try {
 				Type attributeType = typesFactory.typeFor(attribute.getTypeSignature(), type);
 				if(attributeType != null) {
 					Attribute anAttribute = ClassModelFactory.getInstance().createAttribute(node, attribute.getElementName(), attributeType);
-					setMofiers(anAttribute, attribute.getFlags());
+					setModifiers(anAttribute, attribute.getFlags());
 					if(attribute.isEnumConstant()) {
 						anAttribute.addModifier(ENUM);
 					}
+                    anAttribute.setInherited(inherited);
 					classNode.addAttribute(anAttribute);
 				}
 			} catch (JavaModelException e) {
@@ -65,7 +73,7 @@ public class JDTModelFactory {
 		}
 	}
 
-	private void buildMethods(Node node, ClassNode classNode, IType type) throws JavaModelException {
+	private void buildMethods(Node node, ClassNode classNode, IType type, boolean inherited) throws JavaModelException {
 		for(IMethod method : type.getMethods()) {
 			try {
 				Type methodType = typesFactory.typeFor(method.getReturnType(), type);
@@ -73,11 +81,14 @@ public class JDTModelFactory {
 				Parameter[] parameters = new Parameter[parameterElements.length];
 				if(methodType != null && parseParameters(parameterElements, type, parameters)) {
 					Method aMethod = ClassModelFactory.getInstance().createMethod(node, method.getElementName(), methodType);
-					setMofiers(aMethod, method.getFlags());
+					setModifiers(aMethod, method.getFlags());
 					for (Parameter parameter : parameters) {
 						aMethod.addParameter(parameter);
 					}
-					classNode.addMethod(aMethod);
+                    aMethod.setInherited(inherited);
+                    if(!classNode.getMethods().contains(aMethod)) {
+					    classNode.addMethod(aMethod);
+                    }
 				}
 			} catch (JavaModelException e) {
 				e.printStackTrace();
@@ -98,7 +109,7 @@ public class JDTModelFactory {
 		return true;
 	}
 	
-	private void setMofiers(Modifiable modifiable, int flags) {
+	private void setModifiers(Modifiable modifiable, int flags) {
 		addModifierIfNotNull(modifiable, DexConstantUtil.getAccessDexContant(flags));
 		addModifierIfNotNull(modifiable, Flags.isStatic(flags) ? STATIC : null);
 		addModifierIfNotNull(modifiable, Flags.isAbstract(flags) ? ABSTRACT : null);

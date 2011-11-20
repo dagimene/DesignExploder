@@ -25,7 +25,7 @@ class ClassNodeImpl extends NaturalizedImpl implements ClassNode {
 	private Set<Nature> modifiers;
 	private List<Attribute> attributes;
 	private List<Method> methods;
-	
+
 	public ClassNodeImpl(Type thisclazz) {
 		this.clazz = thisclazz;
 		this.methods = new ArrayList<Method>();
@@ -91,7 +91,7 @@ class ClassNodeImpl extends NaturalizedImpl implements ClassNode {
 		attributes.remove(attribute);
 		fireModelCollectionAlterEvent(ClassModelEventTypes.ATTRIBUTE_REMOVED, attributes, attribute);
 	}
-	
+
 	@Override
 	public Set<Nature> getModifiers() {
 		return Collections.unmodifiableSet(modifiers);
@@ -173,5 +173,5 @@ class ClassNodeImpl extends NaturalizedImpl implements ClassNode {
 	public Class<ClassNode> getExtensionClass() {
 		return ClassNode.class;
 	}
-	
+
 }

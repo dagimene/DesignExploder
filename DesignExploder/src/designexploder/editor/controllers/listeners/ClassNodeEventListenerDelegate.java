@@ -5,17 +5,16 @@ import java.util.List;
 import designexploder.editor.controllers.ClassNodeEditPart;
 import designexploder.model.ExtensibleModelElement;
 import designexploder.model.ModelExtension;
-import designexploder.model.event.ModelCollectionAlterEvent;
-import designexploder.model.event.ModelEvent;
-import designexploder.model.event.ModelEventListener;
-import designexploder.model.event.ModelEventType;
+import designexploder.model.event.*;
 import designexploder.model.extension.IoC.BeanNode;
 import designexploder.model.extension.IoC.ClassItemTargeted;
 import designexploder.model.extension.IoC.Dependency;
 import designexploder.model.extension.IoC.IoCModelEventTypes;
 import designexploder.model.extension.classnode.ClassItem;
+import designexploder.model.extension.classnode.ClassModelEventTypes;
 import designexploder.model.extension.common.CommonModelEventTypes;
 import designexploder.model.extension.common.Naturalized;
+import designexploder.model.extension.common.NodeDesignProperties;
 
 public class ClassNodeEventListenerDelegate extends NodeEventListenerDelegate {
 
@@ -25,7 +24,7 @@ public class ClassNodeEventListenerDelegate extends NodeEventListenerDelegate {
 	
 	@Override
 	public void processModelEvent(ModelEvent e) {
-		if(e.getType() == CommonModelEventTypes.NATURE_CHANGED) {
+        if(e.getType() == CommonModelEventTypes.NATURE_CHANGED || e.getType() == ClassModelEventTypes.SHOW_INHERITED_MEMBERS_CHANGED) {
 			editPart.refreshVisuals();
 		} else if(e.getType() == IoCModelEventTypes.DEPENDENCY_ADDED || 
 				e.getType() == IoCModelEventTypes.IOC_AWARE_METHOD_ADDED) {
@@ -41,8 +40,8 @@ public class ClassNodeEventListenerDelegate extends NodeEventListenerDelegate {
 			super.processModelEvent(e);
 		}
 	}
-	
-	@Override
+
+    @Override
 	protected void installExtensionListeners(ModelExtension extension, boolean extensionAdded) {
 		super.installExtensionListeners(extension, extensionAdded);
 		if((Class<?>)extension.getExtensionClass() == BeanNode.class) {
@@ -73,7 +72,9 @@ public class ClassNodeEventListenerDelegate extends NodeEventListenerDelegate {
 			properties.add(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED);
 			properties.add(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED);
 			properties.add(CommonModelEventTypes.NATURE_CHANGED);
-		}
+		} else if (extension == NodeDesignProperties.class) {
+            properties.add(ClassModelEventTypes.SHOW_INHERITED_MEMBERS_CHANGED);
+        }
 		return super.getExtensionListenedProperties(extension, properties);
 	}
 	

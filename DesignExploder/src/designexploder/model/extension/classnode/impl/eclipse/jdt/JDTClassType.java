@@ -110,4 +110,8 @@ public class JDTClassType extends TypeImpl implements ClassType {
 	public ClassType getTypeErasure() {
 		return this;
 	}
+
+    IType getType() {
+        return type;
+    }
 }

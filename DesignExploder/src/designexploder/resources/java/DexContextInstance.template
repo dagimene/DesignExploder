@@ -1,8 +1,9 @@
 package dex;
 
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.HierarchicalBeanFactory;
+import org.springframework.beans.factory.ListableBeanFactory;
 
 /**
  * Marker interface for Dex context instances
  */
-public interface DexContextInstance extends BeanFactory {}
+public interface DexContextInstance extends ListableBeanFactory, HierarchicalBeanFactory {}

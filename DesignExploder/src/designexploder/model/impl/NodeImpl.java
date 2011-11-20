@@ -20,7 +20,7 @@ class NodeImpl extends ExtensibleModelElementImpl implements Node {
 	private List<Connection> inflows = new ArrayList<Connection>();
 	private Rectangle bounds = new Rectangle(0, 0, -1, -1);
 	private boolean resizeable;
-	
+
 	public Rectangle getBounds() {
 		return bounds;
 	}
