@@ -2,56 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="525a76f9-b677-4a43-a0fb-6deebf506365" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/common/NodeDesignProperties.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/common/impl/NodeDesignPropertiesImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignExploder.ipr" afterPath="$PROJECT_DIR$/DesignExploder.ipr" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemSelectionEditPolicy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignExploder.iws" afterPath="$PROJECT_DIR$/DesignExploder.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditorContextMenu.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditorContextMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/DexActionFactory.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/DexActionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ClassNodeEventListenerDelegate.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ClassNodeEventListenerDelegate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassItemFigure.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassItemFigure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/Style.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/Style.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/StylesFactory.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/StylesFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanInjectionDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanInjectionDecorator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCModelDependenciesProcessor.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCModelDependenciesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/BeanInjectionImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/BeanInjectionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringCodeGenerator.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringCodeGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexContextScopeImplElement.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexContextScopeImplElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexScopedBeansListElement.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexScopedBeansListElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ReplaceMethodElement.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ReplaceMethodElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassItem.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelEventTypes.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelEventTypes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelUtil.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassNode.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/AttributeImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/AttributeImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ClassNodeImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ClassNodeImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/MethodImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/MethodImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ParameterizedImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ParameterizedImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypeImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypeImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypedImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/TypedImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTClassType.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTClassType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTModelFactory.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTModelFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/common/CommonModelEventTypes.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/common/CommonModelEventTypes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/impl/NodeImpl.java" afterPath="$PROJECT_DIR$/src/designexploder/model/impl/NodeImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/IconResource.java" afterPath="$PROJECT_DIR$/src/designexploder/resources/IconResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/java/ContextMethodsReplacer.template" afterPath="$PROJECT_DIR$/src/designexploder/resources/java/ContextMethodsReplacer.template" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/java/CustomAutowireBeanFactory.template" afterPath="$PROJECT_DIR$/src/designexploder/resources/java/CustomAutowireBeanFactory.template" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/java/DexContextInstance.template" afterPath="$PROJECT_DIR$/src/designexploder/resources/java/DexContextInstance.template" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template" afterPath="$PROJECT_DIR$/src/designexploder/resources/java/DexContextScopeImpl.template" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/resources/java/DexScopedBeansList.template" afterPath="$PROJECT_DIR$/src/designexploder/resources/java/DexScopedBeansList.template" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java" />
     </list>
     <ignored path="DesignExploder.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -110,37 +73,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ClassNodeEventListenerDelegate.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ClassNodeEventListenerDelegate.java">
+      <file leaf-file-name="ClassNodeEditPart.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="48" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
+            <state line="23" column="13" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IoCModelNatures.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java">
+      <file leaf-file-name="ClassItemEditPart.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="81" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpringBeansModelFactory.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="14" selection-start="3782" selection-end="3782" vertical-scroll-proportion="0.33333334">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassItemBaseRenderer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="115" selection-start="1638" selection-end="1638" vertical-scroll-proportion="0.0">
+            <state line="76" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -148,28 +93,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dependency.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/Dependency.java">
+      <file leaf-file-name="ClassItemRequestsEditPolicy.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="61" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="15" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassItemTargeted.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/ClassItemTargeted.java">
+      <file leaf-file-name="ClassNodeRequestsEditPolicy.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="78" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="13" column="96" selection-start="435" selection-end="435" vertical-scroll-proportion="0.33678755">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransformToIoCAwareMethodAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
+      <file leaf-file-name="NodeEditPart.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="174" column="20" selection-start="7125" selection-end="7125" vertical-scroll-proportion="0.0">
+            <state line="67" column="0" selection-start="1774" selection-end="2197" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,17 +129,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state line="100" column="18" selection-start="3826" selection-end="3826" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IoCModelUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="0" selection-start="4560" selection-end="4560" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -209,20 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelEventTypes.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/common/CommonModelEventTypes.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/impl/NodeImpl.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/impl/ExtensibleModelElementImpl.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassNode.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/common/DesignProperties.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/common/NodeDesignProperties.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/ClassNodeImpl.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/common/impl/NodeDesignPropertiesImpl.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ClassNodeEventListenerDelegate.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/commands/classnode/ToggleInheritedMembersCommand.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/StylesFactory.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/styles/Style.java" />
         <option value="$PROJECT_DIR$/src/designexploder/resources/IconResource.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/actions/DexActionFactory.java" />
@@ -240,6 +164,20 @@
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/graphics/InfoTooltip.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemSelectionEditPolicy.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" />
       </list>
     </option>
   </component>
@@ -307,7 +245,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -578,29 +516,55 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignExploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignExploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="designexploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="editor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="actions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Favorites" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="80" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="96" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="96" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="85" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="85" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
     <property name="last_opened_file_path" value="/usr/share/springsource/eclipse/configuration/org.eclipse.equinox.simpleconfigurator" />
@@ -613,27 +577,28 @@
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="Errors" />
-    <property name="project.structure.side.proportion" value="0.2349537" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="project.structure.side.proportion" value="0.2349537" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="designexploder.editor.controllers.policies" />
       <recent name="designexploder.editor.actions" />
       <recent name="designexploder.model.extension.IoC.impl.spring.parsing" />
     </key>
@@ -641,6 +606,7 @@
       <recent name="$PROJECT_DIR$/src/designexploder/resources/java" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="designexploder.editor.graphics" />
       <recent name="designexploder.model.extension.IoC.impl.spring.parsing" />
     </key>
   </component>
@@ -813,25 +779,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="127" width="1382" height="781" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5495208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5686901" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5495208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47603834" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39616615" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29233107" sideWeight="0.27795526" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2581625" sideWeight="0.4313099" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2581625" sideWeight="0.52396166" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981017" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6773163" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981017" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -882,224 +848,218 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/Node.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="18" selection-start="799" selection-end="799" vertical-scroll-proportion="0.77424747">
+        <state line="13" column="81" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="115" selection-start="1638" selection-end="1638" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/Dependency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="61" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/ClassItemTargeted.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="78" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="174" column="20" selection-start="7125" selection-end="7125" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="0" selection-start="4560" selection-end="4560" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/util/adt/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="11" selection-start="108" selection-end="108" vertical-scroll-proportion="0.19408503">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/ClassModelUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="20" selection-start="1820" selection-end="1820" vertical-scroll-proportion="0.33333334">
+        <state line="59" column="23" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/InmutableNamed.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="11" selection-start="94" selection-end="94" vertical-scroll-proportion="0.103626944">
+        <state line="91" column="45" selection-start="3946" selection-end="3946" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/DexActionFactory.java">
+    <entry file="jar:///usr/lib/jvm/jdk1.6.0_27/src.zip!/java/util/AbstractList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.jface_3.7.0.I20110522-1430.jar!/org/eclipse/jface/action/IAction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="21" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.37438422">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.jface_3.7.0.I20110522-1430.jar!/org/eclipse/jface/action/ContributionManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="0" selection-start="3924" selection-end="3924" vertical-scroll-proportion="0.82758623">
+        <state line="371" column="0" selection-start="12195" selection-end="12195" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.ui.workbench_3.7.0.I20110519-0100.jar!/org/eclipse/ui/internal/Workbench.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="347" column="0" selection-start="18132" selection-end="18132" vertical-scroll-proportion="0.82107353">
+        <state line="190" column="22" selection-start="9906" selection-end="9906" vertical-scroll-proportion="0.44848484">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java">
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.swt.gtk.linux.x86_3.7.1.v3738a.jar!/org/eclipse/swt/widgets/EventTable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="230" column="33" selection-start="9261" selection-end="9261" vertical-scroll-proportion="0.0">
+        <state line="19" column="16" selection-start="633" selection-end="633" vertical-scroll-proportion="0.39502764">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditorContextMenu.java">
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/tools/AbstractTool.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="32" selection-start="1104" selection-end="1104" vertical-scroll-proportion="0.0">
+        <state line="217" column="19" selection-start="9495" selection-end="9495" vertical-scroll-proportion="0.3381089">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java">
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/commands/CommandStack.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="33" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.4642857">
+        <state line="32" column="66" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.11829945">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/BeanElement.java">
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.draw2d_3.7.1.v20110830-1143.jar!/org/eclipse/draw2d/ToolbarLayout.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="39" selection-start="994" selection-end="994" vertical-scroll-proportion="0.53571427">
+        <state line="23" column="11" selection-start="524" selection-end="524" vertical-scroll-proportion="-0.06839187">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCAwareMethod.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="119" selection-end="119" vertical-scroll-proportion="0.10714286">
+        <state line="47" column="30" selection-start="1619" selection-end="1619" vertical-scroll-proportion="0.6605351">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/xom-1.2.7_src.zip!/nu/xom/ParentNode.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/InfoTooltip.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="162" column="16" selection-start="4924" selection-end="4924" vertical-scroll-proportion="0.33214286">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="20" selection-start="767" selection-end="767" vertical-scroll-proportion="0.4264214">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="0" selection-start="3708" selection-end="3708" vertical-scroll-proportion="0.0">
+        <state line="23" column="105" selection-start="852" selection-end="852" vertical-scroll-proportion="0.4264214">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ClassNodeEventListenerDelegate.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="48" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
+        <state line="12" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="0.2006689">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemSelectionEditPolicy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="81" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="7" column="16" selection-start="252" selection-end="252" vertical-scroll-proportion="0.18134715">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/ApplicationContext.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0747198">
-          <folding />
+        <state line="37" column="36" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.94871795">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexScopedBeansListElement.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="51" selection-start="442" selection-end="442" vertical-scroll-proportion="0.24107143">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/DexContextScopeImplElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="51" selection-start="412" selection-end="412" vertical-scroll-proportion="0.23316061">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="69" selection-start="375" selection-end="375" vertical-scroll-proportion="0.18134715">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="53" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.34805652">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ReplaceMethodElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="48" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.5735786">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.jface_3.7.0.I20110522-1430.jar!/org/eclipse/jface/action/Action.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="16" selection-start="4568" selection-end="4568" vertical-scroll-proportion="0.6931408">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/ui/actions/WorkbenchPartAction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="19" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.63031423">
+        <state line="13" column="41" selection-start="590" selection-end="590" vertical-scroll-proportion="0.12541807">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToBeanAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="18" selection-start="3826" selection-end="3826" vertical-scroll-proportion="0.0">
+        <state line="100" column="18" selection-start="3826" selection-end="3826" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/tools/SelectEditPartTracker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="22" selection-start="1071" selection-end="1147" vertical-scroll-proportion="0.33216783">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="20" selection-start="7125" selection-end="7125" vertical-scroll-proportion="0.0">
+        <state line="23" column="13" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="0" selection-start="4560" selection-end="4560" vertical-scroll-proportion="0.0">
+        <state line="67" column="0" selection-start="1774" selection-end="2197" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/editparts/AbstractEditPart.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="16" selection-start="4082" selection-end="4082" vertical-scroll-proportion="0.36625513">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/ClassItemTargeted.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="78" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/Dependency.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="61" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="115" selection-start="1638" selection-end="1638" vertical-scroll-proportion="0.0">
+        <state line="15" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="14" selection-start="3782" selection-end="3782" vertical-scroll-proportion="0.33333334">
-          <folding />
+        <state line="13" column="96" selection-start="435" selection-end="435" vertical-scroll-proportion="0.33678755">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

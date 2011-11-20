@@ -48,7 +48,6 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements Refreshab
 		((GraphicalEditPart)getParent()).setLayoutConstraint(this, getFigure(), getModel().getBounds());
 	}
 	
-	
 	@Override
 	protected void createEditPolicies() {}
 
@@ -65,8 +64,7 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements Refreshab
 	public Node getModel() {
 		return (Node) super.getModel();
 	}
-	
-	
+
 	/**
 	 * Redirect Requests to node's edit policies.
 	 */

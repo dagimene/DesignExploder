@@ -1,5 +1,6 @@
 package designexploder.editor.graphics;
 
+import designexploder.util.adt.Pair;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
@@ -13,6 +14,9 @@ import designexploder.editor.graphics.styles.Style.Constant;
 import designexploder.editor.graphics.styles.StylesFactory;
 import designexploder.model.extension.common.Nature;
 
+import java.util.List;
+import java.util.Map;
+
 public class ClassFigure extends Figure {
 
 	private Label label;
@@ -21,8 +25,9 @@ public class ClassFigure extends Figure {
 	private SectionFigure attributeFigure = new SectionFigure();
 	private SectionFigure methodFigure = new SectionFigure();
 	private ImageFigure icon;
+    private InfoTooltip infoTooltip;
 
-	public ClassFigure() {
+    public ClassFigure() {
 		setLayoutManager(new ToolbarLayout());
 		setBorder(new LineBorder(ColorConstants.black, 1));
 		setOpaque(true);
@@ -31,6 +36,7 @@ public class ClassFigure extends Figure {
 		header.setLayoutManager(new BorderLayout());
 		header.add(icon = new ImageFigure(), BorderLayout.LEFT);
 		header.add(label = new Label(), BorderLayout.CENTER);
+        label.setToolTip(infoTooltip = new InfoTooltip());
 		// icon.setPreferredSize(16, 16);
 		add(header);
 		add(attributeFigure);
@@ -50,6 +56,10 @@ public class ClassFigure extends Figure {
 	public void setLabel(String label) {
 		this.label.setText(label);
 	}
+
+    public void setLabelTooltipInfo(List<Pair<String, String>> info) {
+        this.infoTooltip.setInfo(info);
+    }
 
 	private void updateStyle() {
 		Style style = StylesFactory.getInstance().getStyleFor(nature);

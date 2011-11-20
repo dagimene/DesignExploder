@@ -1,9 +1,12 @@
 package designexploder.editor.controllers;
 
+import designexploder.editor.controllers.policies.ClassItemRequestsEditPolicy;
+import designexploder.editor.controllers.policies.ClassItemSelectionEditPolicy;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
 import designexploder.editor.controllers.listeners.RefreshableEditPart;
 import designexploder.editor.graphics.ClassItemFigure;
@@ -29,17 +32,8 @@ public class ClassItemEditPart extends AbstractGraphicalEditPart implements Refr
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new SelectionEditPolicy() {
-			@Override
-			protected void showSelection() {
-				getFigure().setSelected(true);
-			}
-			
-			@Override
-			protected void hideSelection() {
-				getFigure().setSelected(false);
-			}
-		});
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ClassItemSelectionEditPolicy());
+        installEditPolicy(EditPolicy.NODE_ROLE, new ClassItemRequestsEditPolicy());
 	}
 
 	@Override
@@ -75,4 +69,21 @@ public class ClassItemEditPart extends AbstractGraphicalEditPart implements Refr
 	public void refreshTargetConnections() {
 		super.refreshTargetConnections();
 	}
+
+    /**
+     * Redirect Requests to node's edit policies.
+     */
+    @Override
+    public void performRequest(Request request) {
+        Command command = null;
+        EditPolicyIterator i = getEditPolicyIterator();
+        while (i.hasNext()) {
+            if (command != null)
+                command = command.chain(i.next().getCommand(request));
+            else
+                command = i.next().getCommand(request);
+        }
+        getViewer().getEditDomain().getCommandStack().execute(command);
+    }
+
 }

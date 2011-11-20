@@ -34,25 +34,32 @@ public class InjectClassItemAction extends UniqueSelectionAction {
 	@Override
 	public void run() {
 		ClassItem classItem = (ClassItem) getModel();
-		Dependency dependency = IoCModelUtil.findDependencyFromClassItem(classItem, getNode());
-		Command command;
-		if(dependency == null) {
-			dependency = IoCModelFactory.getInstance().createDependency(classItem);
-			command = new AddDependencyCommand(getNode(), dependency);
-		} else {
-			command = new RemoveDependencyCommand(getNode(), dependency);
-		}
-		getCommandStack().execute(command);
+		getCommandStack().execute(createInjectCommand(getNode(), classItem));
 		((DexDiagramEditor)getWorkbenchPart()).forceUpdateSelectionActions();
 	}
 
 	@Override
 	protected boolean calculateEnabled() {
 		ClassItem item = super.calculateEnabled() ? (ClassItem)getModel() : null;
-		return item != null &&
-				((item.isAttribute() && ((Attribute) item).getSetter() != null) || (item.isMethod() && ((Method) item).isSetter()))
-				&& getNode().getExtension(BeanNode.class) != null;
+		return item != null && canInjectClassItem(getNode(), item);
 	}
+
+    public static boolean canInjectClassItem(Node node, ClassItem item) {
+        return ((item.isAttribute() && ((Attribute) item).getSetter() != null) || (item.isMethod() && ((Method) item).isSetter()))
+            && node.getExtension(BeanNode.class) != null;
+    }
+
+    public static Command createInjectCommand(Node node, ClassItem classItem) {
+        Dependency dependency = IoCModelUtil.findDependencyFromClassItem(classItem, node);
+        Command command;
+        if(dependency == null) {
+            dependency = IoCModelFactory.getInstance().createDependency(classItem);
+            command = new AddDependencyCommand(node, dependency);
+        } else {
+            command = new RemoveDependencyCommand(node, dependency);
+        }
+        return command;
+    }
 	
 	@Override
 	protected void refresh() {

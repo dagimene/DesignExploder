@@ -2,10 +2,13 @@ package designexploder.editor.renderers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import designexploder.editor.graphics.ClassFigure;
 import designexploder.model.Node;
 import designexploder.model.extension.common.Nature;
+import designexploder.util.adt.Pair;
 
 public class BaseNodeRenderer implements NodeRendererDecorator, Renderer<Node, ClassFigure> {
 
@@ -27,9 +30,10 @@ public class BaseNodeRenderer implements NodeRendererDecorator, Renderer<Node, C
 	public void render(Node node, ClassFigure figure) {
 		figure.setNature(getNodeNature(node));
 		figure.setLabel(getNodeLabel(node));
+        figure.setLabelTooltipInfo(getNodeLabelTooltipInfo(node, new LinkedList<Pair<String, String>>()));
 	}
-	
-	public String getNodeLabel(Node node) {
+
+    public String getNodeLabel(Node node) {
 		Iterator<NodeRendererDecorator> iterator = decorators.iterator();
 		String result = null;
 		while(result == null && iterator.hasNext()) {
@@ -38,7 +42,15 @@ public class BaseNodeRenderer implements NodeRendererDecorator, Renderer<Node, C
 		return result != null ? result : "";
 	}
 
-	public Nature getNodeNature(Node node) {
+    @Override
+    public List<Pair<String, String>> getNodeLabelTooltipInfo(Node node, List<Pair<String, String>> info) {
+        for (NodeRendererDecorator decorator : decorators) {
+            info = decorator.getNodeLabelTooltipInfo(node, info);
+        }
+        return info;
+    }
+
+    public Nature getNodeNature(Node node) {
 		Iterator<NodeRendererDecorator> iterator = decorators.iterator();
 		Nature result = null;
 		while(result == null && iterator.hasNext()) {

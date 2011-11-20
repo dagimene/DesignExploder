@@ -7,6 +7,7 @@ import designexploder.model.ExtensibleModelElement;
 import designexploder.model.Node;
 import designexploder.model.extension.classnode.ClassNode;
 import designexploder.model.extension.common.NodeDesignProperties;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class ShowInheritedMembersAction extends UniqueSelectionAction {
@@ -22,12 +23,16 @@ public class ShowInheritedMembersAction extends UniqueSelectionAction {
 	
 	@Override
 	public void run() {
-        ToggleInheritedMembersCommand command = new ToggleInheritedMembersCommand((Node) getModel());
-		getCommandStack().execute(command);
+        Command command = createToggleInheritedMembersCommand((Node) getModel());
+        getCommandStack().execute(command);
 		((DexDiagramEditor)getWorkbenchPart()).forceUpdateSelectionActions();
 	}
 
-	@Override
+    public static ToggleInheritedMembersCommand createToggleInheritedMembersCommand(Node node) {
+        return new ToggleInheritedMembersCommand(node);
+    }
+
+    @Override
 	protected void refresh() {
 		super.refresh();
 		setText(calculateText());
