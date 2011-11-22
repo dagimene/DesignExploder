@@ -5,17 +5,18 @@
   </component>
   <component name="ArtifactManager">
     <artifact type="jar" name="designexploder">
-      <output-path>/usr/share/springsource/eclipse/dropins</output-path>
-      <root id="archive" name="designexploder.jar">
+      <output-path>/usr/share/springsource/eclipse-with-dex/plugins</output-path>
+      <root id="archive" name="DesignExploder_0.0.0.5.jar">
         <element id="directory" name="META-INF">
           <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
-          <element id="dir-copy" path="$PROJECT_DIR$/bin" />
-          <element id="directory" name="lib">
-            <element id="library" level="module" name="xom-1.2.7.jar" module-name="DesignExploder" />
-          </element>
-          <element id="directory" name="java">
-            <element id="dir-copy" path="$PROJECT_DIR$/src/designexploder/resources/java" />
-          </element>
+        </element>
+        <element id="dir-copy" path="$PROJECT_DIR$/bin" />
+        <element id="directory" name="icons">
+          <element id="dir-copy" path="$PROJECT_DIR$/icons" />
+        </element>
+        <element id="file-copy" path="$PROJECT_DIR$/plugin.xml" />
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="xom-1.2.7.jar" module-name="DesignExploder" />
         </element>
       </root>
     </artifact>

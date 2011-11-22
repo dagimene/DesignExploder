@@ -10,7 +10,7 @@ import designexploder.model.event.ModelCollectionAlterEvent;
 import designexploder.model.event.ModelEvent;
 import designexploder.model.event.ModelEventType;
 
-public class ExtensibleModelListenerDelegate extends ModelEventListenerDelegate {
+public class ExtensibleModelListenerDelegate extends AbstractModelEventListenerDelegate {
 	
 	public ExtensibleModelListenerDelegate(ExtensibleModelElement model, RefreshableEditPart editPart) {
 		super(model, editPart);

@@ -8,7 +8,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import designexploder.editor.controllers.listeners.ModelEventListenerDelegate;
+import designexploder.editor.controllers.listeners.AbstractModelEventListenerDelegate;
 import designexploder.editor.controllers.listeners.NodeEventListenerDelegate;
 import designexploder.editor.controllers.listeners.RefreshableEditPart;
 import designexploder.editor.graphics.GraphicsFactory;
@@ -17,7 +17,7 @@ import designexploder.model.Node;
 
 public class NodeEditPart extends AbstractGraphicalEditPart implements RefreshableEditPart {
 
-	private ModelEventListenerDelegate listenerDelegate;
+	private AbstractModelEventListenerDelegate listenerDelegate;
 	
 	@Override
 	public void activate() {
@@ -34,7 +34,7 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements Refreshab
 		listenerDelegate.deactivate();
 	}
 	
-	protected ModelEventListenerDelegate createListenerDelegate() {
+	protected AbstractModelEventListenerDelegate createListenerDelegate() {
 		return new NodeEventListenerDelegate(getModel(), this);
 	}
 

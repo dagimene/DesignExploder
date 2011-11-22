@@ -7,7 +7,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import designexploder.editor.controllers.listeners.ContainerNodeEventListenerDelegate;
-import designexploder.editor.controllers.listeners.ModelEventListenerDelegate;
+import designexploder.editor.controllers.listeners.AbstractModelEventListenerDelegate;
 import designexploder.editor.controllers.listeners.RefreshableEditPart;
 import designexploder.editor.controllers.policies.NodeContainerLayoutEditPolicy;
 import designexploder.editor.graphics.GraphicsFactory;
@@ -16,7 +16,7 @@ import designexploder.model.NodeContainer;
 
 public class NodeContainerEditPart extends AbstractGraphicalEditPart implements RefreshableEditPart {
 	
-	private ModelEventListenerDelegate listenerDelegate;
+	private AbstractModelEventListenerDelegate listenerDelegate;
 	
 	@Override
 	public void activate() {
@@ -27,7 +27,7 @@ public class NodeContainerEditPart extends AbstractGraphicalEditPart implements 
 		listenerDelegate.activate();
 	}
 
-	private ModelEventListenerDelegate createListenerDelegate() {
+	private AbstractModelEventListenerDelegate createListenerDelegate() {
 		return new ContainerNodeEventListenerDelegate(getModel(), this);
 	}
 

@@ -81,7 +81,6 @@ public class IoCModelDependenciesProcessor {
 			type = null;
 		}
 		if(type != null) {
-			// TODO: Super method should be added to this class, possibly in the bean factory.
 			final ClassType targetType = type.asClassType();
 			Set<Node> candidates = ADTUtil.filterCollection(availableBeans, new Condition<Node>() {
 				@Override

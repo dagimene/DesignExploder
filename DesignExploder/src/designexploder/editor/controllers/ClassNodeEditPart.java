@@ -9,7 +9,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
 import designexploder.editor.controllers.listeners.ClassNodeEventListenerDelegate;
-import designexploder.editor.controllers.listeners.ModelEventListenerDelegate;
+import designexploder.editor.controllers.listeners.AbstractModelEventListenerDelegate;
 import designexploder.editor.controllers.listeners.RefreshableEditPart;
 import designexploder.editor.controllers.policies.ClassNodeComponentEditPolicy;
 import designexploder.editor.controllers.policies.ClassNodeRequestsEditPolicy;
@@ -31,7 +31,7 @@ public class ClassNodeEditPart extends NodeEditPart {
 	}
 	
 	@Override
-	protected ModelEventListenerDelegate createListenerDelegate() {
+	protected AbstractModelEventListenerDelegate createListenerDelegate() {
 		return new ClassNodeEventListenerDelegate(getModel(), this);
 	}
 

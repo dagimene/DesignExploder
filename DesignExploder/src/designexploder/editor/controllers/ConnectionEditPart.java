@@ -4,14 +4,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 
 import designexploder.editor.controllers.listeners.ExtensibleModelListenerDelegate;
-import designexploder.editor.controllers.listeners.ModelEventListenerDelegate;
+import designexploder.editor.controllers.listeners.AbstractModelEventListenerDelegate;
 import designexploder.editor.controllers.listeners.RefreshableEditPart;
 import designexploder.editor.graphics.GraphicsFactory;
 import designexploder.model.Connection;
 
 public class ConnectionEditPart extends AbstractConnectionEditPart implements RefreshableEditPart {
 	
-	private ModelEventListenerDelegate listenerDelegate;
+	private AbstractModelEventListenerDelegate listenerDelegate;
 	
 	@Override
 	public Connection getModel() {

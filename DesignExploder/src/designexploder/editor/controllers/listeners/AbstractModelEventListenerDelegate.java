@@ -7,12 +7,12 @@ import designexploder.model.event.ModelEventListener;
 import designexploder.model.event.ModelEventTrigger;
 import designexploder.model.event.ModelEventType;
 
-public abstract class ModelEventListenerDelegate implements ModelEventListener {
+public abstract class AbstractModelEventListenerDelegate implements ModelEventListener {
 
 	protected final ModelEventTrigger model;
 	protected final RefreshableEditPart editPart;
 
-	public ModelEventListenerDelegate(ModelEventTrigger model, RefreshableEditPart editPart) {
+	public AbstractModelEventListenerDelegate(ModelEventTrigger model, RefreshableEditPart editPart) {
 		this.model = model;
 		this.editPart = editPart;
 	}

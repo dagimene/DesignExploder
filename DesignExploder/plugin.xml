@@ -6,7 +6,7 @@
 		<editor id="designexploder.editor.DexDiagramEditor"
 			name="Design Exploder"
 			extensions="dex"
-			icon="icons/sample.gif"
+			icon="icons/favicon.gif"
 			class="designexploder.editor.DexDiagramEditor"
 			contributorClass="designexploder.editor.DexDiagramEditorActionBarContributor" />
 	</extension>

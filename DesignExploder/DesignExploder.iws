@@ -2,19 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="525a76f9-b677-4a43-a0fb-6deebf506365" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemSelectionEditPolicy.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/TestDraw2D.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ModelEventListenerDelegate.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/AbstractModelEventListenerDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignExploder.ipr" afterPath="$PROJECT_DIR$/DesignExploder.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignExploder.iws" afterPath="$PROJECT_DIR$/DesignExploder.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin.xml" afterPath="$PROJECT_DIR$/plugin.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/ConnectionEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/ConnectionEditPart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeContainerEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeContainerEditPart.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ExtensibleModelListenerDelegate.java" afterPath="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ExtensibleModelListenerDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCModelDependenciesProcessor.java" afterPath="$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCModelDependenciesProcessor.java" />
     </list>
     <ignored path="DesignExploder.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,61 +72,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ClassNodeEditPart.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java">
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="13" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassItemEditPart.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassItemRequestsEditPolicy.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassNodeRequestsEditPolicy.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="96" selection-start="435" selection-end="435" vertical-scroll-proportion="0.33678755">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NodeEditPart.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="0" selection-start="1774" selection-end="2197" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransformToBeanAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToBeanAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="18" selection-start="3826" selection-end="3826" vertical-scroll-proportion="0.0">
+            <state line="11" column="24" selection-start="467" selection-end="467" vertical-scroll-proportion="0.2260274">
               <folding />
             </state>
           </provider>
@@ -147,10 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/designexploder/resources/IconResource.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/editor/actions/DexActionFactory.java" />
-        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditorContextMenu.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ConstructorArg.java" />
         <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ContextMethodsReplacerElement.java" />
@@ -178,6 +122,10 @@
         <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java" />
         <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCModelDependenciesProcessor.java" />
+        <option value="$PROJECT_DIR$/src/designexploder/editor/controllers/listeners/ExtensibleModelListenerDelegate.java" />
+        <option value="$PROJECT_DIR$/plugin.xml" />
+        <option value="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </list>
     </option>
   </component>
@@ -245,7 +193,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -253,6 +201,24 @@
               <option name="myItemId" value="DesignExploder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECLIPSE_LITE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignExploder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -274,11 +240,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
+              <option name="myItemId" value="META-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -292,269 +254,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classnode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="editor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="editor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignExploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="designexploder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="editor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Favorites" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="80" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="OverrideImplement.combined" value="true" />
@@ -603,6 +315,7 @@
       <recent name="designexploder.model.extension.IoC.impl.spring.parsing" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/designexploder/resources/java" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
@@ -778,26 +491,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="127" width="1382" height="781" extended-state="6" />
+    <frame x="1358" y="-5" width="1456" height="913" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5495208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47603834" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39616615" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29233107" sideWeight="0.27795526" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2581625" sideWeight="0.52396166" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981017" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31200576" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.81629395" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6773163" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5495208" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39616615" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981017" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -848,159 +561,79 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelNatures.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTClassTypeFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="81" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" />
+        <state line="20" column="49" selection-start="852" selection-end="852" vertical-scroll-proportion="-1.773309" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassItemBaseRenderer.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTModelFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="115" selection-start="1638" selection-end="1638" vertical-scroll-proportion="0.0" />
+        <state line="17" column="40" selection-start="671" selection-end="671" vertical-scroll-proportion="0.08226691" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/Dependency.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/impl/eclipse/jdt/JDTModelBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="61" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" />
+        <state line="34" column="40" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.5159011" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/ClassItemTargeted.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/build/ClassMembersCondensatorBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="78" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0" />
+        <state line="14" column="13" selection-start="467" selection-end="467" vertical-scroll-proportion="-0.13711151" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToIoCAwareMethodAction.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/classnode/build/ClassRelationsModelBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="20" selection-start="7125" selection-end="7125" vertical-scroll-proportion="0.0" />
+        <state line="63" column="0" selection-start="2378" selection-end="2378" vertical-scroll-proportion="0.9204947" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/IoCModelUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringModelBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="0" selection-start="4560" selection-end="4560" vertical-scroll-proportion="0.0" />
+        <state line="50" column="13" selection-start="2125" selection-end="2125" vertical-scroll-proportion="0.7614841" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/util/adt/Pair.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/build/ModelBasicDataSetter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="11" selection-start="108" selection-end="108" vertical-scroll-proportion="0.19408503">
-          <folding />
-        </state>
+        <state line="43" column="36" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.25906736" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/ClassFigure.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/IoCModelUpdateListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="23" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="31" column="41" selection-start="1427" selection-end="1456" vertical-scroll-proportion="0.1590106" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringBeansModelFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/build/IoCIDsNormalizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="45" selection-start="3946" selection-end="3946" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="27" column="13" selection-start="896" selection-end="896" vertical-scroll-proportion="0.41450778" />
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/jdk1.6.0_27/src.zip!/java/util/AbstractList.java">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/impl/build/XMLBasicModelWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="371" column="0" selection-start="12195" selection-end="12195" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="23" column="11" selection-start="663" selection-end="663" vertical-scroll-proportion="0.20725389" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.ui.workbench_3.7.0.I20110519-0100.jar!/org/eclipse/ui/internal/Workbench.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/ParsingConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="22" selection-start="9906" selection-end="9906" vertical-scroll-proportion="0.44848484">
-          <folding />
-        </state>
+        <state line="63" column="64" selection-start="1942" selection-end="2004" vertical-scroll-proportion="0.08592322" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.swt.gtk.linux.x86_3.7.1.v3738a.jar!/org/eclipse/swt/widgets/EventTable.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/parsing/CustomScopeConfigurerElement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="16" selection-start="633" selection-end="633" vertical-scroll-proportion="0.39502764">
-          <folding />
-        </state>
+        <state line="12" column="28" selection-start="367" selection-end="367" vertical-scroll-proportion="0.24107143" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/tools/AbstractTool.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringContextsWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="19" selection-start="9495" selection-end="9495" vertical-scroll-proportion="0.3381089">
-          <folding />
-        </state>
+        <state line="89" column="74" selection-start="3915" selection-end="3915" vertical-scroll-proportion="0.60954064" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/commands/CommandStack.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="66" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.11829945">
-          <folding />
-        </state>
+        <state line="9" column="13" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.draw2d_3.7.1.v20110830-1143.jar!/org/eclipse/draw2d/ToolbarLayout.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ApplicationContextComponentEditPolicy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="11" selection-start="524" selection-end="524" vertical-scroll-proportion="-0.06839187">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/BaseNodeRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="30" selection-start="1619" selection-end="1619" vertical-scroll-proportion="0.6605351">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/graphics/InfoTooltip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/IoC/BeanNodeDecorator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="20" selection-start="767" selection-end="767" vertical-scroll-proportion="0.4264214">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/extension/classnode/ClassNodeDecorator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="105" selection-start="852" selection-end="852" vertical-scroll-proportion="0.4264214">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/renderers/NodeRendererDecorator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="0.2006689">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemSelectionEditPolicy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="16" selection-start="252" selection-end="252" vertical-scroll-proportion="0.18134715">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/InjectClassItemAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="36" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.94871795">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/ShowInheritedMembersAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="41" selection-start="590" selection-end="590" vertical-scroll-proportion="0.12541807">
-          <folding />
-        </state>
+        <state line="16" column="13" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/designexploder/editor/actions/TransformToBeanAction.java">
@@ -1008,58 +641,80 @@
         <state line="100" column="18" selection-start="3826" selection-end="3826" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/tools/SelectEditPartTracker.class">
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/extension/IoC/impl/spring/SpringCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="1071" selection-end="1147" vertical-scroll-proportion="0.33216783">
+        <state line="15" column="33" selection-start="503" selection-end="523" vertical-scroll-proportion="0.025083613" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/model/build/ChainedModelBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="76" selection-start="132" selection-end="132" vertical-scroll-proportion="0.15050167" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/designexploder.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditorActionBarContributor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="8" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.5641026" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/EditPartViewer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="7" selection-start="1010" selection-end="1010" vertical-scroll-proportion="-1.3928572" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/DefaultEditDomain.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="55" selection-start="195" selection-end="195" vertical-scroll-proportion="-2.4" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/EditDomain.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="23" selection-start="153" selection-end="163" vertical-scroll-proportion="0.10714286" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/DexDiagramEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="344" column="4" selection-start="12599" selection-end="12599" vertical-scroll-proportion="0.17626527" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.pde.ui.templates_3.4.400.v20110516.jar!/templates_3.0/editor/bin/icons/sample.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/designexploder.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.4085026" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DesignExploder.iws">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="386" column="47" selection-start="21961" selection-end="21961" vertical-scroll-proportion="0.19778189" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DesignExploder.ipr">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="33" selection-start="64" selection-end="64" vertical-scroll-proportion="0.025083613" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="24" selection-start="467" selection-end="467" vertical-scroll-proportion="0.2260274">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassNodeEditPart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="13" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/NodeEditPart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="0" selection-start="1774" selection-end="2197" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/share/springsource/eclipse/plugins/org.eclipse.gef_3.7.1.v20110830-1143.jar!/org/eclipse/gef/editparts/AbstractEditPart.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="16" selection-start="4082" selection-end="4082" vertical-scroll-proportion="0.36625513">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/ClassItemEditPart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassItemRequestsEditPolicy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/designexploder/editor/controllers/policies/ClassNodeRequestsEditPolicy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="96" selection-start="435" selection-end="435" vertical-scroll-proportion="0.33678755">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1110,7 +765,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.2349537" />
               </list>
             </option>
           </splitter-proportions>
