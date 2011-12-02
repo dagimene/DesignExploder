@@ -15,12 +15,7 @@ import designexploder.model.event.ModelEvent;
 import designexploder.model.event.ModelEventListener;
 import designexploder.model.event.ModelEventTrigger;
 import designexploder.model.event.ModelPropertyChangeEvent;
-import designexploder.model.extension.IoC.ApplicationContext;
-import designexploder.model.extension.IoC.BeanInjection;
-import designexploder.model.extension.IoC.BeanNode;
-import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelEventTypes;
-import designexploder.model.extension.IoC.IoCModelNatures;
+import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.build.IoCModelDependenciesProcessor;
 import designexploder.model.extension.classnode.ClassRelation;
 import designexploder.model.extension.common.CommonModelEventTypes;
@@ -48,6 +43,7 @@ public class IoCModelUpdateListener implements ModelEventListener, ModelBuilder 
 			BeanNode beanNode = node.getExtension(BeanNode.class);
 			if(beanNode != null) {
 				clearDependencies(node, beanNode);
+                clearFactoryIoCAwareMethods(node, beanNode);
 			}
 		}
 	}
@@ -58,7 +54,27 @@ public class IoCModelUpdateListener implements ModelEventListener, ModelBuilder 
 		}
 	}
 
-	private void clearDependency(Node node, Dependency dependency) {
+    private void clearFactoryIoCAwareMethods(Node node, BeanNode beanNode) {
+        for (IoCAwareMethod ioCAwareMethod : beanNode.getIoCAwareMethods()) {
+            Nature nature = ioCAwareMethod.getNature();
+            if(nature == IoCModelNatures.IOC_METHOD_FACTORY || nature == IoCModelNatures.IOC_METHOD_FACTORY_UNRESOLVED) {
+                clearFactoryIoCAwareMethod((TargetedIoCAwareMethod) ioCAwareMethod, IoCModelNatures.IOC_METHOD_FACTORY_UNRESOLVED);
+            } else if(nature == IoCModelNatures.IOC_METHOD_INSTANTIATE || nature == IoCModelNatures.IOC_METHOD_INSTANTIATE_UNRESOLVED) {
+                clearFactoryIoCAwareMethod((TargetedIoCAwareMethod) ioCAwareMethod, IoCModelNatures.IOC_METHOD_INSTANTIATE_UNRESOLVED);
+            }
+        }
+    }
+
+    private void clearFactoryIoCAwareMethod(TargetedIoCAwareMethod ioCAwareMethod, IoCModelNatures unresolvedNature) {
+        Set<Connection> beanInstantiations = ioCAwareMethod.getIoCInstantiations();
+        for (Connection beanInstantiation : beanInstantiations) {
+            BasicModelUtil.removeConnection(beanInstantiation);
+        }
+        beanInstantiations.clear();
+        ioCAwareMethod.setNature(unresolvedNature);
+    }
+
+    private void clearDependency(Node node, Dependency dependency) {
 		// Clear dependency injections
 		Set<Connection> beanInjections = dependency.getBeanInjections();
 		for (Connection beanInjection : beanInjections) {
@@ -137,25 +153,23 @@ public class IoCModelUpdateListener implements ModelEventListener, ModelBuilder 
 			}
 		}
 	}
-	
+
 	private void installListeners(BeanNode beanNode) {
 		beanNode.addListener(CommonModelEventTypes.NATURE_CHANGED, this);
 		beanNode.addListener(IoCModelEventTypes.DEPENDENCY_ADDED, this);
 		beanNode.addListener(IoCModelEventTypes.DEPENDENCY_REMOVED, this);
-		// Not interesting  by the time being...
-		// beanNode.addListener(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED, this);
-		// beanNode.addListener(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED, this);
+		beanNode.addListener(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED, this);
+		beanNode.addListener(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED, this);
 	}
-	
+
 	private void removeListeners(BeanNode beanNode) {
 		beanNode.removeListener(CommonModelEventTypes.NATURE_CHANGED, this);
 		beanNode.removeListener(IoCModelEventTypes.DEPENDENCY_ADDED, this);
 		beanNode.removeListener(IoCModelEventTypes.DEPENDENCY_REMOVED, this);
-		// Not interesting  by the time being...
-		// beanNode.removeListener(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED, this);
-		// beanNode.removeListener(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED, this);
+		beanNode.removeListener(IoCModelEventTypes.IOC_AWARE_METHOD_ADDED, this);
+		beanNode.removeListener(IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED, this);
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public void processModelEvent(ModelEvent e) {
@@ -163,6 +177,16 @@ public class IoCModelUpdateListener implements ModelEventListener, ModelBuilder 
 		if(node != null) {
 			NodeContainer affectedContext = node.getNodeContainer();
 			BeanNode beanNode = node.getExtension(BeanNode.class);
+            if(beanNode != null && e.getType() == IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED) {
+                IoCAwareMethod ioCAwareMethod = ((ModelCollectionAlterEvent<IoCAwareMethod>) e).getElement();
+                if(ioCAwareMethod instanceof TargetedIoCAwareMethod) {
+                    if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_FACTORY) {
+                        clearFactoryIoCAwareMethod((TargetedIoCAwareMethod) ioCAwareMethod, IoCModelNatures.IOC_METHOD_FACTORY_UNRESOLVED);
+                    } else if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_INSTANTIATE) {
+                        clearFactoryIoCAwareMethod((TargetedIoCAwareMethod) ioCAwareMethod, IoCModelNatures.IOC_METHOD_INSTANTIATE_UNRESOLVED);
+                    }
+                }
+            }
 			if(beanNode != null && e.getType() == IoCModelEventTypes.DEPENDENCY_REMOVED) {
 				Dependency dependency = ((ModelCollectionAlterEvent<Dependency>) e).getElement();
 				clearDependency(node, dependency);
@@ -212,7 +236,9 @@ public class IoCModelUpdateListener implements ModelEventListener, ModelBuilder 
 			}
 		} else if(e.getType() == CommonModelEventTypes.NATURE_CHANGED
 				|| e.getType() == IoCModelEventTypes.DEPENDENCY_ADDED
-				|| e.getType() == IoCModelEventTypes.DEPENDENCY_REMOVED) {
+				|| e.getType() == IoCModelEventTypes.DEPENDENCY_REMOVED
+                || e.getType() == IoCModelEventTypes.IOC_AWARE_METHOD_REMOVED
+                || e.getType() == IoCModelEventTypes.IOC_AWARE_METHOD_ADDED) {
 			if(source instanceof BeanNode) {
 				node = ((BeanNode)source).getNode();
 			}

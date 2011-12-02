@@ -7,7 +7,10 @@ public class CustomAutowireBeanFactory extends GenericApplicationContext impleme
 	private boolean stopping;
 	
 	public CustomAutowireBeanFactory(DexContextInstance parentBeanFactory, DexContextScope scope) {
-		super(new AutowireValueAwareDefaultListableBeanFactory(parentBeanFactory != null ? new ScopedBeanFilterParentBeanFactory(parentBeanFactory) : null));
+		super(new AutowireValueAwareDefaultListableBeanFactory());
+		if(parentBeanFactory != null) {
+			setParent(new ScopedBeanFilterParentBeanFactory(parentBeanFactory));
+		}
 
 		getBeanFactory().registerSingleton("::context", this);
 		if(scope != null) {

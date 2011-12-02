@@ -1,8 +1,9 @@
 package designexploder.model.extension.IoC.impl.spring;
 
-import java.util.Iterator;
+import java.util.*;
 
 import designexploder.model.extension.IoC.*;
+import designexploder.model.extension.IoC.build.IoCModelDependenciesProcessor;
 import designexploder.model.extension.IoC.impl.spring.parsing.ReplaceMethodElement;
 import org.eclipse.jdt.core.IJavaProject;
 
@@ -38,29 +39,80 @@ public class SpringBeansModelFactory {
 	 * @return
 	 */
 	public Iterable<Node> getBeans(NodeContainer container, SpringConfigFile source, final NodeContainer diagram) {
+        final Map<String, Set<String>> factoryMethods = new HashMap<String, Set<String>>();
 		final Iterator<BeanElement> beanElements = source.getBeans().iterator();
 		return new IterableIterator<Node>(new FindNextIterator<Node>() {
 			protected Node findNext() {
 				Node result = null;
 				while(result == null && beanElements.hasNext()) {
-					BeanElement element = beanElements.next();
-					IdUtil.ID id = IdUtil.parseId(element.getId());
-					if(id != null && diagram.findNode(id.toString()) == null) {
-						ID classNodeId = IdUtil.createClassId(id.name);
-						Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
-						if(classNode != null) {
-							Node node = BasicModelFactory.getInstance().createModelCopy(classNode, id.toString(), true);
-							BeanNode beanNode = createBeanNode(node, element, node.getExtension(ClassNode.class), id);
-							beanNode.setNode(node);
-							node.addExtension(beanNode);
-							result = node;
-						}
-					}
+                    result = createBeanNode(beanElements.next(), diagram, factoryMethods);
 				}
 				return result;
 			}
 		});
 	}
+
+    private Node createBeanNode(BeanElement element, NodeContainer diagram, Map<String, Set<String>> factoryMethods) {
+        Node result = null;
+        ID id = IdUtil.parseId(element.getId());
+        if(id != null && diagram.findNode(id.toString()) == null) {
+            ID classNodeId = IdUtil.createClassId(id.name);
+            Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
+            if(classNode != null) {
+                Node node = BasicModelFactory.getInstance().createModelCopy(classNode, id.toString(), true);
+                BeanNode beanNode = createBeanNode(node, element, node.getExtension(ClassNode.class), id);
+                beanNode.setNode(node);
+                node.addExtension(beanNode);
+                result = node;
+            }
+        }
+
+        registerBeanFactory(element, diagram, factoryMethods);
+
+        if(result != null) {
+            addPendingFactoryMethods(factoryMethods, result);
+        }
+
+        return result;
+    }
+
+    private void addPendingFactoryMethods(Map<String, Set<String>> factoryMethods, Node result) {
+        Set<String> nodeFactoryMethods = factoryMethods.get(result.getId());
+        if(nodeFactoryMethods != null && !factoryMethods.isEmpty()) {
+            for (Method method : result.getExtension(ClassNode.class).getMethods()) {
+                if(IoCModelUtil.isFactoryCandidate(method, result) && nodeFactoryMethods.contains(method.getName())) {
+                    IoCAwareMethod iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod(IoCModelNatures.IOC_METHOD_FACTORY);
+                    iocAwareMethod.setTarget(method);
+                    result.getExtension(BeanNode.class).addIoCAwareMethod(iocAwareMethod);
+                }
+            }
+        }
+        factoryMethods.remove(result.getId());
+    }
+
+    private void registerBeanFactory(BeanElement element, NodeContainer diagram, Map<String, Set<String>> factoryMethods) {
+        String factoryBean = element.getFactoryBean();
+        String factoryMethod = element.getFactoryMethod();
+        if(factoryBean != null && factoryMethod != null) {
+            Node factoryNode = diagram.findNode(factoryBean);
+            if(factoryNode != null) {
+                for (Method method : factoryNode.getExtension(ClassNode.class).getMethods()) {
+                    if(IoCModelUtil.isFactoryCandidate(method, factoryNode) && method.getName().equals(factoryMethod)) {
+                        IoCAwareMethod iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod(IoCModelNatures.IOC_METHOD_FACTORY);
+                        iocAwareMethod.setTarget(method);
+                        factoryNode.getExtension(BeanNode.class).addIoCAwareMethod(iocAwareMethod);
+                    }
+                }
+            } else {
+                Set<String> methods = factoryMethods.get(factoryBean);
+                if(methods == null) {
+                    methods = new HashSet<String>();
+                    factoryMethods.put(factoryBean, methods);
+                }
+                methods.add(factoryMethod);
+            }
+        }
+    }
 
     private BeanNode createBeanNode(Node node, BeanElement element, ClassNode clazz, ID id) {
         BeanNode bean = IoCModelFactory.getInstance().createBeanNode();
@@ -161,9 +213,8 @@ public class SpringBeansModelFactory {
     }
 
     private void addIoCAwareMethod(BeanNode bean, Method method, IoCModelNatures nature) {
-        IoCAwareMethod iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod();
+        IoCAwareMethod iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod(nature);
         iocAwareMethod.setTarget(method);
-        iocAwareMethod.setNature(nature);
         bean.addIoCAwareMethod(iocAwareMethod);
     }
 

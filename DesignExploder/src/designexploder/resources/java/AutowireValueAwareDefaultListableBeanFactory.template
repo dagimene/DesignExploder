@@ -7,15 +7,12 @@ import java.util.TreeSet;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.TypedStringValue;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 class AutowireValueAwareDefaultListableBeanFactory extends DefaultListableBeanFactory {
-	AutowireValueAwareDefaultListableBeanFactory(BeanFactory parentBeanFactory) {
-		super(parentBeanFactory);
-	}
+
 	/**
 	 * Overrided to autowire only 'autowire' declared properties.
 	 */

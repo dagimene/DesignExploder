@@ -1,13 +1,22 @@
 package dex;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.io.Resource;
 
 class ScopedBeanFilterParentBeanFactory implements DexContextInstance {
 	
@@ -35,8 +44,7 @@ class ScopedBeanFilterParentBeanFactory implements DexContextInstance {
 	
 	public String[] getBeanNamesForType(@SuppressWarnings("rawtypes") Class type,
 			boolean includeNonSingletons, boolean allowEagerInit) {
-		String[] allBeanNamesForType = wrappedFactory.getBeanNamesForType(type,
-				includeNonSingletons, allowEagerInit);
+		String[] allBeanNamesForType = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(wrappedFactory, type);
 		List<String> beanNamesForType = new LinkedList<String>();
 		for (String beanName : allBeanNamesForType) {
 			// Remove facade proxies in parent bean factories
@@ -126,4 +134,58 @@ class ScopedBeanFilterParentBeanFactory implements DexContextInstance {
 	public boolean containsLocalBean(String name) {
 		return wrappedFactory.containsLocalBean(name);
 	}
+
+	public String getMessage(String code, Object[] args, String defaultMessage,
+			Locale locale) {
+		return wrappedFactory.getMessage(code, args, defaultMessage, locale);
+	}
+
+	public ApplicationContext getParent() {
+		return wrappedFactory.getParent();
+	}
+
+	public AutowireCapableBeanFactory getAutowireCapableBeanFactory()
+			throws IllegalStateException {
+		return wrappedFactory.getAutowireCapableBeanFactory();
+	}
+
+	public ClassLoader getClassLoader() {
+		return wrappedFactory.getClassLoader();
+	}
+
+	public String getMessage(String code, Object[] args, Locale locale)
+			throws NoSuchMessageException {
+		return wrappedFactory.getMessage(code, args, locale);
+	}
+
+	public String getId() {
+		return wrappedFactory.getId();
+	}
+
+	public String getDisplayName() {
+		return wrappedFactory.getDisplayName();
+	}
+
+	public String getMessage(MessageSourceResolvable resolvable, Locale locale)
+			throws NoSuchMessageException {
+		return wrappedFactory.getMessage(resolvable, locale);
+	}
+
+	public Resource getResource(String arg0) {
+		return wrappedFactory.getResource(arg0);
+	}
+
+	public Resource[] getResources(String arg0) throws IOException {
+		return wrappedFactory.getResources(arg0);
+	}
+
+	public void publishEvent(ApplicationEvent event) {
+		wrappedFactory.publishEvent(event);
+	}
+
+	public long getStartupDate() {
+		return wrappedFactory.getStartupDate();
+	}
+	
+	
 }

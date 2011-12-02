@@ -17,8 +17,7 @@ public class SectionFigure extends Figure {
 	public SectionFigure() {
 		ToolbarLayout layout = new ToolbarLayout(false);
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
-		layout.setStretchMinorAxis(false);
-		layout.setSpacing(2);
+		//layout.setSpacing(2);
 		layout.setStretchMinorAxis(true);
 		setLayoutManager(layout);
 		

@@ -5,9 +5,7 @@ import java.util.*;
 import designexploder.model.*;
 import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.impl.spring.parsing.*;
-import designexploder.model.extension.classnode.ClassModelUtil;
-import designexploder.model.extension.classnode.ClassType;
-import designexploder.model.extension.classnode.Type;
+import designexploder.model.extension.classnode.*;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -16,7 +14,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 import designexploder.model.build.ModelBuilder;
-import designexploder.model.extension.classnode.ClassNode;
 import designexploder.util.EclipseUtil;
 import designexploder.util.adt.ADTUtil;
 
@@ -127,7 +124,15 @@ public class SpringContextsWriter implements ModelBuilder {
 		// Set Node Data
 		beanElement.setId(node.getId());
         //beanElement.setName(beanNode.getName());
-		beanElement.setClazz(classNode.getType().getName());
+
+        IoCModelUtil.FactoryMethod factoryMethod = IoCModelUtil.findFactoryMethodForBeanNode(node);
+
+        if(factoryMethod == null) {
+		    beanElement.setClazz(classNode.getType().getName());
+        } else {
+            beanElement.setFactoryBean(factoryMethod.getFactory().getId());
+            beanElement.setFactoryMethod(factoryMethod.getMethod().getName());
+        }
 
         addIoCInitMethod(beanElement, beanNode);
         addIoCFinalizeMethods(beanElement, beanNode);
@@ -149,10 +154,10 @@ public class SpringContextsWriter implements ModelBuilder {
             IoCModelNatures nature = (IoCModelNatures)ioCAwareMethod.getNature();
             switch (nature) {
                 case IOC_METHOD_INSTANTIATE:
-                    Node facadeBean = IoCModelUtil.getUniqueScopedBean(ioCAwareMethod.getTarget().getType(), node.getNodeContainer());
-                    if(facadeBean != null) {
+                    Set<Node> scopedBeans = IoCModelUtil.getScopedBeans(ioCAwareMethod.getTarget().getType(), node.getNodeContainer());
+                    if(scopedBeans.size() == 1) {
                         beanElement.appendChild(ReplaceMethodElement.create(ioCAwareMethod.getTarget().getName(),
-                                extractScopeName(facadeBean.getNodeContainer().getId())));
+                                extractScopeName(scopedBeans.iterator().next().getNodeContainer().getId())));
                     }
                     break;
                 case IOC_METHOD_ACTIVATE:

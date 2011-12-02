@@ -16,7 +16,7 @@ public enum EndpointDecorationsFactory {
 			decorationPointList.addPoint(0,0);
 			decorationPointList.addPoint(-3,3);
 			decoration.setTemplate(decorationPointList);
-			return decoration;		
+			return decoration;
 		}
 	},
 	CLOSED_ARROW {
@@ -28,14 +28,14 @@ public enum EndpointDecorationsFactory {
 			decorationPointList.addPoint(-3,-3);
 			decoration.setTemplate(decorationPointList);
 			decoration.setBackgroundColor(new Color(null, 255, 255, 255));
-			return decoration;		
+			return decoration;
 		}
 	},
 	EMPTY_DIAMOND {
 		public RotatableDecoration create() {
 			RotatableDecoration decoration = FILLED_DIAMOND.create();
 			decoration.setBackgroundColor(new Color(null, 255, 255, 255));
-			return decoration;		
+			return decoration;
 		}
 	},
 	FILLED_DIAMOND {
@@ -47,10 +47,10 @@ public enum EndpointDecorationsFactory {
 			decorationPointList.addPoint(-4,0);
 			decorationPointList.addPoint(-2,-2);
 			decoration.setTemplate(decorationPointList);
-			return decoration;		
+			return decoration;
 		}
 	};
 
-	public abstract RotatableDecoration create();
+    public abstract RotatableDecoration create();
 	
 }

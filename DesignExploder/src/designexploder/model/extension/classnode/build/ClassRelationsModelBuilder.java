@@ -65,21 +65,23 @@ public class ClassRelationsModelBuilder extends BaseModelBuilder {
 				List<ClassType> interfaces = classType.getInterfaces();	
 				buildRelations(node, interfaces, ClassModelNatures.REALIZATION);
 			}
-			
+
 			// Composition and Association
 			for (Attribute attribute : classNode.getAttributes()) {
-				Type attributeType = attribute.getType();
-				if(!attribute.getType().isBasic() && !attribute.isStatic()) {
-					if(attributeType.isArray()) {
-						buildRelation(node, attribute, attributeType.asArrayType().getInnerType().asClassType(), ClassModelNatures.COMPOSITION);
-					} else {
-						ClassType attributeClassType = attributeType.asClassType();
-						buildRelation(node, attribute, attributeClassType, ClassModelNatures.ASSOCIATION);
-						if(ClassModelUtil.isCollection(attributeClassType)) {
-							buildRelations(node, attribute, attributeClassType.getTypeParameters(), ClassModelNatures.COMPOSITION);
-						}
-					}
-				}
+                if(!attribute.isInherited()) {
+                    Type attributeType = attribute.getType();
+                    if(!attribute.getType().isBasic() && !attribute.isStatic()) {
+                        if(attributeType.isArray()) {
+                            buildRelation(node, attribute, attributeType.asArrayType().getInnerType().asClassType(), ClassModelNatures.COMPOSITION);
+                        } else {
+                            ClassType attributeClassType = attributeType.asClassType();
+                            buildRelation(node, attribute, attributeClassType, ClassModelNatures.ASSOCIATION);
+                            if(ClassModelUtil.isCollection(attributeClassType)) {
+                                buildRelations(node, attribute, attributeClassType.getTypeParameters(), ClassModelNatures.COMPOSITION);
+                            }
+                        }
+                    }
+                }
 			}
 		}
 		return diagram;
@@ -91,7 +93,7 @@ public class ClassRelationsModelBuilder extends BaseModelBuilder {
 
 	private void buildRelations(Node node, Attribute attribute, Collection<? extends Type> targets, ClassModelNatures nature) {
 		for (Type target : targets) {
-			if(target.isClassType()) {
+			if(target != null && target.isClassType()) {
 				buildRelation(node, attribute, target.asClassType(), nature);
 			}
 		}

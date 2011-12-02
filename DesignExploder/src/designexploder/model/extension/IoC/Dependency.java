@@ -6,7 +6,7 @@ import designexploder.model.Connection;
 import designexploder.model.extension.classnode.ClassItem;
 import designexploder.model.extension.classnode.InmutableNamed;
 
-public interface Dependency extends InmutableNamed, ClassItemTargeted {
+public interface Dependency extends ClassItemTargeted {
 
 	void setTarget(ClassItem target);
 
@@ -23,7 +23,7 @@ public interface Dependency extends InmutableNamed, ClassItemTargeted {
 	 */
 	Set<Connection> getBeanInjections(); 
 	
-	void addBeanInjection(Connection injection); 
+	void addBeanInjection(Connection injection);
 
 	void removeBeanInjection(Connection injection); 
 

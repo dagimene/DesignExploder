@@ -21,11 +21,14 @@ public enum IoCModelNatures implements Nature {
 
 	// IoCAwareMethod natures
 	IOC_METHOD_FACTORY("Factory Method"),
+    IOC_METHOD_FACTORY_UNRESOLVED("Factory Method"),
 	IOC_METHOD_INIT("Init Method"),
     IOC_METHOD_FINALIZE("Finalize Method"),
 	IOC_METHOD_INSTANTIATE("Instantiate Context Method"),
+    IOC_METHOD_INSTANTIATE_UNRESOLVED("Instantiate Context Method"),
     IOC_METHOD_DESTROY("Destroy Context Method"),
     IOC_METHOD_ACTIVATE("Activate Context Method"),
+
 
 	// Misc
 	INDIFFERENT_CONNECTION("Indifferent Connection");

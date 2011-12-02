@@ -2,6 +2,10 @@ package dex;
 
 public class DexRuntime {
 
+	public static void main(String[] args) {
+		initialize();
+	}
+
 	public static DexContextInstance initialize() {
 		return new DexRuntime().start();
 	}

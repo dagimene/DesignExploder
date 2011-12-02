@@ -1,6 +1,7 @@
 package designexploder.model.extension.IoC;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import designexploder.model.Connection;
@@ -12,6 +13,7 @@ import designexploder.model.extension.common.NodeDesignProperties;
 import designexploder.model.impl.BasicModelFactory;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.Condition;
+import designexploder.util.adt.FilteredIterator;
 import designexploder.util.adt.IdUtil;
 import designexploder.util.adt.IdUtil.ID;
 
@@ -67,8 +69,8 @@ public class IoCModelUtil {
 		return null;
 	}
 
-    public static Node getUniqueScopedBean(Type type, NodeContainer nodeContainer) {
-        Node found = null;
+    public static Set<Node> getScopedBeans(Type type, NodeContainer nodeContainer) {
+        Set<Node> result = new HashSet<Node>();
         if(type.isClassType()) {
             ClassType classType = type.asClassType();
             Set<Node> facadeNodes = new HashSet<Node>();
@@ -76,28 +78,19 @@ public class IoCModelUtil {
             for(Node facade : facadeNodes) {
                 Type facadeType = facade.getExtension(ClassNode.class).getType();
                 if(facadeType.isClassType() && ClassModelUtil.isSubclass(facadeType.asClassType(), classType)) {
-                    if(found == null) {
-                        found = facade;
-                    } else {
-                        found = null;
-                        break;
-                    }
+                    result.add(facade);
                 }
             }
         }
-        return found;
+        return result;
     }
 
     public static boolean isContextInstantiateMethod(Method method, NodeContainer nodeContainer) {
-        return method.isAbstract() && !method.isStatic() && !method.isFinal() && !method.getType().isVoid()
-                && method.getParameters().isEmpty() && IoCModelUtil.getUniqueScopedBean(method.getType(), nodeContainer) != null;
+        return method.isAbstract() && !method.isStatic() && !method.isFinal() && !method.getType().isVoid() && method.getParameters().isEmpty();
     }
 
     public static boolean isFactoryCandidate(Method method, Node node) {
-        Type methodType = method.getType();
-        Type nodeType = node.getExtension(ClassNode.class).getType();
-        return !method.isAbstract() && method.isStatic() && methodType.isClassType() && nodeType.isClassType() &&
-					ClassModelUtil.isSubclass(nodeType.asClassType(), methodType.asClassType());
+        return !method.isAbstract() && method.getType().isClassType() && method.getParameters().isEmpty();
 	}
 
 	public static boolean isBeanCycleMethod(Method method) {
@@ -176,4 +169,39 @@ public class IoCModelUtil {
 		return  candidateContext instanceof Node && ((Node) candidateContext).getNodeContainer() == node.getNodeContainer() ?
 					INJECTION_PROXY : INJECTION_BEAN;
 	}
+
+    public static FactoryMethod findFactoryMethodForBeanNode(Node node) {
+        Iterator<Connection> factories = new FilteredIterator<Connection>(node.getInflows().iterator(), new Condition<Connection>() {
+            @Override
+            public boolean check(Connection connection) {
+                return connection.getExtension(IoCInstantiation.class) != null;
+            }
+        });
+        FactoryMethod result = null;
+        if (factories.hasNext()) {
+            Connection connection = factories.next();
+            Node factory = connection.getSource();
+            Method method = connection.getExtension(IoCInstantiation.class).getTargetedIoCAwareMethod().getTarget();
+            result = new FactoryMethod(factory, method);
+        }
+        return result;
+    }
+
+    public static class FactoryMethod {
+        private Node factory;
+        private Method method;
+
+        public Node getFactory() {
+            return factory;
+        }
+
+        public Method getMethod() {
+            return method;
+        }
+
+        public FactoryMethod(Node factory, Method method) {
+            this.factory = factory;
+            this.method = method;
+        }
+    }
 }

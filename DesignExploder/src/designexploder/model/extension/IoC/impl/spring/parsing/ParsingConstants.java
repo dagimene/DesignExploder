@@ -35,6 +35,10 @@ public class ParsingConstants {
 
     public static final String FINALIZE_METHOD = "destroy-method";
 
+    public static final String FACTORY_BEAN = "factory-bean";
+
+    public static final String FACTORY_METHOD = "factory-method";
+
     public static final String BY_TYPE = "byType";
 
 	public static final String PROPERTY = "property";

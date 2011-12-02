@@ -111,13 +111,14 @@ public class JDTClassTypeFactory implements ClassTypeFactory {
 			result = type.asClassType();
 			String[] parametersSignatures = Signature.getTypeArguments(signature);
 			if(parametersSignatures.length != 0) {
-				List<Type> typeParameters = new ArrayList<Type>(parametersSignatures.length);
+				List<Type> typeParameters = new ArrayList<Type>(parametersSignatures.length + 1);
+                typeParameters.add(type);
 				for (String parameterSignature : parametersSignatures) {
 					typeParameters.add(typeFor(parameterSignature, context));
 				}
 				ParameterizedClassTypeImpl parameterized = parameterizedTypes.get(typeParameters);
 				if(parameterized == null) {
-					parameterized = new ParameterizedClassTypeImpl(result, typeParameters);
+					parameterized = new ParameterizedClassTypeImpl(result, typeParameters.subList(1, typeParameters.size()));
 					parameterizedTypes.put(typeParameters, parameterized);
 				}
 				result = parameterized;

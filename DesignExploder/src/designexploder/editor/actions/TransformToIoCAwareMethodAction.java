@@ -49,6 +49,8 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 
     private static final Map<IoCModelNatures, String> labels = new HashMap<IoCModelNatures, String>();
 
+    private static final Set<IoCModelNatures> uniqueMethodNatures = new HashSet<IoCModelNatures>();
+
     public static Set<IoCModelNatures> getSupportedNatures() {
         return labels.keySet();
     }
@@ -60,6 +62,9 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
         labels.put(IoCModelNatures.IOC_METHOD_INSTANTIATE, BECOME_INSTANTIATE);
         labels.put(IoCModelNatures.IOC_METHOD_ACTIVATE, BECOME_ACTIVATE);
         labels.put(IoCModelNatures.IOC_METHOD_DESTROY, BECOME_DESTROY);
+
+        uniqueMethodNatures.add(IoCModelNatures.IOC_METHOD_INIT);
+        uniqueMethodNatures.add(IoCModelNatures.IOC_METHOD_DESTROY);
     }
 
     private final IoCModelNatures targetNature;
@@ -76,14 +81,15 @@ public class TransformToIoCAwareMethodAction extends UniqueSelectionAction {
 		Method method = (Method) getModel();
 		Node node = getNode();
 		IoCAwareMethod iocAwareMethod = getIoCAwareMethod(method, node);
-		Command command;
+		Command command = null;
 		if(iocAwareMethod != null) {
 			command = new RemoveIoCAwareMethodCommand(node, iocAwareMethod);
 		} else {
-            command = removeOtherMethodsNature(targetNature);
-			iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod();
+            if(uniqueMethodNatures.contains(targetNature)) {
+                command = removeOtherMethodsNature(targetNature);
+            }
+			iocAwareMethod = IoCModelFactory.getInstance().createIoCAwareMethod(targetNature);
 			iocAwareMethod.setTarget((Method) getModel());
-            iocAwareMethod.setNature(targetNature);
             Command addCommand = new AddIoCAwareMethodCommand(node, iocAwareMethod);
             if(command == null) {
 			    command = addCommand;

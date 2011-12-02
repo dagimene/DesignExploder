@@ -5,6 +5,7 @@ import designexploder.editor.controllers.listeners.ExtensibleModelListenerDelega
 import designexploder.editor.graphics.ClassConnectionFigure;
 import designexploder.editor.renderers.BaseConnectionRenderer;
 import designexploder.editor.renderers.extension.IoC.BeanInjectionDecorator;
+import designexploder.editor.renderers.extension.IoC.BeanInstantiationDecorator;
 import designexploder.editor.renderers.extension.classnode.ClassConnectionDecorator;
 import designexploder.model.Connection;
 
@@ -13,6 +14,7 @@ public class ClassConnectionEditPart extends ConnectionEditPart {
 	private BaseConnectionRenderer renderer = new BaseConnectionRenderer();
 	
 	public ClassConnectionEditPart() {
+        renderer.addDecorator(new BeanInstantiationDecorator());
 		renderer.addDecorator(new BeanInjectionDecorator());
 		renderer.addDecorator(new ClassConnectionDecorator());
 	}

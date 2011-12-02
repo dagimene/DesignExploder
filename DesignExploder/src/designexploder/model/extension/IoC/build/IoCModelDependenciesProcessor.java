@@ -8,11 +8,7 @@ import designexploder.model.BasicModelUtil;
 import designexploder.model.Connection;
 import designexploder.model.Node;
 import designexploder.model.NodeContainer;
-import designexploder.model.extension.IoC.ApplicationContext;
-import designexploder.model.extension.IoC.BeanInjection;
-import designexploder.model.extension.IoC.BeanNode;
-import designexploder.model.extension.IoC.Dependency;
-import designexploder.model.extension.IoC.IoCModelUtil;
+import designexploder.model.extension.IoC.*;
 import designexploder.model.extension.IoC.impl.IoCModelFactory;
 import designexploder.model.extension.classnode.Attribute;
 import designexploder.model.extension.classnode.ClassRelation;
@@ -23,12 +19,9 @@ import designexploder.model.extension.classnode.ClassType;
 import designexploder.model.extension.classnode.Method;
 import designexploder.model.extension.classnode.Parameter;
 import designexploder.model.extension.classnode.Type;
-import designexploder.model.extension.common.Nature;
 import designexploder.model.impl.BasicModelFactory;
 import designexploder.util.adt.ADTUtil;
 import designexploder.util.adt.Condition;
-
-import static designexploder.model.extension.IoC.IoCModelNatures.*;
 
 public class IoCModelDependenciesProcessor {
 
@@ -44,6 +37,14 @@ public class IoCModelDependenciesProcessor {
 				for (Dependency dependency : bean.getDependencies()) {
 					resolveDependency(availableBeansAndFacades, node, dependency);
 				}
+                for (IoCAwareMethod ioCAwareMethod: bean.getIoCAwareMethods()) {
+                    if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_FACTORY_UNRESOLVED) {
+                        resolveFactory(beanNodes, node, (TargetedIoCAwareMethod) ioCAwareMethod);
+                    }
+                    if(ioCAwareMethod.getNature() == IoCModelNatures.IOC_METHOD_INSTANTIATE_UNRESOLVED) {
+                        resolveInstantiate(node, (TargetedIoCAwareMethod) ioCAwareMethod);
+                    }
+                }
 			}
 		}
 		
@@ -55,7 +56,47 @@ public class IoCModelDependenciesProcessor {
 		return container;
 	}
 
-	private void resolveDependency(Set<Node> availableBeans, Node node,
+    private void resolveInstantiate(Node node, TargetedIoCAwareMethod ioCAwareMethod) {
+        final Type type = ioCAwareMethod.getTarget().getType();
+        if(type.isClassType()) {
+            final ClassType targetType = type.asClassType();
+            Set<Node> scopedBeans = IoCModelUtil.getScopedBeans(targetType, node.getNodeContainer());
+            if(scopedBeans.size() == 1) {
+                ioCAwareMethod.setNature(IoCModelNatures.IOC_METHOD_INSTANTIATE);
+                createBeanInstantiation(node, (Node) scopedBeans.iterator().next().getNodeContainer(), ioCAwareMethod);
+            } else {
+                for(Node scopedBean : scopedBeans) {
+                    createBeanInstantiation(node, scopedBean, ioCAwareMethod);
+                }
+            }
+        }
+    }
+
+    private void resolveFactory(Set<Node> contextBeanNodes, Node node, TargetedIoCAwareMethod ioCAwareMethod) {
+        final Type type = ioCAwareMethod.getTarget().getType();
+        if(type.isClassType()) {
+            final ClassType targetType = type.asClassType();
+            Set<Node> candidates = getExactMatchCandidates(contextBeanNodes, targetType);
+            /*if((candidates.size() == 1 && !candidates.contains(node))) {
+				// Resolved factory!
+                ioCAwareMethod.setNature(IoCModelNatures.IOC_METHOD_FACTORY);
+                createBeanInstantiation(node, candidates.iterator().next(), ioCAwareMethod);
+			} else if(candidates.size() > 1) {
+				// Add unresolved injection nature to associations
+				createUnresolvedBeanInstantiations(node, ioCAwareMethod, candidates);
+			}*/
+            if((candidates.size() - (candidates.contains(node) ? 1 : 0) > 0)) {
+                ioCAwareMethod.setNature(IoCModelNatures.IOC_METHOD_FACTORY);
+                for(Node candidate : candidates) {
+                    if(candidate != node) {
+                        createBeanInstantiation(node, candidate, ioCAwareMethod);
+                    }
+                }
+            }
+        }
+    }
+
+    private void resolveDependency(Set<Node> availableBeans, Node node,
 			Dependency dependency) {
 		// TODO: Check tree flavor
 		final ClassItem classItem = dependency.getTarget();
@@ -82,14 +123,8 @@ public class IoCModelDependenciesProcessor {
 		}
 		if(type != null) {
 			final ClassType targetType = type.asClassType();
-			Set<Node> candidates = ADTUtil.filterCollection(availableBeans, new Condition<Node>() {
-				@Override
-				public boolean check(Node bean) {
-					Type beanType = bean.getExtension(ClassNode.class).getType();
-					return beanType.isClassType() && ClassModelUtil.isSubclass(beanType.asClassType(), targetType);
-				}
-			});
-			if((candidates.size() == 1 && !collection) || (candidates.size() > 0 && collection && !candidates.contains(node))) { 
+            Set<Node> candidates = getCandidates(availableBeans, targetType);
+            if((candidates.size() == 1 && !collection) || (candidates.size() > 0 && collection && !candidates.contains(node))) {
 				// Resolved dependency!
 				dependency.setNature(collection ? IoCModelUtil.getCollectionDependencyNature(node, candidates) :
 					IoCModelUtil.getDependencyNature(node, candidates.iterator().next()));
@@ -103,7 +138,34 @@ public class IoCModelDependenciesProcessor {
 		}
 	}
 
-	public void createUnresolvedInjections(Node node, Dependency dependency, Set<Node> candidates) {
+    private Set<Node> getCandidates(Set<Node> availableBeans, final ClassType targetType) {
+        return ADTUtil.filterCollection(availableBeans, new Condition<Node>() {
+            @Override
+            public boolean check(Node bean) {
+                Type beanType = bean.getExtension(ClassNode.class).getType();
+                return beanType.isClassType() && ClassModelUtil.isSubclass(beanType.asClassType(), targetType);
+            }
+        });
+    }
+
+    private Set<Node> getExactMatchCandidates(Set<Node> availableBeans, ClassType targetType) {
+        final ClassType typeErasure = targetType.getTypeErasure();
+        return ADTUtil.filterCollection(availableBeans, new Condition<Node>() {
+            @Override
+            public boolean check(Node bean) {
+                Type beanType = bean.getExtension(ClassNode.class).getType();
+                return beanType.isClassType() && typeErasure.equals(beanType.asClassType().getTypeErasure());
+            }
+        });
+    }
+
+    public void createUnresolvedBeanInstantiations(Node node, TargetedIoCAwareMethod ioCAwareMethod, Set<Node> candidates) {
+        for (Node candidate : candidates) {
+            createBeanInstantiation(node, candidate, ioCAwareMethod);
+        }
+    }
+
+    public void createUnresolvedInjections(Node node, Dependency dependency, Set<Node> candidates) {
 		if(candidates.size() != 0) { // Warn candidates
 			for (Node candidate : candidates) {
 				createInjection(node, candidate, dependency);
@@ -116,7 +178,15 @@ public class IoCModelDependenciesProcessor {
 		}
 	}
 
-	private void createInjection(Node node, Node target, Dependency dependency) {
+    private void createBeanInstantiation(Node node, Node target, TargetedIoCAwareMethod ioCAwareMethod) {
+		// Create new connection
+		Connection connection = BasicModelFactory.getInstance().createConnection();
+		connection.setId(BasicModelUtil.nextIdForConnection(node, target));
+		addBeanInstantiation(connection, ioCAwareMethod);
+		addConnection(connection, node, target);
+    }
+
+    private void createInjection(Node node, Node target, Dependency dependency) {
 		ClassItem origin = dependency.getTarget();
 		if(origin.isAttribute()) {
 			// Find existent connection: A connections which target is <target> and which origin is attribute <origin>
@@ -148,6 +218,13 @@ public class IoCModelDependenciesProcessor {
 		dependency.addBeanInjection(connection);
 		connection.addExtension(injection);
 	}
+
+    private void addBeanInstantiation(Connection connection, TargetedIoCAwareMethod ioCAwareMethod) {
+        IoCInstantiation instantiation = IoCModelFactory.getInstance().createBeanInstantiation();
+        instantiation.setTargetedIoCAwareMethod(ioCAwareMethod);
+        ioCAwareMethod.addIoCInstantiation(connection);
+        connection.addExtension(instantiation);
+    }
 
 	private Set<Connection> getAttributeOriginatedConnections(Node node, final Attribute attribute) {
 		return ADTUtil.<Connection>filterCollection(BasicModelUtil.getExtendedModels(node.getOutflows(), ClassRelation.class),

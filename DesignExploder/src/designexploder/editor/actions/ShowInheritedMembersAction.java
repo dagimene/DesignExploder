@@ -12,7 +12,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 public class ShowInheritedMembersAction extends UniqueSelectionAction {
 
-	private static final String SHOW_LABEL = "Shot inherited members";
+	private static final String SHOW_LABEL = "Show inherited members";
 	private static final String HIDE_LABEL = "Hide inherited members";
 
 	public ShowInheritedMembersAction(IWorkbenchPart part) {

@@ -115,4 +115,20 @@ public class BeanElement extends Element {
     public Iterator<ReplaceMethodElement> getReplaceMethods() {
         return new ElementIterator<ReplaceMethodElement>(this.getChildElements(), ReplaceMethodElement.class);
     }
+
+    public void setFactoryBean(String bean) {
+        addAttribute(new Attribute(FACTORY_BEAN, bean));
+    }
+
+    public void setFactoryMethod(String method) {
+        addAttribute(new Attribute(FACTORY_METHOD, method));
+    }
+
+    public String getFactoryBean() {
+        return getAttributeValue(FACTORY_BEAN);
+    }
+
+    public String getFactoryMethod() {
+        return getAttributeValue(FACTORY_METHOD);
+    }
 }

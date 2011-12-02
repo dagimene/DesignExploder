@@ -1,7 +1,9 @@
 package designexploder.editor;
 
 import org.eclipse.gef.ui.actions.ActionBarContributor;
+import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.ActionFactory;
@@ -14,9 +16,6 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 	
 	protected void buildActions() {
 		addRetargetAction(createCreateApplicationContextAction());
-		//addRetargetAction(new LabelRetargetAction(ActionFactory.UNDO.getId(), null));
-		//addRetargetAction(new LabelRetargetAction(ActionFactory.REDO.getId(), null));
-		//addRetargetAction(new LabelRetargetAction(ActionFactory.DELETE.getId(), null));
 	}
 
 	private RetargetAction createCreateApplicationContextAction() {
@@ -27,9 +26,9 @@ public class DexDiagramEditorActionBarContributor extends ActionBarContributor {
 
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		super.contributeToToolBar(toolBarManager);
-		//toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
-		//toolBarManager.add(getAction(ActionFactory.REDO.getId()));
 		toolBarManager.add(getAction(DexActionFactory.CREATE_APPLICATION_CONTEXT.name()));
+        toolBarManager.add(new Separator());
+        toolBarManager.add(new ZoomComboContributionItem(getPage()));
 	}
 
 	protected void declareGlobalActionKeys() {

@@ -40,15 +40,16 @@ public enum Style {
 	// classmodel	
 			
 	CLASS(BASE_STYLE,
-			BACKGROUNG, new Color(null,245,228,156),
-			SELECTED_BACKGROUND, new Color(null,245,228,156),
+            BACKGROUNG, new Color(null,229,255,204),
+            //SELECTED_BACKGROUND, new Color(null,204,255,153),
+            SELECTED_BACKGROUND, new Color(null,229,255,204),
 			FONT, new Font(null, "Arial", 12, SWT.NORMAL),
 			SELECTED_FONT, new Font(null, "Arial", 12, SWT.NORMAL),
 			ICON, IconResource.CLASS_ICON),
 	
 	ENUM(CLASS,
-			BACKGROUNG, new Color(null,255,255,128),
-			SELECTED_BACKGROUND, new Color(null,255,255,128),
+            BACKGROUNG, new Color(null,245,228,156),
+            SELECTED_BACKGROUND, new Color(null,245,228,156),
 			ICON, IconResource.ENUM_ICON),
 
 	ABSTRACT_CLASS(CLASS,
@@ -57,8 +58,8 @@ public enum Style {
 			ICON, IconResource.ABSTRACT_CLASS_ICON),
 			
 	INTERFACE(ABSTRACT_CLASS,
-			BACKGROUNG, new Color(null,204,125,146),
-			SELECTED_BACKGROUND, new Color(null,204,125,146),
+			BACKGROUNG, new Color(null,204,153,255),
+			SELECTED_BACKGROUND, new Color(null,204,153,255),
 			ICON, IconResource.INTERFACE_ICON),
 
 	MEMBER(BASE_STYLE,
@@ -77,8 +78,8 @@ public enum Style {
 			ICON, IconResource.BEAN_ICON),
 
 	BEAN(CLASS,
-			BACKGROUNG, new Color(null,206,169,144),
-			SELECTED_BACKGROUND, new Color(null,206,169,144),
+            BACKGROUNG, new Color(null,255,180,130),
+			SELECTED_BACKGROUND, new Color(null,255,180,130),
 			ICON, IconResource.BEAN_ICON),
 
 	BEAN_FACADE(BEAN,
@@ -96,8 +97,13 @@ public enum Style {
 	// IoCAwareMethods
 			
 	IOC_METHOD_FACTORY(MEMBER,
-			ICON, IconResource.BEAN_METHOD_FACTORY_ICON),
-			
+            LINE_COLOR, ColorConstants.blue,
+            LINE_DASH, SWT.LINE_DASH,
+            LINE_WIDTH, 2,
+            TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW,
+            ICON, IconResource.BEAN_METHOD_FACTORY_ICON,
+            LINE_ICON, IconResource.BEAN_METHOD_FACTORY_ICON),
+
 	IOC_METHOD_INIT(MEMBER,
 			ICON, IconResource.BEAN_METHOD_INIT_ICON),
 
@@ -105,7 +111,12 @@ public enum Style {
 			ICON, IconResource.BEAN_METHOD_FINALIZE_ICON),
 
 	IOC_METHOD_INSTANTIATE(MEMBER,
-			ICON, IconResource.BEAN_METHOD_INSTANTIATE_ICON),
+            LINE_COLOR, ColorConstants.darkGreen,
+            LINE_DASH, SWT.LINE_DASH,
+            LINE_WIDTH, 2,
+            TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW,
+            ICON, IconResource.BEAN_METHOD_INSTANTIATE_ICON,
+            LINE_ICON, IconResource.BEAN_METHOD_INSTANTIATE_ICON),
 
     IOC_METHOD_ACTIVATE(MEMBER,
             ICON, IconResource.BEAN_METHOD_ACTIVATE_ICON),
@@ -118,7 +129,7 @@ public enum Style {
 	BASE_CONNECTION_STYLE(null,
 			LINE_COLOR, ColorConstants.black,
 			LINE_DASH, SWT.LINE_SOLID,
-			LINE_WIDTH, 2),
+			LINE_WIDTH, 1),
 
 	INDIFFERENT_CONNECTION(BASE_CONNECTION_STYLE,
 			LINE_COLOR, ColorConstants.lightGray,
@@ -143,7 +154,7 @@ public enum Style {
 	BASE_INJECTION(MEMBER,
 			LINE_COLOR, ColorConstants.blue,
 			LINE_DASH, SWT.LINE_SOLID,
-			LINE_WIDTH, 1,
+			LINE_WIDTH, 2,
 			TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW),			
 
 	UNRESOLVED_DEPENDENCY(BASE_INJECTION,
@@ -151,7 +162,23 @@ public enum Style {
 			LINE_DASH, SWT.LINE_DASH,
 			ICON, IconResource.INJECTION_WARNING_ICON,			
 			LINE_ICON, IconResource.WARNING_ICON),
-	
+
+    IOC_METHOD_FACTORY_UNRESOLVED(MEMBER,
+			LINE_COLOR, ColorConstants.red,
+			LINE_DASH, SWT.LINE_DASH,
+            LINE_WIDTH, 1,
+            TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW,
+			ICON, IconResource.INJECTION_WARNING_ICON,
+			LINE_ICON, IconResource.WARNING_ICON),
+
+    IOC_METHOD_INSTANTIATE_UNRESOLVED(MEMBER,
+            LINE_COLOR, ColorConstants.red,
+            LINE_DASH, SWT.LINE_DASH,
+            LINE_WIDTH, 1,
+            TARGET_DECORATION, EndpointDecorationsFactory.OPEN_ARROW,
+            ICON, IconResource.INJECTION_WARNING_ICON,
+            LINE_ICON, IconResource.WARNING_ICON),
+
 	INJECTION_BEAN(BASE_INJECTION,
 			ICON, IconResource.BEAN_ICON,
 			LINE_ICON, IconResource.BEAN_ICON),			

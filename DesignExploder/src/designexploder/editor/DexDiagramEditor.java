@@ -10,25 +10,22 @@
  *******************************************************************************/
 package designexploder.editor;
 
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import designexploder.editor.actions.*;
 import designexploder.model.extension.IoC.IoCModelNatures;
+import designexploder.model.extension.classnode.build.JDTUpdateListener;
+import org.eclipse.core.internal.resources.Project;
+import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.ui.actions.*;
+import org.eclipse.jdt.core.*;
 import org.eclipse.swt.widgets.Composite;
 
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.*;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
@@ -44,15 +41,6 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
-import org.eclipse.gef.ui.actions.ActionBarContributor;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.DeleteAction;
-import org.eclipse.gef.ui.actions.PrintAction;
-import org.eclipse.gef.ui.actions.RedoAction;
-import org.eclipse.gef.ui.actions.SaveAction;
-import org.eclipse.gef.ui.actions.SelectAllAction;
-import org.eclipse.gef.ui.actions.UndoAction;
-import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
@@ -66,7 +54,6 @@ import designexploder.model.build.ChainedModelBuilder;
 import designexploder.model.build.ModelBasicDataSetter;
 import designexploder.model.build.ModelBuilder;
 import designexploder.model.extension.IoC.build.IoCIDsNormalizer;
-import designexploder.model.extension.IoC.impl.spring.DexRuntimeGenerator;
 import designexploder.model.extension.IoC.impl.spring.SpringCodeGenerator;
 import designexploder.model.extension.IoC.impl.spring.SpringContextsWriter;
 import designexploder.model.extension.IoC.impl.spring.SpringModelBuilder;
@@ -78,6 +65,9 @@ import designexploder.model.impl.build.XMLBasicModelDataProvider;
 import designexploder.model.impl.build.XMLBasicModelWriter;
 import designexploder.util.DexUtils;
 import designexploder.util.EclipseUtil;
+
+import static org.eclipse.jdt.core.IJavaElement.*;
+import static org.eclipse.jdt.core.IJavaElement.TYPE_PARAMETER;
 
 /**
  * This class serves as a quick starting point for clients who are new to GEF.
@@ -100,8 +90,9 @@ public class DexDiagramEditor extends EditorPart implements
 	private List<String> selectionActions = new ArrayList<String>();
 	private List<String> stackActions = new ArrayList<String>();
 	private List<String> propertyActions = new ArrayList<String>();
+    private IElementChangedListener jdtListener;
 
-	/**
+    /**
 	 * Constructs the editor part
 	 */
 	public DexDiagramEditor() {
@@ -118,29 +109,50 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see #createGraphicalViewer(Composite)
 	 */
 	protected void initializeGraphicalViewer() {
-		IFile file = ((IFileEditorInput)getEditorInput()).getFile();
+		IFile file = getEditorInput().getFile();
 		IJavaProject project = EclipseUtil.getJavaProject(file.getProject());
 		
 		DexUtils.initializeDexProjectStructure(project);
-		
-		ChainedModelBuilder modelBuilder = new ChainedModelBuilder();
-		JDTModelBuilder jdtMB = JDTModelBuilder.create(DexUtils.getBeansPackageRoot(project));
-		if(jdtMB != null) {
-			modelBuilder.addBuilder(jdtMB);
-		}
-		modelBuilder.addBuilder(new ClassMembersCondensatorBuilder());
-		modelBuilder.addBuilder(new ClassRelationsModelBuilder());
-		ModelBuilder springMB = SpringModelBuilder.create(DexUtils.getContextsPackageRoot(project));
-		if(springMB != null) {
-			modelBuilder.addBuilder(springMB);
-		}
-		modelBuilder.addBuilder(new ModelBasicDataSetter(new XMLBasicModelDataProvider(file)));
-		modelBuilder.addBuilder(new IoCModelUpdateListener());
-		
-		getGraphicalViewer().setContents(modelBuilder.build(BasicModelFactory.getInstance().createNodeContainer()));
+
+        setGraphicalViewerContents(project);
+
+        jdtListener = new JDTUpdateListener(this, project);
+        JavaCore.addElementChangedListener(jdtListener);
 	}
 
-	@Override
+    private void setGraphicalViewerContents(IJavaProject project) {
+        IFile file = getEditorInput().getFile();
+
+        ChainedModelBuilder modelBuilder = new ChainedModelBuilder();
+        JDTModelBuilder jdtMB = JDTModelBuilder.create(DexUtils.getBeansPackageRoot(project));
+        if(jdtMB != null) {
+            modelBuilder.addBuilder(jdtMB);
+        }
+        modelBuilder.addBuilder(new ClassMembersCondensatorBuilder());
+        modelBuilder.addBuilder(new ClassRelationsModelBuilder());
+        ModelBuilder springMB = SpringModelBuilder.create(DexUtils.getContextsPackageRoot(project));
+        if(springMB != null) {
+            modelBuilder.addBuilder(springMB);
+        }
+        modelBuilder.addBuilder(new ModelBasicDataSetter(new XMLBasicModelDataProvider(file)));
+        modelBuilder.addBuilder(new IoCModelUpdateListener());
+
+        getGraphicalViewer().setContents(modelBuilder.build(BasicModelFactory.getInstance().createNodeContainer()));
+    }
+
+
+    public void reloadModel(final IJavaProject project) {
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                doSave(null);
+                setGraphicalViewerContents(project);
+                getCommandStack().flush();
+            }
+        });
+    }
+
+    @Override
 	public void doSave(IProgressMonitor monitor) {
 		IFile file = getEditorInput().getFile();
 		IJavaProject project = EclipseUtil.getJavaProject(file.getProject());
@@ -153,6 +165,8 @@ public class DexDiagramEditor extends EditorPart implements
 		//modelBuilder.addBuilder(DexRuntimeGenerator.create(DexUtils.getGeneratedPackageRoot(project)));
 		NodeContainer diagram = (NodeContainer) getGraphicalViewer().getContents().getModel();
 		modelBuilder.build(diagram);
+
+        getCommandStack().markSaveLocation();
 	}
 
 	public NodeContainer getModel() {
@@ -168,6 +182,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 */
 	public void commandStackChanged(EventObject event) {
 		updateActions(stackActions);
+        firePropertyChange(PROP_DIRTY);
 	}
 
 	public void forceUpdateSelectionActions() {
@@ -272,6 +287,7 @@ public class DexDiagramEditor extends EditorPart implements
 	 * @see org.eclipse.ui.IWorkbenchPart#dispose()
 	 */
 	public void dispose() {
+        JavaCore.removeElementChangedListener(jdtListener);
 		getCommandStack().removeCommandStackListener(this);
 		getSite().getWorkbenchWindow().getSelectionService()
 				.removeSelectionListener(this);
@@ -339,10 +355,17 @@ public class DexDiagramEditor extends EditorPart implements
 		if (type == IFigure.class && getGraphicalViewer() != null)
 			return ((GraphicalEditPart) getGraphicalViewer().getRootEditPart())
 					.getFigure();
+        if(type == ZoomManager.class && getGraphicalViewer() != null)
+            return getZoomManager();
+
 		return super.getAdapter(type);
 	}
 
-	public EditorToolManager getToolManager() {
+    private ZoomManager getZoomManager() {
+        return (((ScalableRootEditPart)getGraphicalViewer().getRootEditPart())).getZoomManager();
+    }
+
+    public EditorToolManager getToolManager() {
 		return toolManager;
 	}
 
@@ -433,6 +456,9 @@ public class DexDiagramEditor extends EditorPart implements
 	protected void hookGraphicalViewer() {
 		getSelectionSynchronizer().addViewer(getGraphicalViewer());
 		getSite().setSelectionProvider(getGraphicalViewer());
+        getZoomManager().setZoomLevels(new double[]{0.25, 0.5, 0.75, 1, 1.5, 2});
+        getZoomManager().setZoomLevelContributions(Arrays.asList(ZoomManager.FIT_ALL));
+        getZoomManager().setZoomAnimationStyle(ZoomManager.ANIMATE_ZOOM_IN_OUT);
 	}
 
 	/**

@@ -16,11 +16,23 @@ public class IoCModelFactory {
 	public ApplicationContext createApplicationContext() {
 		return new ApplicationContextImpl();
 	}
-	
-	public IoCAwareMethod createIoCAwareMethod() {
-		return new IoCAwareMethodImpl();
-	}
-	
+
+	public IoCAwareMethod createIoCAwareMethod(IoCModelNatures nature) {
+        IoCAwareMethodImpl result;
+        if (nature == IoCModelNatures.IOC_METHOD_FACTORY) {
+            result = new TargetedIoCAwareMethodImpl();
+            result.setNature(IoCModelNatures.IOC_METHOD_FACTORY_UNRESOLVED);
+        } else if(nature == IoCModelNatures.IOC_METHOD_INSTANTIATE) {
+            result = new TargetedIoCAwareMethodImpl();
+            result.setNature(IoCModelNatures.IOC_METHOD_INSTANTIATE_UNRESOLVED);
+        } else {
+            result = new IoCAwareMethodImpl();
+            result.setNature(nature);
+        }
+
+        return result;
+    }
+
 	public BeanNode createBeanNode() {
 		return new BeanNodeImpl();
 	}
@@ -36,4 +48,7 @@ public class IoCModelFactory {
 		return dependency;
 	}
 
+    public IoCInstantiation createBeanInstantiation() {
+        return new IoCInstantiationImpl();
+    }
 }
