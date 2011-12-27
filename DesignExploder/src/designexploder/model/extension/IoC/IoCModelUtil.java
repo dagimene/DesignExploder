@@ -122,23 +122,13 @@ public class IoCModelUtil {
 
 	public static IoCModelNatures getBeanNatureFor(ClassNode classNode, final BeanNode beanNode, ID id) {
 		IoCModelNatures result;
-		if(classNode.getNature() == ClassModelNatures.INTERFACE) {
-			result = IoCModelNatures.BEAN_AUTO;
-		} else if(classNode.getNature() == ClassModelNatures.ENUM){
-			result = IoCModelNatures.BEAN_FACTORY;
-		} else if(id != null && id.type == IdUtil.FACADE_TYPE) {
-			result = IoCModelNatures.BEAN_FACADE;
-		} else if(classNode.getAttributes().isEmpty()) {
-			result = IoCModelNatures.BEAN_STATELESS;
-		} else if(ADTUtil.filterCollection(classNode.getMethods(), new Condition<Method>() {
-				public boolean check(Method method) {
-					return method.isAbstract() && IoCModelUtil.findIoCAwareMethodFromMethod(method, beanNode) == null;
-				}
-			}).isEmpty()) {
-			result = IoCModelNatures.BEAN;
-		} else {
-			result = IoCModelNatures.BEAN_AUTO;
-		}
+        if(classNode.getNature() == ClassModelNatures.ENUM){
+                result = null;
+        } else if(id != null && id.type == IdUtil.FACADE_TYPE) {
+            result = IoCModelNatures.BEAN_FACADE;
+        } else {
+            result = IoCModelNatures.BEAN;
+        }
 		return result;
 	}
 

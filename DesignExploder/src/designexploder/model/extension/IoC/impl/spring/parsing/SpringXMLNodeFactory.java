@@ -18,7 +18,7 @@ public class SpringXMLNodeFactory extends NodeFactory {
 				result = new BeansElement();
 				break;
 			case BEAN:
-				result = new BeanElement();
+                result = new BeanElement();
 				break;
 			case PROPERTY:
 				result = new DependencyElement();
@@ -40,7 +40,10 @@ public class SpringXMLNodeFactory extends NodeFactory {
             case CONSTRUCTOR_ARG:
                 result = new Element(name, BEANS_NS);
             }
-		}
+		} else if(namespace.equals(AOP_NS) && name.equals("aop:"+SCOPED_PROXY)) {
+            result = new ScopedProxyElement();
+        }
+
 		if(result == null) { 
 			result = super.startMakingElement(name, namespace);
 		}

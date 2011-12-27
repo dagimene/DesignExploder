@@ -56,6 +56,9 @@ public class SpringBeansModelFactory {
         Node result = null;
         ID id = IdUtil.parseId(element.getId());
         if(id != null && diagram.findNode(id.toString()) == null) {
+            if(id.type == IdUtil.FACADE_TYPE && element.getAopProxy() != null) {
+                return null;
+            }
             ID classNodeId = IdUtil.createClassId(id.name);
             Node classNode = classNodeId != null ? diagram.findNode(classNodeId.toString()) : null;
             if(classNode != null) {

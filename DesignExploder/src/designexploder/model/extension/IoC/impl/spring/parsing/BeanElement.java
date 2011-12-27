@@ -131,4 +131,10 @@ public class BeanElement extends Element {
     public String getFactoryMethod() {
         return getAttributeValue(FACTORY_METHOD);
     }
+
+    public ScopedProxyElement getAopProxy() {
+        ElementIterator<ScopedProxyElement> scopedProxyElementElementIterator = new ElementIterator<ScopedProxyElement>(this.getChildElements(), ScopedProxyElement.class);
+        return scopedProxyElementElementIterator.hasNext() ?
+            scopedProxyElementElementIterator.next() : null;
+    }
 }

@@ -26,7 +26,7 @@ public class TransformToBeanAction extends UniqueSelectionAction {
 
 	private static final String TO_BEAN_LABEL = "Become a bean";
 	private static final String TO_STATELESS_BEAN_LABEL = "Become a stateless bean";
-	private static final String TO_AUTO_IMPLEMENTED_BEAN_LABEL = "Become an autoimplemented bean";
+	private static final String TO_AUTO_IMPLEMENTED_BEAN_LABEL = "Become a bean";
 	private static final String TO_CONTEXT_FACTORY_LABEL = "Become a context factory";
 	private static final String REMOVE_BEAN_NATURE_LABEL = "Remove bean nature";
 	
@@ -83,7 +83,8 @@ public class TransformToBeanAction extends UniqueSelectionAction {
 	protected boolean calculateEnabled() {
 		if(super.calculateEnabled()) {
 			ClassNode classNode = ((ExtensibleModelElement) getModel()).getExtension(ClassNode.class);
-			return classNode != null;
+            BeanNode beanNode = ((ExtensibleModelElement) getModel()).getExtension(BeanNode.class);
+			return classNode != null && IoCModelUtil.getBeanNatureFor(classNode, beanNode) != null;
 		}
 		return false;
 	}
